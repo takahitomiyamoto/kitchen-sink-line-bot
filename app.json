@@ -1,0 +1,26 @@
+{
+  "name": "kitchen-sink-line-bot",
+  "description": "kitchen-sink LINE Bot for Heroku",
+  "env": {
+    "CHANNEL_ACCESS_TOKEN": {
+      "description": "",
+      "value":"",
+      "required":true
+    },
+    "CHANNEL_SECRET": {
+      "description": "",
+      "value":"",
+      "required":true
+    },
+    "BASE_URL": {
+      "description": "",
+      "value":"",
+      "required":true
+    },
+    "PORT": {
+      "description": "",
+      "value":"1234",
+      "required":false
+    }
+  }
+}
