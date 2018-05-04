@@ -14,7 +14,7 @@
     },
     "BASE_URL": {
       "description": "",
-      "value":"",
+      "value":"https://{HEROKU_APP_NAME}.herokuapp.com",
       "required":true
     },
     "PORT": {
