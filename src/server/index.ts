@@ -4,7 +4,7 @@ import { config as configHeroku } from './config/heroku';
 import { WebApi as webApi } from './webapi';
 // load all injectable entities. the @provide() annotation will then automatically register them.
 // import './ioc/loader';
-import 'reflect-metadata';
+// import 'reflect-metadata';
 
 let server = new InversifyExpressServer(container);
 server.setConfig((_app) => {
