@@ -9,7 +9,7 @@ export class UserController implements interfaces.Controller  {
 
   constructor(@inject(TYPES.UserService) private userService: UserService) {}
 
-  @httpGet('/')
+  @httpGet('/api')
   public getUsers(): Promise<User[]> {
     return this.userService.getUsers();
   }
