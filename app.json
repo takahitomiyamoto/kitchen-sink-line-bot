@@ -3,22 +3,22 @@
   "description": "kitchen-sink LINE Bot for Heroku",
   "env": {
     "CHANNEL_ACCESS_TOKEN": {
-      "description": "",
+      "description": "LINE アクセストークン（ロングターム）",
       "value":"",
       "required":true
     },
     "CHANNEL_SECRET": {
-      "description": "",
+      "description": "LINE Channel Secret",
       "value":"",
       "required":true
     },
     "BASE_URL": {
-      "description": "",
+      "description": "Base URL",
       "value":"https://{HEROKU_APP_NAME}.herokuapp.com",
       "required":true
     },
     "PORT": {
-      "description": "",
+      "description": "Port",
       "value":"1234",
       "required":false
     }
