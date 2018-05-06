@@ -1,3 +1,5 @@
+.vscode
+.sfdx
 dist/
 
 # Dependency directories

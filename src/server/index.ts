@@ -1,3 +1,4 @@
+require('dotenv').config()
 import 'reflect-metadata';
 // load all injectable entities. the @provide() annotation will then automatically register them.
 import './ioc/loader';
