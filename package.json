@@ -2,9 +2,9 @@
   "name": "kitchen-sink-line-bot",
   "version": "1.0.0",
   "description": "kitchen-sink LINE Bot for Heroku",
-  "main": "index.js",
+  "main": "bootstrap.js",
   "scripts": {
-    "start": "node dist/index.js",
+    "start": "node dist/bootstrap.js",
     "build:server": "./node_modules/.bin/tsc -p ./src/server/",
     "lint:server": "./node_modules/tslint/bin/tslint -p ./src/server/",
     "build": "npm run lint:server && npm run build:server",
