@@ -388,6 +388,7 @@ export class LineUtils {
 
   // callback function to handle a single event
   public handleEvent(event) {
+    console.log('event: ' + event);
     switch (event.type) {
       case 'message':
         const message = event.message;
