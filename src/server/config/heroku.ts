@@ -1,6 +1,6 @@
 const configHeroku = {
   baseURL: process.env.BASE_URL,
-  production: false,
+  production: true,
   port: process.env.PORT || 3000
 };
 
