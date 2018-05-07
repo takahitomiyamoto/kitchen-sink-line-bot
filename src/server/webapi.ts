@@ -14,10 +14,10 @@ export class WebApi {
    */
   constructor() {
     this._express = Express()
-      .use(BodyParser.json())
-      .use(BodyParser.urlencoded({ extended: true }))
-      .use(helmet())
-      .use(cors())
+    //   .use(BodyParser.json())
+    //   .use(BodyParser.urlencoded({ extended: true }))
+    //   .use(helmet())
+    //   .use(cors())
       // serve static and downloaded files
       .use('/static', Express.static('static'))
       .use('/downloaded', Express.static('downloaded'))
