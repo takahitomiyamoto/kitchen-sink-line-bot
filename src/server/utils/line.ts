@@ -1,3 +1,4 @@
+import * as circularJSON from 'circular-json';
 import * as path from 'path';
 import * as cp from 'child_process';
 import * as fs from 'fs';
@@ -21,9 +22,13 @@ const replyText = (token, texts) => {
 
 // callback function to handle a single event
 function handleEvent(event) {
+  console.log('event.type: ' + event.type);
   switch (event.type) {
     case 'message':
       const message = event.message;
+      console.log('message.type: ' + message.type);
+      console.log('message: ' + circularJSON.stringify(message));
+      console.log('event.replyTokene: ' + event.replyToken);
       switch (message.type) {
         case 'text':
           return handleText(message, event.replyToken, event.source);
@@ -60,6 +65,7 @@ function handleEvent(event) {
       throw new Error(`Unknown event: ${JSON.stringify(event)}`);
   }
 }
+
 function handleText(message, replyToken, source) {
   const buttonsImageURL = `${baseURL}/static/buttons/1040.jpg`;
   switch (message.text) {
