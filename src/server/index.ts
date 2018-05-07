@@ -1,6 +1,6 @@
 require('dotenv').config()
 import { configLine } from './config/line';
-
+import { CircularJSON as circularJSON} from 'circular-json';
 const line = require('@line/bot-sdk');
 const express = require('express');
 const fs = require('fs');
@@ -29,9 +29,9 @@ app.use('/downloaded', express.static('downloaded'));
 
 // webhook callback
 app.post('/callback', line.middleware(configLine), (req, res) => {
-  console.log('config: ' + JSON.stringify(configLine));
-  console.log('req: ' + JSON.stringify(req));
-  console.log('res: ' + JSON.stringify(res));
+  console.log('config: ' + circularJSON.stringify(configLine));
+  console.log('req: ' + circularJSON.stringify(req));
+  console.log('res: ' + circularJSON.stringify(res));
   // req.body.events should be an array of events
   if (!Array.isArray(req.body.events)) {
     return res.status(500).end();
