@@ -23,7 +23,10 @@ export class WebApi {
       .use('/downloaded', Express.static('downloaded'))
       // webhook callback
       .post('/callback', line.middleware(configLine), (req: Express.Request, res: Express.Response) => {
-        // req.body.events should be an array of events
+        console.log('configLine: ' + configLine);
+        console.log('req: ' + req);
+        console.log('res: ' + res);
+              // req.body.events should be an array of events
         if (!Array.isArray(req.body.events)) {
           return res.status(500).end();
         }
