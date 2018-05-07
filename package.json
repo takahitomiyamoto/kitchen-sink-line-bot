@@ -4,7 +4,7 @@
   "description": "kitchen-sink LINE Bot for Heroku",
   "main": "index.js",
   "scripts": {
-    "start": "node dist/index.js",
+    "start": "node index.js",
     "build:server": "./node_modules/.bin/tsc -p ./src/server/",
     "lint:server": "./node_modules/tslint/bin/tslint -p ./src/server/",
     "build": "npm run lint:server && npm run build:server",

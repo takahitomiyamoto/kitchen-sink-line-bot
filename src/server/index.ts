@@ -11,7 +11,12 @@ let server = new InversifyExpressServer(container);
 server.setConfig((_app) => {
   _app = new webApi().express;
 });
-
+server.setErrorConfig((_app) => {
+  _app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send('Something broke!');
+  });
+});
 let app = server.build();
 app.listen(configHeroku.port);
 console.log('Server started on port:' + configHeroku.port);
