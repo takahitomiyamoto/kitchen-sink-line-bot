@@ -29,6 +29,9 @@ app.use('/downloaded', express.static('downloaded'));
 
 // webhook callback
 app.post('/callback', line.middleware(config), (req, res) => {
+  console.log('config: ' + config);
+  console.log('req: ' + req);
+  console.log('res: ' + res);
   // req.body.events should be an array of events
   if (!Array.isArray(req.body.events)) {
     return res.status(500).end();
