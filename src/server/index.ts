@@ -1,5 +1,5 @@
-'use strict';
 require('dotenv').config()
+import { configLine } from './config/line';
 
 const line = require('@line/bot-sdk');
 const express = require('express');
@@ -8,16 +8,16 @@ const path = require('path');
 const cp = require('child_process');
 
 // create LINE SDK config from env variables
-const config = {
-  channelAccessToken: process.env.CHANNEL_ACCESS_TOKEN,
-  channelSecret: process.env.CHANNEL_SECRET,
-};
+// const config = {
+//   channelAccessToken: process.env.CHANNEL_ACCESS_TOKEN,
+//   channelSecret: process.env.CHANNEL_SECRET,
+// };
 
 // base URL for webhook server
 const baseURL = process.env.BASE_URL;
 
 // create LINE SDK client
-const client = new line.Client(config);
+const client = new line.Client(configLine);
 
 // create Express app
 // about Express itself: https://expressjs.com/
@@ -28,10 +28,10 @@ app.use('/static', express.static('static'));
 app.use('/downloaded', express.static('downloaded'));
 
 // webhook callback
-app.post('/callback', line.middleware(config), (req, res) => {
-  console.log('config: ' + config);
-  console.log('req: ' + req);
-  console.log('res: ' + res);
+app.post('/callback', line.middleware(configLine), (req, res) => {
+  console.log('config: ' + JSON.stringify(configLine));
+  console.log('req: ' + JSON.stringify(req));
+  console.log('res: ' + JSON.stringify(res));
   // req.body.events should be an array of events
   if (!Array.isArray(req.body.events)) {
     return res.status(500).end();
