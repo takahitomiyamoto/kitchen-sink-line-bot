@@ -6,14 +6,14 @@ import * as line from '@line/bot-sdk';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as cp from'child_process';
-import { config as configHeroku } from '../config/heroku';
-import { config as configLine } from '../config/line';
+import { configHeroku } from '../config/heroku';
+import { configLine } from '../config/line';
 
 export class LineUtils {
   private static _lineUtils: LineUtils = new LineUtils();
 
   // base URL for webhook server
-  private baseURL;
+  private baseURL: string;
   // create LINE SDK client
   private client;
 

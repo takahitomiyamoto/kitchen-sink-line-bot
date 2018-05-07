@@ -4,7 +4,7 @@ import 'reflect-metadata';
 import './ioc/loader';
 import { InversifyExpressServer } from 'inversify-express-utils';
 import { container } from './ioc/ioc';
-import { config as configHeroku } from './config/heroku';
+import { configHeroku } from './config/heroku';
 import { WebApi as webApi } from './webapi';
 
 let server = new InversifyExpressServer(container);

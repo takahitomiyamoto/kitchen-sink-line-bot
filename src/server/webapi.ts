@@ -3,8 +3,7 @@ import * as BodyParser from 'body-parser';
 import * as helmet from 'helmet';
 import * as cors from 'cors';
 import * as line from '@line/bot-sdk';
-import { config as configHeroku } from './config/heroku';
-import { config as configLine } from './config/line';
+import { configLine } from './config/line';
 import { LineUtils as lineUtils } from './utils/line';
 
 export class WebApi {
@@ -29,6 +28,7 @@ export class WebApi {
           return res.status(500).end();
         }
         // handle events separately
+        // Promise.all(req.body.events.map(lineUtils.instance.handleEvent))
         Promise.all(req.body.events.map(lineUtils.instance.handleEvent))
           .then(() => res.end())
           .catch((err) => {
@@ -36,7 +36,7 @@ export class WebApi {
             res.status(500).end();
           })
         ;
-      });
+      })
     ;
   }
 
