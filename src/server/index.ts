@@ -1,6 +1,7 @@
 require('dotenv').config()
 import { configLine } from './config/line';
-import { CircularJSON as circularJSON} from 'circular-json';
+const circularJSON = require('circular-json');
+
 const line = require('@line/bot-sdk');
 const express = require('express');
 const fs = require('fs');

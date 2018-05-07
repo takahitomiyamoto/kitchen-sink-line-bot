@@ -24,6 +24,7 @@
   "homepage": "https://github.com/takahitomiyamoto/kitchen-sink-line-bot#readme",
   "dependencies": {
     "@line/bot-sdk": "^5.2.0",
+    "@types/circular-json": "^0.4.0",
     "@types/cors": "^2.8.4",
     "@types/helmet": "0.0.37",
     "circular-json": "^0.5.3",
