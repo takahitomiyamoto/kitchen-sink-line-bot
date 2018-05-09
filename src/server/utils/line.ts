@@ -93,7 +93,7 @@ const handleText = (message, replyToken, source) => {
           altText: 'Buttons alt text',
           template: {
             type: 'buttons',
-            thumbnailImageUrl: buttonsImageURL,
+            // thumbnailImageUrl: buttonsImageURL,
             title: 'My button sample',
             text: 'こんにちは！どんなご用でしょうか？',
             actions: [
