@@ -73,6 +73,7 @@ const hasInitalMessage = (text: string) => {
   initialMessage.push('Hello');
   initialMessage.push('こんにちは');
   console.log(initialMessage.includes(text));
+  console.log(new RegExp(initialMessage.join("|")).test(text))
   if (initialMessage.includes(text)) {
     return true;
   }
