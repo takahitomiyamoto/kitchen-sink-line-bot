@@ -31,6 +31,16 @@ export const hasInitalMessage = (text: string) => {
   return false;
 }
 
+export const hasContinueMessage = (text: string) => {
+  let continueMessage = [];
+  continueMessage.push('No');
+  const isInitial = new RegExp(continueMessage.join("|").toLowerCase()).test(text.toLowerCase());
+  if (isInitial) {
+    return true;
+  }
+  return false;
+}
+
 const initalMessage = (replyToken) => {
   return client.replyMessage(
     replyToken, {
@@ -64,6 +74,10 @@ const initalMessage = (replyToken) => {
   );
 }
 
+const continueMessage = (replyToken) => {
+  return replyText(replyToken, 'わかりました。もう一度お願いします。');
+}
+
 export const handleText = (message, replyToken, source) => {
   console.log('handleText');
   const buttonsImageURL = `${baseURL}/static/buttons/1040.jpg`;
@@ -72,6 +86,9 @@ export const handleText = (message, replyToken, source) => {
     // start initial communication
     case (hasInitalMessage(message.text) && message.text):
       return initalMessage(replyToken);
+    // continue communication
+    case (hasContinueMessage(message.text) && message.text):
+      return continueMessage(replyToken);
     case 'profile':
       if (source.userId) {
         return client.getProfile(source.userId)
