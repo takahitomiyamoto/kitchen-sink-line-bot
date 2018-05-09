@@ -1,14 +1,14 @@
-import { provide } from '../ioc/ioc';
-import TYPES from '../constant/types';
-import { User } from '../models/user';
+// import { provide } from '../ioc/ioc';
+// import TYPES from '../constant/types';
+// import { User } from '../models/user';
 
-@provide(TYPES.UserService)
-export class UserService {
+// @provide(TYPES.UserService)
+// export class UserService {
 
-  constructor() {}
+//   constructor() {}
 
-  public getUsers(): Promise<User[]> {
-    return new Promise<User[]>((resolve, reject) => {
-    });
-  }
-}
+//   public getUsers(): Promise<User[]> {
+//     return new Promise<User[]>((resolve, reject) => {
+//     });
+//   }
+// }
