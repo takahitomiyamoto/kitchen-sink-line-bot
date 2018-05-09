@@ -1,11 +1,27 @@
 {
-  "name": "kitchensink",
-  "version": "0.0.0",
-  "description": "A kitchen-sink LINE bot example",
-  "main": "index.js",
+  "name": "kitchen-sink-line-bot",
+  "version": "1.0.0",
+  "description": "kitchen-sink LINE Bot for Heroku",
+  "main": "bootstrap.js",
   "scripts": {
-    "start": "node ."
+    "start": "node dist/bootstrap.js",
+    "build:server": "./node_modules/.bin/tsc -p ./src/server/",
+    "lint:server": "./node_modules/tslint/bin/tslint -p ./src/server/",
+    "build": "npm run lint:server && npm run build:server",
+    "heroku-prebuild": "echo This runs before Heroku installs your dependencies.",
+    "heroku-postbuild": "npm run build",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/takahitomiyamoto/kitchen-sink-line-bot.git"
+  },
+  "author": "Takahito Miyamoto",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/takahitomiyamoto/kitchen-sink-line-bot/issues"
+  },
+  "homepage": "https://github.com/takahitomiyamoto/kitchen-sink-line-bot#readme",
   "dependencies": {
     "@line/bot-sdk": "^5.2.0",
     "@types/circular-json": "^0.4.0",
