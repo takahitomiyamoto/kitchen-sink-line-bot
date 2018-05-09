@@ -72,9 +72,8 @@ const hasInitalMessage = (text: string) => {
   let initialMessage = [];
   initialMessage.push('Hello');
   initialMessage.push('こんにちは');
-  console.log(initialMessage.includes(text));
-  console.log(new RegExp(initialMessage.join("|")).test(text))
-  if (initialMessage.includes(text)) {
+  const isInitial = new RegExp(initialMessage.join("|")).test(text);
+  if (isInitial) {
     return true;
   }
   return false;
