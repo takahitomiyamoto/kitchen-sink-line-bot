@@ -21,7 +21,7 @@ const replyText = (token, texts) => {
 };
 
 // callback function to handle a single event
-function handleEvent(event) {
+const handleEvent = (event) => {
   console.log('event.type: ' + event.type);
   switch (event.type) {
     case 'message':
@@ -66,7 +66,7 @@ function handleEvent(event) {
   }
 }
 
-function handleText(message, replyToken, source) {
+const handleText = (message, replyToken, source) => {
   const buttonsImageURL = `${baseURL}/static/buttons/1040.jpg`;
   switch (message.text) {
     case 'profile':
@@ -232,7 +232,11 @@ function handleText(message, replyToken, source) {
       return replyText(replyToken, message.text);
   }
 }
-function handleImage(message, replyToken) {
+
+const handleImage = (message, replyToken) => {
+  // TODO: getMessageContentを呼べばいいはず。
+
+
   console.log('message: ' + circularJSON.stringify(message));
   console.log('replyToken: ' + replyToken);
   const downloadPath = path.join(__dirname, '../../downloaded', `${message.id}.jpg`);
@@ -254,7 +258,8 @@ function handleImage(message, replyToken) {
       );
     });
 }
-function handleVideo(message, replyToken) {
+
+const handleVideo = (message, replyToken) => {
   const downloadPath = path.join(__dirname, 'downloaded', `${message.id}.mp4`);
   const previewPath = path.join(__dirname, 'downloaded', `${message.id}-preview.jpg`);
   return downloadContent(message.id, downloadPath)
@@ -272,7 +277,8 @@ function handleVideo(message, replyToken) {
       );
     });
 }
-function handleAudio(message, replyToken) {
+
+const handleAudio = (message, replyToken) => {
   const downloadPath = path.join(__dirname, 'downloaded', `${message.id}.m4a`);
   return downloadContent(message.id, downloadPath)
     .then((downloadPath) => {
@@ -286,7 +292,8 @@ function handleAudio(message, replyToken) {
       );
     });
 }
-function downloadContent(messageId, downloadPath) {
+
+const downloadContent = (messageId, downloadPath) => {
   return client.getMessageContent(messageId)
     .then((stream) => new Promise((resolve, reject) => {
       const writable = fs.createWriteStream(downloadPath);
@@ -295,7 +302,8 @@ function downloadContent(messageId, downloadPath) {
       stream.on('error', reject);
     }));
 }
-function handleLocation(message, replyToken) {
+
+const handleLocation = (message, replyToken) => {
   return client.replyMessage(
     replyToken,
     {
@@ -307,7 +315,8 @@ function handleLocation(message, replyToken) {
     }
   );
 }
-function handleSticker(message, replyToken) {
+
+const handleSticker = (message, replyToken) => {
   return client.replyMessage(
     replyToken,
     {
