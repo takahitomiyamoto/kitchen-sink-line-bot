@@ -66,9 +66,43 @@ const handleEvent = (event) => {
   }
 }
 
+const hasInitalMessage = (text: string) => {
+　let initialMessage = [];
+  initialMessage.push('Hello');
+  initialMessage.push('こんにちは');
+  if (initialMessage.indexOf(text) !== -1) {
+    return true;
+  }
+  return false;
+}
+
 const handleText = (message, replyToken, source) => {
+  console.log('handleText');
   const buttonsImageURL = `${baseURL}/static/buttons/1040.jpg`;
+  console.log('message.text: ' + message.text);
   switch (message.text) {
+    // start initial communication
+    case (hasInitalMessage):
+      return client.replyMessage(
+        replyToken, {
+          type: 'template',
+          altText: 'confirm',
+          template: {
+            type: 'confirm',
+            text: 'こんにちは！どんなご用でしょうか？',
+            actions: [
+              {
+                label: 'この場所ってどう？',
+                type: 'message',
+                text: 'Yes!' },
+              {
+                label: 'No Thanks.',
+                type: 'message',
+                text: 'No Thanks.' },
+            ]
+          }
+        }
+      )
     case 'profile':
       if (source.userId) {
         return client.getProfile(source.userId)
