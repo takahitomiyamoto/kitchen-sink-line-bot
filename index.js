@@ -5,6 +5,7 @@ const express = require('express');
 const fs = require('fs');
 const path = require('path');
 const cp = require('child_process');
+const circularJSON = require('circular-json');
 
 // create LINE SDK config from env variables
 const config = {
