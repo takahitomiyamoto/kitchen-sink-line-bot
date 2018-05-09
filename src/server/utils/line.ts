@@ -321,21 +321,30 @@ export const handleImage = (message, replyToken) => {
   console.log('message: ' + circularJSON.stringify(message));
   console.log('replyToken: ' + replyToken);
 
-  // TODO: getMessageContentを呼べばいいはず。
-  client.getMessageContent(message.id)
-    .then((stream) => {
-      // stream.setEncoding('utf8');
-      stream.on('data', (chunk) => {
-        const data = Buffer.from(chunk);
-        console.log('data: ' + data.toString());
-      });
+  return client.replyMessage(
+    replyToken,
+    {
+      'type': 'image',
+      originalContentUrl: baseURL + `/${message.id}.jpg`,
+      previewImageUrl: baseURL + `/${message.id}-preview.jpg`
+    }
+  );
 
-      stream.on('error', (err) => {
-        // error handling
-        console.log('err: ' + err);
-      });
-    })
-  ;
+  // TODO: getMessageContentを呼べばいいはず。
+  // client.getMessageContent(message.id)
+  //   .then((stream) => {
+  //     // stream.setEncoding('utf8');
+  //     stream.on('data', (chunk) => {
+  //       const data = Buffer.from(chunk);
+  //       console.log('data: ' + data.toString());
+  //     });
+
+  //     stream.on('error', (err) => {
+  //       // error handling
+  //       console.log('err: ' + err);
+  //     });
+  //   })
+  // ;
 
   // const downloadPath = path.join(__dirname, '../../downloaded', `${message.id}.jpg`);
   // const previewPath = path.join(__dirname, '../../downloaded', `${message.id}-preview.jpg`);
