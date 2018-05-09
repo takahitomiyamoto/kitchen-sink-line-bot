@@ -30,7 +30,7 @@ const hasInitalMessage = (text: string) => {
   let initialMessages = [];
   initialMessages.push(message.HELLO);
   initialMessages.push(message.HELLO_JA);
-  initialMessages.push(message.BUTTONS_NO_JA);
+  initialMessages.push(message.BUTTONS_YES_JA);
   if (validate(initialMessages, text)) {
     return true;
   }
