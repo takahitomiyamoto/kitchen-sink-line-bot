@@ -67,9 +67,12 @@ const handleEvent = (event) => {
 }
 
 const hasInitalMessage = (text: string) => {
-　let initialMessage = [];
+  console.log('hasInitalMessage');
+  console.log(text);
+  let initialMessage = [];
   initialMessage.push('Hello');
   initialMessage.push('こんにちは');
+  console.log(initialMessage.indexOf(text));
   if (initialMessage.indexOf(text) !== -1) {
     return true;
   }
