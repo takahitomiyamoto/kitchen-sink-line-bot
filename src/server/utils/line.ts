@@ -326,7 +326,7 @@ export const handleImage = (message, replyToken) => {
     {
       'type': 'image',
       originalContentUrl: baseURL + `/${message.id}.jpg`,
-      previewImageUrl: baseURL + `/${message.id}-preview.jpg`
+      previewImageUrl: baseURL + `/${message.id}.jpg`
     }
   );
 
