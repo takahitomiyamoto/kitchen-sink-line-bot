@@ -325,7 +325,7 @@ export const handleImage = (message, replyToken) => {
   client.getMessageContent(message.id)
     .then((stream) => {
       let imageBody = '';
-      stream.setEncoding('utf8');
+      // stream.setEncoding('utf8');
       stream.on('data', (chunk) => {
         imageBody += chunk;
         const data = JSON.parse(imageBody);
