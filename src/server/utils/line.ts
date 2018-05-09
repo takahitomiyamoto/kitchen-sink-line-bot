@@ -21,12 +21,10 @@ export const replyText = (token, texts) => {
 };
 
 export const hasInitalMessage = (text: string) => {
-  // console.log('hasInitalMessage');
-  // console.log(text);
   let initialMessage = [];
   initialMessage.push('Hello');
   initialMessage.push('こんにちは');
-  const isInitial = new RegExp(initialMessage.join("|")).test(text);
+  const isInitial = new RegExp(initialMessage.join("|").toLowerCase()).test(text.toLowerCase());
   if (isInitial) {
     return true;
   }
@@ -74,36 +72,6 @@ export const handleText = (message, replyToken, source) => {
     // start initial communication
     case (hasInitalMessage(message.text) && message.text):
       return initalMessage(replyToken);
-      // return client.replyMessage(
-      //   replyToken, {
-      //     type: 'template',
-      //     altText: 'initalMessage',
-      //     template: {
-      //       type: 'buttons',
-      //       title: 'こんにちは！',
-      //       text: 'どのようなご用件でしょうか？',
-      //       actions: [
-      //         {
-      //           label: 'Go to Google Earth',
-      //           type: 'uri',
-      //           uri: 'https://earth.google.com/web/'
-      //         },
-      //         {
-      //           label: 'この場所ってどう？',
-      //           type: 'message',
-      //           data: 'Yes',
-      //           text: 'Yes!'
-      //         },
-      //         {
-      //           label: 'No Thanks.',
-      //           type: 'message',
-      //           data: 'No Thanks',
-      //           text: 'No Thanks.'
-      //         }
-      //       ]
-      //     }
-      //   }
-      // );
     case 'profile':
       if (source.userId) {
         return client.getProfile(source.userId)
