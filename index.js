@@ -269,8 +269,12 @@ function handleText(message, replyToken, source) {
 }
 
 function handleImage(message, replyToken) {
+  console.log('message: ' + circularJSON.stringify(message));
+  console.log('replyToken: ' + replyToken);
   const downloadPath = path.join(__dirname, 'downloaded', `${message.id}.jpg`);
   const previewPath = path.join(__dirname, 'downloaded', `${message.id}-preview.jpg`);
+  console.log('downloadPath: ' + downloadPath);
+  console.log('previewPath: ' + previewPath);
 
   return downloadContent(message.id, downloadPath)
     .then((downloadPath) => {
