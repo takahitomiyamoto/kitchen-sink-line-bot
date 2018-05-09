@@ -13,8 +13,8 @@ app.use('/downloaded', express.static('downloaded'));
 
 // webhook callback
 app.post('/callback', line.middleware(configLine), (req, res) => {
-  console.log('req: ' + circularJSON.stringify(req));
-  console.log('res: ' + circularJSON.stringify(res));
+  // console.log('req: ' + circularJSON.stringify(req));
+  // console.log('res: ' + circularJSON.stringify(res));
   // req.body.events should be an array of events
   if (!Array.isArray(req.body.events)) {
     return res.status(500).end();
