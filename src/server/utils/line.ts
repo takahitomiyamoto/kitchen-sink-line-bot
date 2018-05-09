@@ -324,9 +324,14 @@ export const handleImage = (message, replyToken) => {
   // TODO: getMessageContentを呼べばいいはず。
   client.getMessageContent(message.id)
     .then((stream) => {
+      let imageBody = '';
+      stream.setEncoding('utf8');
       stream.on('data', (chunk) => {
-        console.log('chunk: ' + chunk);
+        imageBody += chunk;
+        const data = JSON.parse(imageBody);
+        console.log('data: ' + data);
       });
+
       stream.on('error', (err) => {
         // error handling
         console.log('err: ' + err);
