@@ -94,8 +94,8 @@ const handleText = (message, replyToken, source) => {
           template: {
             type: 'buttons',
             // thumbnailImageUrl: buttonsImageURL,
-            title: 'My button sample',
-            text: 'こんにちは！どんなご用でしょうか？',
+            title: 'こんにちは！',
+            text: 'どのようなご用件でしょうか？',
             actions: [
               { label: 'Go to Google Earth', type: 'uri', uri: 'https://earth.google.com/web/' },
               {
@@ -113,7 +113,7 @@ const handleText = (message, replyToken, source) => {
             ]
           }
         }
-      )
+      );
     case 'profile':
       if (source.userId) {
         return client.getProfile(source.userId)
@@ -274,7 +274,21 @@ const handleText = (message, replyToken, source) => {
       }
     default:
       console.log(`Echo message to ${replyToken}: ${message.text}`);
-      return replyText(replyToken, message.text);
+    //   return replyText(replyToken, message.text);
+      return client.replyMessage(
+        replyToken, {
+          type: 'template',
+          altText: 'Confirm alt text',
+          template: {
+            type: 'confirm',
+            text: 'ごめんなさい！その言葉を理解できませんでした。初めからやり直しませんか？',
+            actions: [
+              { label: 'Yes', type: 'message', text: 'Yes! こんにちは。' },
+              { label: 'No', type: 'message', text: 'No!' },
+            ]
+          }
+        }
+      );
   }
 }
 
