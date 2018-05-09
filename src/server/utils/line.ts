@@ -55,6 +55,15 @@ const hasStopMessage = (text: string) => {
   return false;
 }
 
+const hasLocationQuestion = (text: string) => {
+  let locationQuestion = [];
+  locationQuestion.push(message.SEARCH_LOCATION_JA);
+  if (validate(locationQuestion, text)) {
+    return true;
+  }
+  return false;
+}
+
 const initalMessage = (replyToken) => {
   return client.replyMessage(
     replyToken, {
@@ -73,13 +82,11 @@ const initalMessage = (replyToken) => {
           {
             label: message.SEARCH_LOCATION_JA,
             type: 'message',
-            // data: message.SEARCH_LOCATION_JA,
             text: message.SEARCH_LOCATION_JA
           },
           {
             label: message.NO_THANKS_JA,
             type: 'message',
-            // data: message.NO_THANKS_JA,
             text: message.NO_THANKS_JA
           }
         ]
@@ -94,6 +101,10 @@ const continueMessage = (replyToken) => {
 
 const stopMessage = (replyToken) => {
   return replyText(replyToken, message.OK_TELL_ME_IF_NEEDED_JA);
+}
+
+const requestImage = (replyToken) => {
+  return replyText(replyToken, message.SEND_ME_IMAGE);
 }
 
 const defaultMessage = (replyToken) => {
@@ -135,6 +146,9 @@ export const handleText = (message, replyToken, source) => {
     // stop communication
     case (hasStopMessage(message.text) && message.text):
       return stopMessage(replyToken);
+    // start next communication
+    case (hasLocationQuestion(message.text) && message.text):
+      return requestImage(replyToken);
 
     // case 'profile':
     //   if (source.userId) {
