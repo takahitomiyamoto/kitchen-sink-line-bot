@@ -82,7 +82,7 @@ const handleText = (message, replyToken, source) => {
   console.log('message.text: ' + message.text);
   switch (message.text) {
     // start initial communication
-    case (hasInitalMessage):
+    case (hasInitalMessage(message.text)):
       return client.replyMessage(
         replyToken, {
           type: 'template',
