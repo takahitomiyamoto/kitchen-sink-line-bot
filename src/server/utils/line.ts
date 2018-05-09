@@ -90,19 +90,24 @@ const handleText = (message, replyToken, source) => {
       return client.replyMessage(
         replyToken, {
           type: 'template',
-          altText: 'confirm',
+          altText: 'Buttons alt text',
           template: {
-            type: 'confirm',
+            type: 'buttons',
+            thumbnailImageUrl: buttonsImageURL,
+            title: 'My button sample',
             text: 'こんにちは！どんなご用でしょうか？',
             actions: [
+              { label: 'Go to Google Earth', type: 'uri', uri: 'https://earth.google.com/web/' },
               {
                 label: 'この場所ってどう？',
                 type: 'message',
+                data: 'Yes',
                 text: 'Yes!'
               },
               {
                 label: 'No Thanks.',
                 type: 'message',
+                data: 'No Thanks',
                 text: 'No Thanks.'
               }
             ]
