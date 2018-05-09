@@ -30,6 +30,7 @@ const hasInitalMessage = (text: string) => {
   let initialMessages = [];
   initialMessages.push(message.HELLO);
   initialMessages.push(message.HELLO_JA);
+  initialMessages.push(message.BUTTONS_NO_JA);
   if (validate(initialMessages, text)) {
     return true;
   }
@@ -38,7 +39,7 @@ const hasInitalMessage = (text: string) => {
 
 const hasContinueMessage = (text: string) => {
   let continueMessages = [];
-  continueMessages.push(message.BUTTONS_NO);
+  continueMessages.push(message.BUTTONS_NO_JA);
   if (validate(continueMessages, text)) {
     return true;
   }
@@ -105,14 +106,14 @@ const defaultMessage = (replyToken) => {
         text: message.SORRY_TELL_ME_AGAIN_JA,
         actions: [
           {
-            label: message.BUTTONS_YES,
+            label: message.BUTTONS_YES_JA,
             type: 'message',
-            text: message.HELLO_JA
+            text: message.BUTTONS_YES_JA
           },
           {
-            label: message.BUTTONS_NO,
+            label: message.BUTTONS_NO_JA,
             type: 'message',
-            text: message.NO_JA
+            text: message.BUTTONS_NO_JA
           }
         ]
       }
