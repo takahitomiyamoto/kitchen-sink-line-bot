@@ -86,6 +86,7 @@ const handleText = (message, replyToken, source) => {
   switch (message.text) {
     // start initial communication
     case (hasInitalMessage(message.text)):
+      console.log('confirm');
       return client.replyMessage(
         replyToken, {
           type: 'template',
@@ -97,11 +98,13 @@ const handleText = (message, replyToken, source) => {
               {
                 label: 'この場所ってどう？',
                 type: 'message',
-                text: 'Yes!' },
+                text: 'Yes!'
+              },
               {
                 label: 'No Thanks.',
                 type: 'message',
-                text: 'No Thanks.' },
+                text: 'No Thanks.'
+              }
             ]
           }
         }
