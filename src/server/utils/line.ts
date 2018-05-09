@@ -72,9 +72,8 @@ const hasInitalMessage = (text: string) => {
   let initialMessage = [];
   initialMessage.push('Hello');
   initialMessage.push('こんにちは');
-  console.log(initialMessage.indexOf(text));
-  console.log(/Hello|こんにちは/.test(text));
-  if (initialMessage.indexOf(text) !== -1) {
+  console.log(initialMessage.includes(text));
+  if (initialMessage.includes(text)) {
     return true;
   }
   return false;
