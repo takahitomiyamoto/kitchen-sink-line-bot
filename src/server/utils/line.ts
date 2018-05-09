@@ -85,7 +85,7 @@ const handleText = (message, replyToken, source) => {
   console.log('message.text: ' + message.text);
   switch (message.text) {
     // start initial communication
-    case (hasInitalMessage(message.text)):
+    case (hasInitalMessage(message.text) && message.text):
       console.log('confirm');
       return client.replyMessage(
         replyToken, {
