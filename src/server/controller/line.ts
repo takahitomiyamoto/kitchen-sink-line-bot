@@ -7,7 +7,7 @@ import { replyText, handleText, handleImage, handleVideo, handleAudio, handleLoc
 
 // callback function to handle a single event
 export const handleEvent = (event) => {
-  console.log('event.type: ' + event.type);
+  console.log('event: ' + circularJSON.stringify(event));
   switch (event.type) {
     case 'message':
       const message = event.message;

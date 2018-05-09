@@ -134,8 +134,10 @@ const defaultMessage = (replyToken) => {
 
 export const handleText = (message, replyToken, source) => {
   console.log('handleText');
-  const buttonsImageURL = `${baseURL}/static/buttons/1040.jpg`;
-  console.log('message.text: ' + message.text);
+  // const buttonsImageURL = `${baseURL}/static/buttons/1040.jpg`;
+  console.log('message: ' + circularJSON.stringify(message));
+  console.log('replyToken: ' + replyToken);
+  console.log('source: ' + source);
   switch (message.text) {
     // start initial communication
     case (hasInitalMessage(message.text) && message.text):
@@ -315,11 +317,13 @@ export const handleText = (message, replyToken, source) => {
 }
 
 export const handleImage = (message, replyToken) => {
+  console.log('handleImage');
+  console.log('message: ' + circularJSON.stringify(message));
+  console.log('replyToken: ' + replyToken);
+
   // TODO: getMessageContentを呼べばいいはず。
 
 
-  // console.log('message: ' + circularJSON.stringify(message));
-  // console.log('replyToken: ' + replyToken);
   // const downloadPath = path.join(__dirname, '../../downloaded', `${message.id}.jpg`);
   // const previewPath = path.join(__dirname, '../../downloaded', `${message.id}-preview.jpg`);
   // console.log('downloadPath: ' + downloadPath);
