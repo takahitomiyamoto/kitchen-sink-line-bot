@@ -33,7 +33,7 @@ export const hasInitalMessage = (text: string) => {
 
 export const hasContinueMessage = (text: string) => {
   let continueMessage = [];
-  continueMessage.push('No');
+  continueMessage.push('No.');
   const isInitial = new RegExp(continueMessage.join("|").toLowerCase()).test(text.toLowerCase());
   if (isInitial) {
     return true;
@@ -76,6 +76,23 @@ const initalMessage = (replyToken) => {
 
 const continueMessage = (replyToken) => {
   return replyText(replyToken, 'わかりました。もう一度お願いします。');
+}
+
+const defaultMessage = (replyToken) => {
+  return client.replyMessage(
+    replyToken, {
+      type: 'template',
+      altText: 'defaultMessage',
+      template: {
+        type: 'confirm',
+        text: 'ごめんなさい！うまく理解できませんでした。最初からやり直しませんか？',
+        actions: [
+          { label: 'Yes', type: 'message', text: 'Yes! こんにちは。' },
+          { label: 'No', type: 'message', text: 'No.' },
+        ]
+      }
+    }
+  );
 }
 
 export const handleText = (message, replyToken, source) => {
@@ -249,21 +266,7 @@ export const handleText = (message, replyToken, source) => {
       }
     default:
       console.log(`Echo message to ${replyToken}: ${message.text}`);
-    //   return replyText(replyToken, message.text);
-      return client.replyMessage(
-        replyToken, {
-          type: 'template',
-          altText: 'Confirm alt text',
-          template: {
-            type: 'confirm',
-            text: 'ごめんなさい！うまく理解できませんでした。最初からやり直しませんか？',
-            actions: [
-              { label: 'Yes', type: 'message', text: 'Yes! こんにちは。' },
-              { label: 'No', type: 'message', text: 'No!' },
-            ]
-          }
-        }
-      );
+      return defaultMessage(replyToken);
   }
 }
 
