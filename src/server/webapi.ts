@@ -1,7 +1,7 @@
 import * as express from 'express';
 import * as circularJSON from 'circular-json';
 import { configLine } from './config/line';
-import { handleEvent } from './utils/line';
+import { handleEvent } from './controller/line';
 import { JSONParseError, SignatureValidationFailed } from "@line/bot-sdk";
 
 const line = require('@line/bot-sdk');

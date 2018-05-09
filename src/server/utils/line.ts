@@ -5,14 +5,14 @@ import * as fs from 'fs';
 import { configLine } from '../config/line';
 
 // base URL for webhook server
-const baseURL = process.env.BASE_URL;
+export const baseURL = process.env.BASE_URL;
 
 // create LINE SDK client
-const line = require('@line/bot-sdk');
-const client = new line.Client(configLine);
+export const line = require('@line/bot-sdk');
+export const client = new line.Client(configLine);
 
 // simple reply function
-const replyText = (token, texts) => {
+export const replyText = (token, texts) => {
   texts = Array.isArray(texts) ? texts : [texts];
   return client.replyMessage(
     token,
@@ -21,52 +21,52 @@ const replyText = (token, texts) => {
 };
 
 // callback function to handle a single event
-const handleEvent = (event) => {
-  console.log('event.type: ' + event.type);
-  switch (event.type) {
-    case 'message':
-      const message = event.message;
-      console.log('message.type: ' + message.type);
-      console.log('message: ' + circularJSON.stringify(message));
-      console.log('event.replyTokene: ' + event.replyToken);
-      switch (message.type) {
-        case 'text':
-          return handleText(message, event.replyToken, event.source);
-        case 'image':
-          return handleImage(message, event.replyToken);
-        case 'video':
-          return handleVideo(message, event.replyToken);
-        case 'audio':
-          return handleAudio(message, event.replyToken);
-        case 'location':
-          return handleLocation(message, event.replyToken);
-        case 'sticker':
-          return handleSticker(message, event.replyToken);
-        default:
-          throw new Error(`Unknown message: ${JSON.stringify(message)}`);
-      }
-    case 'follow':
-      return replyText(event.replyToken, 'Got followed event');
-    case 'unfollow':
-      return console.log(`Unfollowed this bot: ${JSON.stringify(event)}`);
-    case 'join':
-      return replyText(event.replyToken, `Joined ${event.source.type}`);
-    case 'leave':
-      return console.log(`Left: ${JSON.stringify(event)}`);
-    case 'postback':
-      let data = event.postback.data;
-      if (data === 'DATE' || data === 'TIME' || data === 'DATETIME') {
-        data += `(${JSON.stringify(event.postback.params)})`;
-      }
-      return replyText(event.replyToken, `Got postback: ${data}`);
-    case 'beacon':
-      return replyText(event.replyToken, `Got beacon: ${event.beacon.hwid}`);
-    default:
-      throw new Error(`Unknown event: ${JSON.stringify(event)}`);
-  }
-}
+// const handleEvent = (event) => {
+//   console.log('event.type: ' + event.type);
+//   switch (event.type) {
+//     case 'message':
+//       const message = event.message;
+//       console.log('message.type: ' + message.type);
+//       console.log('message: ' + circularJSON.stringify(message));
+//       console.log('event.replyTokene: ' + event.replyToken);
+//       switch (message.type) {
+//         case 'text':
+//           return handleText(message, event.replyToken, event.source);
+//         case 'image':
+//           return handleImage(message, event.replyToken);
+//         case 'video':
+//           return handleVideo(message, event.replyToken);
+//         case 'audio':
+//           return handleAudio(message, event.replyToken);
+//         case 'location':
+//           return handleLocation(message, event.replyToken);
+//         case 'sticker':
+//           return handleSticker(message, event.replyToken);
+//         default:
+//           throw new Error(`Unknown message: ${JSON.stringify(message)}`);
+//       }
+//     case 'follow':
+//       return replyText(event.replyToken, 'Got followed event');
+//     case 'unfollow':
+//       return console.log(`Unfollowed this bot: ${JSON.stringify(event)}`);
+//     case 'join':
+//       return replyText(event.replyToken, `Joined ${event.source.type}`);
+//     case 'leave':
+//       return console.log(`Left: ${JSON.stringify(event)}`);
+//     case 'postback':
+//       let data = event.postback.data;
+//       if (data === 'DATE' || data === 'TIME' || data === 'DATETIME') {
+//         data += `(${JSON.stringify(event.postback.params)})`;
+//       }
+//       return replyText(event.replyToken, `Got postback: ${data}`);
+//     case 'beacon':
+//       return replyText(event.replyToken, `Got beacon: ${event.beacon.hwid}`);
+//     default:
+//       throw new Error(`Unknown event: ${JSON.stringify(event)}`);
+//   }
+// }
 
-const hasInitalMessage = (text: string) => {
+export const hasInitalMessage = (text: string) => {
   console.log('hasInitalMessage');
   console.log(text);
   let initialMessage = [];
@@ -79,7 +79,7 @@ const hasInitalMessage = (text: string) => {
   return false;
 }
 
-const handleText = (message, replyToken, source) => {
+export const handleText = (message, replyToken, source) => {
   console.log('handleText');
   const buttonsImageURL = `${baseURL}/static/buttons/1040.jpg`;
   console.log('message.text: ' + message.text);
@@ -292,7 +292,7 @@ const handleText = (message, replyToken, source) => {
   }
 }
 
-const handleImage = (message, replyToken) => {
+export const handleImage = (message, replyToken) => {
   // TODO: getMessageContentを呼べばいいはず。
 
 
@@ -318,7 +318,7 @@ const handleImage = (message, replyToken) => {
     });
 }
 
-const handleVideo = (message, replyToken) => {
+export const handleVideo = (message, replyToken) => {
   const downloadPath = path.join(__dirname, 'downloaded', `${message.id}.mp4`);
   const previewPath = path.join(__dirname, 'downloaded', `${message.id}-preview.jpg`);
   return downloadContent(message.id, downloadPath)
@@ -337,7 +337,7 @@ const handleVideo = (message, replyToken) => {
     });
 }
 
-const handleAudio = (message, replyToken) => {
+export const handleAudio = (message, replyToken) => {
   const downloadPath = path.join(__dirname, 'downloaded', `${message.id}.m4a`);
   return downloadContent(message.id, downloadPath)
     .then((downloadPath) => {
@@ -352,7 +352,7 @@ const handleAudio = (message, replyToken) => {
     });
 }
 
-const downloadContent = (messageId, downloadPath) => {
+export const downloadContent = (messageId, downloadPath) => {
   return client.getMessageContent(messageId)
     .then((stream) => new Promise((resolve, reject) => {
       const writable = fs.createWriteStream(downloadPath);
@@ -362,7 +362,7 @@ const downloadContent = (messageId, downloadPath) => {
     }));
 }
 
-const handleLocation = (message, replyToken) => {
+export const handleLocation = (message, replyToken) => {
   return client.replyMessage(
     replyToken,
     {
@@ -375,7 +375,7 @@ const handleLocation = (message, replyToken) => {
   );
 }
 
-const handleSticker = (message, replyToken) => {
+export const handleSticker = (message, replyToken) => {
   return client.replyMessage(
     replyToken,
     {
@@ -386,4 +386,4 @@ const handleSticker = (message, replyToken) => {
   );
 }
 
-export { handleEvent }
+// export { handleEvent }
