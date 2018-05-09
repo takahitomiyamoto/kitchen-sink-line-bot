@@ -1,4 +1,5 @@
 import * as circularJSON from 'circular-json';
+import * as line from '@line/bot-sdk';
 import * as path from 'path';
 import * as cp from 'child_process';
 import * as fs from 'fs';
@@ -6,11 +7,11 @@ import { configLine } from '../config/line';
 import { message } from '../constant/line';
 
 // base URL for webhook server
-export const baseURL = process.env.HEROKU_BASE_URL;
+const baseURL = process.env.HEROKU_BASE_URL;
 
 // create LINE SDK client
-export const line = require('@line/bot-sdk');
-export const client = new line.Client(configLine);
+// const line = require('@line/bot-sdk');
+const client = new line.Client(configLine);
 
 // simple reply function
 export const replyText = (token, texts) => {
@@ -71,13 +72,13 @@ const initalMessage = (replyToken) => {
           {
             label: message.SEARCH_LOCATION_JA,
             type: 'message',
-            data: message.SEARCH_LOCATION_JA,
+            // data: message.SEARCH_LOCATION_JA,
             text: message.SEARCH_LOCATION_JA
           },
           {
             label: message.NO_THANKS_JA,
             type: 'message',
-            data: message.NO_THANKS_JA,
+            // data: message.NO_THANKS_JA,
             text: message.NO_THANKS_JA
           }
         ]
@@ -302,60 +303,60 @@ export const handleImage = (message, replyToken) => {
   // TODO: getMessageContentを呼べばいいはず。
 
 
-  console.log('message: ' + circularJSON.stringify(message));
-  console.log('replyToken: ' + replyToken);
-  const downloadPath = path.join(__dirname, '../../downloaded', `${message.id}.jpg`);
-  const previewPath = path.join(__dirname, '../../downloaded', `${message.id}-preview.jpg`);
-  console.log('downloadPath: ' + downloadPath);
-  console.log('previewPath: ' + previewPath);
-  return downloadContent(message.id, downloadPath)
-    .then((downloadPath) => {
-      // ImageMagick is needed here to run 'convert'
-      // Please consider about security and performance by yourself
-      cp.execSync(`convert -resize 240x jpeg:${downloadPath} jpeg:${previewPath}`);
-      return client.replyMessage(
-        replyToken,
-        {
-          type: 'image',
-          originalContentUrl: baseURL + '/downloaded/' + path.basename(downloadPath),
-          previewImageUrl: baseURL + '/downloaded/' + path.basename(previewPath),
-        }
-      );
-    });
+  // console.log('message: ' + circularJSON.stringify(message));
+  // console.log('replyToken: ' + replyToken);
+  // const downloadPath = path.join(__dirname, '../../downloaded', `${message.id}.jpg`);
+  // const previewPath = path.join(__dirname, '../../downloaded', `${message.id}-preview.jpg`);
+  // console.log('downloadPath: ' + downloadPath);
+  // console.log('previewPath: ' + previewPath);
+  // return downloadContent(message.id, downloadPath)
+  //   .then((downloadPath) => {
+  //     // ImageMagick is needed here to run 'convert'
+  //     // Please consider about security and performance by yourself
+  //     cp.execSync(`convert -resize 240x jpeg:${downloadPath} jpeg:${previewPath}`);
+  //     return client.replyMessage(
+  //       replyToken,
+  //       {
+  //         type: 'image',
+  //         originalContentUrl: baseURL + '/downloaded/' + path.basename(downloadPath),
+  //         previewImageUrl: baseURL + '/downloaded/' + path.basename(previewPath),
+  //       }
+  //     );
+  //   });
 }
 
 export const handleVideo = (message, replyToken) => {
-  const downloadPath = path.join(__dirname, 'downloaded', `${message.id}.mp4`);
-  const previewPath = path.join(__dirname, 'downloaded', `${message.id}-preview.jpg`);
-  return downloadContent(message.id, downloadPath)
-    .then((downloadPath) => {
-      // FFmpeg and ImageMagick is needed here to run 'convert'
-      // Please consider about security and performance by yourself
-      cp.execSync(`convert mp4:${downloadPath}[0] jpeg:${previewPath}`);
-      return client.replyMessage(
-        replyToken,
-        {
-          type: 'video',
-          originalContentUrl: baseURL + '/downloaded/' + path.basename(downloadPath),
-          previewImageUrl: baseURL + '/downloaded/' + path.basename(previewPath),
-        }
-      );
-    });
+  // const downloadPath = path.join(__dirname, 'downloaded', `${message.id}.mp4`);
+  // const previewPath = path.join(__dirname, 'downloaded', `${message.id}-preview.jpg`);
+  // return downloadContent(message.id, downloadPath)
+  //   .then((downloadPath) => {
+  //     // FFmpeg and ImageMagick is needed here to run 'convert'
+  //     // Please consider about security and performance by yourself
+  //     cp.execSync(`convert mp4:${downloadPath}[0] jpeg:${previewPath}`);
+  //     return client.replyMessage(
+  //       replyToken,
+  //       {
+  //         type: 'video',
+  //         originalContentUrl: baseURL + '/downloaded/' + path.basename(downloadPath),
+  //         previewImageUrl: baseURL + '/downloaded/' + path.basename(previewPath),
+  //       }
+  //     );
+  //   });
 }
 
 export const handleAudio = (message, replyToken) => {
-  const downloadPath = path.join(__dirname, 'downloaded', `${message.id}.m4a`);
-  return downloadContent(message.id, downloadPath)
-    .then((downloadPath) => {
-      return client.replyMessage(
-        replyToken,
-        {
-          type: 'audio',
-          originalContentUrl: baseURL + '/downloaded/' + path.basename(downloadPath),
-          duration: 1000,
-        }
-      );
-    });
+  // const downloadPath = path.join(__dirname, 'downloaded', `${message.id}.m4a`);
+  // return downloadContent(message.id, downloadPath)
+  //   .then((downloadPath) => {
+  //     return client.replyMessage(
+  //       replyToken,
+  //       {
+  //         type: 'audio',
+  //         originalContentUrl: baseURL + '/downloaded/' + path.basename(downloadPath),
+  //         duration: 1000,
+  //       }
+  //     );
+  //   });
 }
 
 export const downloadContent = (messageId, downloadPath) => {
