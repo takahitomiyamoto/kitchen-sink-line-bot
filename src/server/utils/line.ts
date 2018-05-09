@@ -3,17 +3,14 @@ import * as path from 'path';
 import * as cp from 'child_process';
 import * as fs from 'fs';
 import { configLine } from '../config/line';
+import { message } from '../constant/line';
 
 // base URL for webhook server
-export const baseURL = process.env.BASE_URL;
+export const baseURL = process.env.HEROKU_BASE_URL;
 
 // create LINE SDK client
 export const line = require('@line/bot-sdk');
 export const client = new line.Client(configLine);
-
-const LABEL_GOOGLE_EARTH = 'Google Earthを開いて';
-const LABEL_SEARCH_LOCATION = 'この場所ってどう？';
-const LABEL_NO_THANKS = '特にありません';
 
 // simple reply function
 export const replyText = (token, texts) => {
@@ -30,8 +27,8 @@ const validate = (array, text) => {
 
 const hasInitalMessage = (text: string) => {
   let initialMessages = [];
-  initialMessages.push('Hello');
-  initialMessages.push('こんにちは');
+  initialMessages.push(message.HELLO);
+  initialMessages.push(message.HELLO_JA);
   if (validate(initialMessages, text)) {
     return true;
   }
@@ -40,7 +37,7 @@ const hasInitalMessage = (text: string) => {
 
 const hasContinueMessage = (text: string) => {
   let continueMessages = [];
-  continueMessages.push('No');
+  continueMessages.push(message.BUTTONS_NO);
   if (validate(continueMessages, text)) {
     return true;
   }
@@ -49,7 +46,7 @@ const hasContinueMessage = (text: string) => {
 
 const hasStopMessage = (text: string) => {
   let stopMessages = [];
-  stopMessages.push('特にありません');
+  stopMessages.push(message.NO_THANKS_JA);
   if (validate(stopMessages, text)) {
     return true;
   }
@@ -63,25 +60,25 @@ const initalMessage = (replyToken) => {
       altText: 'initalMessage',
       template: {
         type: 'buttons',
-        title: 'こんにちは！',
-        text: 'どのようなご用件でしょうか？',
+        title: message.INITIAL_MESSAGE_TITLE,
+        text: message.INITIAL_MESSAGE_TEXT,
         actions: [
           {
-            label: LABEL_GOOGLE_EARTH,
+            label: message.GOOGLE_EARTH_JA,
             type: 'uri',
             uri: 'https://earth.google.com/web/'
           },
           {
-            label: LABEL_SEARCH_LOCATION,
+            label: message.SEARCH_LOCATION_JA,
             type: 'message',
-            data: LABEL_SEARCH_LOCATION,
-            text: LABEL_SEARCH_LOCATION
+            data: message.SEARCH_LOCATION_JA,
+            text: message.SEARCH_LOCATION_JA
           },
           {
-            label: LABEL_NO_THANKS,
+            label: message.NO_THANKS_JA,
             type: 'message',
-            data: LABEL_NO_THANKS,
-            text: LABEL_NO_THANKS
+            data: message.NO_THANKS_JA,
+            text: message.NO_THANKS_JA
           }
         ]
       }
@@ -90,11 +87,11 @@ const initalMessage = (replyToken) => {
 }
 
 const continueMessage = (replyToken) => {
-  return replyText(replyToken, 'わかりました。もう一度お願いします。');
+  return replyText(replyToken, message.OK_TELL_ME_AGAIN_JA);
 }
 
 const stopMessage = (replyToken) => {
-  return replyText(replyToken, 'わかりました。また何かありましたら教えてください。');
+  return replyText(replyToken, message.OK_TELL_ME_IF_NEEDED_JA);
 }
 
 const defaultMessage = (replyToken) => {
@@ -104,10 +101,18 @@ const defaultMessage = (replyToken) => {
       altText: 'defaultMessage',
       template: {
         type: 'confirm',
-        text: 'ごめんなさい！うまく理解できなかったので、最初からお願いできますか？',
+        text: message.SORRY_TELL_ME_AGAIN_JA,
         actions: [
-          { label: 'Yes', type: 'message', text: 'Yes! こんにちは。' },
-          { label: 'No', type: 'message', text: 'No.' },
+          {
+            label: message.BUTTONS_YES,
+            type: 'message',
+            text: message.HELLO_JA
+          },
+          {
+            label: message.BUTTONS_NO,
+            type: 'message',
+            text: message.NO_JA
+          }
         ]
       }
     }

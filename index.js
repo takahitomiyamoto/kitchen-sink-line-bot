@@ -9,12 +9,12 @@ const circularJSON = require('circular-json');
 
 // create LINE SDK config from env variables
 const config = {
-  channelAccessToken: process.env.CHANNEL_ACCESS_TOKEN,
-  channelSecret: process.env.CHANNEL_SECRET,
+  channelAccessToken: process.env.LINE_CHANNEL_ACCESS_TOKEN,
+  channelSecret: process.env.LINE_CHANNEL_SECRET,
 };
 
 // base URL for webhook server
-const baseURL = process.env.BASE_URL;
+const baseURL = process.env.HEROKU_BASE_URL;
 
 // create LINE SDK client
 const client = new line.Client(config);
@@ -373,7 +373,7 @@ function handleSticker(message, replyToken) {
 }
 
 // listen on port
-const port = process.env.PORT || 3000;
+const port = process.env.HEROKU_PORT || 3000;
 app.listen(port, () => {
   console.log(`listening on ${port}`);
 });

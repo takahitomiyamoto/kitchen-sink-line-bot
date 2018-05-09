@@ -1,5 +1,5 @@
-const TAGS = {
-    UserController: 'UserController'
-};
+// const TAGS = {
+//     UserController: 'UserController'
+// };
 
-export default TAGS;
+// export default TAGS;

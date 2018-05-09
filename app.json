@@ -2,25 +2,28 @@
   "name": "kitchen-sink-line-bot",
   "description": "kitchen-sink LINE Bot for Heroku",
   "env": {
-    "CHANNEL_ACCESS_TOKEN": {
+    "LINE_CHANNEL_ACCESS_TOKEN": {
       "description": "LINE アクセストークン（ロングターム）",
       "value":"",
       "required":true
     },
-    "CHANNEL_SECRET": {
+    "LINE_CHANNEL_SECRET": {
       "description": "LINE Channel Secret",
       "value":"",
       "required":true
     },
-    "BASE_URL": {
+    "HEROKU_BASE_URL": {
       "description": "Base URL",
       "value":"https://{HEROKU_APP_NAME}.herokuapp.com",
       "required":true
     },
-    "PORT": {
+    "HEROKU_PORT": {
       "description": "Port",
       "value":"1234",
       "required":false
-    }
+    },
+    "addons": [
+      "einstein-vision"
+    ]
   }
 }
