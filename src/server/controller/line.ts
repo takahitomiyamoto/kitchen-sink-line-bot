@@ -3,7 +3,7 @@ import * as path from 'path';
 import * as cp from 'child_process';
 import * as fs from 'fs';
 import { configLine } from '../config/line';
-import { client, baseURL, replyText, hasInitalMessage, handleText, handleImage, handleVideo, handleAudio, handleLocation, handleSticker } from '../utils/line';
+import { client, baseURL, replyText, handleText, handleImage, handleVideo, handleAudio, handleLocation, handleSticker } from '../utils/line';
 
 // callback function to handle a single event
 export const handleEvent = (event) => {

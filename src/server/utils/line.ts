@@ -20,22 +20,33 @@ export const replyText = (token, texts) => {
   );
 };
 
-export const hasInitalMessage = (text: string) => {
-  let initialMessage = [];
-  initialMessage.push('Hello');
-  initialMessage.push('こんにちは');
-  const isInitial = new RegExp(initialMessage.join("|").toLowerCase()).test(text.toLowerCase());
-  if (isInitial) {
+const validate = (array, text) => {
+  return new RegExp(array.join("|").toLowerCase()).test(text.toLowerCase());
+}
+
+const hasInitalMessage = (text: string) => {
+  let initialMessages = [];
+  initialMessages.push('Hello');
+  initialMessages.push('こんにちは');
+  if (validate(initialMessages, text)) {
     return true;
   }
   return false;
 }
 
-export const hasContinueMessage = (text: string) => {
-  let continueMessage = [];
-  continueMessage.push('No.');
-  const isInitial = new RegExp(continueMessage.join("|").toLowerCase()).test(text.toLowerCase());
-  if (isInitial) {
+const hasContinueMessage = (text: string) => {
+  let continueMessages = [];
+  continueMessages.push('No');
+  if (validate(continueMessages, text)) {
+    return true;
+  }
+  return false;
+}
+
+const hasStopMessage = (text: string) => {
+  let stopMessages = [];
+  stopMessages.push('特にありません');
+  if (validate(stopMessages, text)) {
     return true;
   }
   return false;
@@ -63,10 +74,10 @@ const initalMessage = (replyToken) => {
             text: 'Yes!'
           },
           {
-            label: 'No Thanks.',
+            label: '特にありません',
             type: 'message',
             data: 'No Thanks',
-            text: 'No Thanks.'
+            text: '特にありません'
           }
         ]
       }
@@ -78,6 +89,10 @@ const continueMessage = (replyToken) => {
   return replyText(replyToken, 'わかりました。もう一度お願いします。');
 }
 
+const stopMessage = (replyToken) => {
+  return replyText(replyToken, 'わかりました。また何かありましたら教えてください。');
+}
+
 const defaultMessage = (replyToken) => {
   return client.replyMessage(
     replyToken, {
@@ -85,7 +100,7 @@ const defaultMessage = (replyToken) => {
       altText: 'defaultMessage',
       template: {
         type: 'confirm',
-        text: 'ごめんなさい！うまく理解できませんでした。最初からやり直しませんか？',
+        text: 'ごめんなさい！うまく理解できなかったので、最初からお願いできますか？',
         actions: [
           { label: 'Yes', type: 'message', text: 'Yes! こんにちは。' },
           { label: 'No', type: 'message', text: 'No.' },
@@ -106,6 +121,8 @@ export const handleText = (message, replyToken, source) => {
     // continue communication
     case (hasContinueMessage(message.text) && message.text):
       return continueMessage(replyToken);
+    case (hasStopMessage(message.text) && message.text):
+      return stopMessage(replyToken);
     case 'profile':
       if (source.userId) {
         return client.getProfile(source.userId)
