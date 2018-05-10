@@ -146,7 +146,7 @@ export class VisionService {
 
     return new Promise((resolve, reject) => {
       const accessToken = VisionService.accessToken;
-      console.log('accessToken: ' + accessToken);
+      console.log('accessToken: ' + circularJSON.stringify(accessToken));
       const predictOpitions = this.createPredictOptions(targetImage, accessToken);
       requestPredict(predictOpitions);
     });
