@@ -91,10 +91,15 @@ export class VisionService {
       resolve(tokenOptions);
     });
 
-    const getAccessToken = (tokenOptions) => new Promise((resolve, reject) => {
+    const getAccessToken = (tokenOptions, counter) => new Promise((resolve, reject) => {
       console.log('#################### 2. getAccessToken ####################');
-      const accessToken = this.getAccessToken(tokenOptions);
-      resolve(accessToken);
+      console.log('#################### counter: ' + counter);
+      // 2回目以降は取得しない
+      if (counter > 1) {
+        return;
+      }
+      const ACCESS_TOKEN = this.getAccessToken(tokenOptions);
+      resolve(ACCESS_TOKEN);
     });
 
     const createPredictOptions = (accessToken) => new Promise((resolve, reject) => {
@@ -120,8 +125,10 @@ export class VisionService {
     });
 
     return new Promise((resolve, reject) => {
+      let counter = 0;
       createTokenOptions.then((tokenOptions) => {
-        return getAccessToken(tokenOptions);
+        counter++;
+        return getAccessToken(tokenOptions, counter);
       }).then((accessToken) => {
         return createPredictOptions(accessToken);
       }).then((predictOpitions) => {
