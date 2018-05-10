@@ -5,12 +5,19 @@ export class VisionService {
     return VisionService._visionService;
   }
 
-  // public classify = targetImage => new Promise((resolve, reject) => {
-  public classify = (targetImage) => {return new Promise((resolve, reject) => {
-    //todo update
-    setTimeout(() => {
-      resolve('★★★');
-    }, 3000);
-  })
+  public imageClassify = (targetImage) => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve('★★★');
+      }, 1000);
+    });
+  }
 
-}}
+  public objectDetect = (targetImage) => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve('★★★');
+      }, 1000);
+    });
+  }
+}

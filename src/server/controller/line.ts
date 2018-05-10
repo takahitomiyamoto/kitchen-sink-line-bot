@@ -86,7 +86,7 @@ const handleImage = (message, replyToken) => {
         const data = Buffer.from(chunk);
         const targetImageBase64 = data.toString('base64');
         let _type;
-        visionService.instance.classify(targetImageBase64)
+        visionService.instance.imageClassify(targetImageBase64)
           .then(type => {
             _type = type;
             console.log('type: ' + _type);
