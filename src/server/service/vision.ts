@@ -90,6 +90,7 @@ export class VisionService {
     //   const tokenOptions = this.createTokenOptions();
     //   resolve(tokenOptions);
     // });
+    let counter = 0;
     return new Promise((resolve, reject) => {
       console.log('#################### 1 ####################');
       // return this.createTokenOptions();
@@ -97,11 +98,16 @@ export class VisionService {
       resolve(tokenOptions);
     }).then((tokenOptions) => {
       console.log('#################### 2 ####################');
+      counter += 1;
+      if (counter > 1) {
+        return;
+      }
       return this.getAccessToken(tokenOptions);
     }).then((accessToken) => {
       console.log('#################### 3 ####################');
-      console.log('accessToken: ' + accessToken);
-      return this.createPredictOptions(targetImage, accessToken);
+      const access_token = accessToken;
+      console.log('access_token: ' + access_token);
+      return this.createPredictOptions(targetImage, access_token);
     }).then((predictOpitions) => {
       console.log('#################### 4 ####################');
       return new Promise((resolve, reject) => {
