@@ -85,7 +85,7 @@ export class VisionService {
       timeout: 3000,
       body: {
         'modelId': modelId,
-        'numResults': 1,
+        // 'numResults': 1,
         'sampleBase64Content': targetImage
       },
       headers: {
