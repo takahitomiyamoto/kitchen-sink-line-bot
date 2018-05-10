@@ -4,16 +4,16 @@ import * as jwt from 'jsonwebtoken';
 
 export class VisionService {
   private static _visionService: VisionService = new VisionService();
-  private static _accessToken = VisionService.getAccessToken();
+  // private static _accessToken = VisionService.getAccessToken();
 
   private constructor() {}
   public static get instance(): VisionService {
     return VisionService._visionService;
   }
 
-  public static get accessToken() {
-    return VisionService._accessToken;
-  }
+  // public static get accessToken() {
+  //   return VisionService._accessToken;
+  // }
 
   private static getAccessToken() {
     const tokenOptions = VisionService.createTokenOptions();
@@ -21,7 +21,7 @@ export class VisionService {
     return new Promise((resolve, reject) => {
       rp(tokenOptions)
         .then((data) => {
-          console.log('data: ' + circularJSON.stringify(data));
+          // console.log('data: ' + circularJSON.stringify(data));
           const accessToken = data['access_token'];
           resolve(accessToken)
         })
@@ -147,7 +147,7 @@ export class VisionService {
     });
 
     return new Promise((resolve, reject) => {
-      const accessToken = VisionService.accessToken;
+      const accessToken = VisionService.getAccessToken();
       console.log('accessToken: ' + circularJSON.stringify(accessToken));
       const predictOpitions = this.createPredictOptions(targetImage, accessToken);
       requestPredict(predictOpitions);
