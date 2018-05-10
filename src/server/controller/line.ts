@@ -91,8 +91,7 @@ const handleImage = (message, replyToken) => {
             _type = type;
             console.log('type: ' + _type);
             // return salesforceService.instance.findHouses(_type);
-          })
-          .then(houses => sendMessage(
+          }).then(houses => sendMessage(
             [
               {
                 type:'text',
@@ -101,7 +100,11 @@ const handleImage = (message, replyToken) => {
               // formatter.formatProperties(houses)
             ],
             replyToken
-          ));
+          )).catch((err) => {
+            // POST failed...
+            console.log('err: ' + err);
+          })
+        ;
       });
 
       stream.on('error', (err) => {

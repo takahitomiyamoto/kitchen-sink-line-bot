@@ -4,36 +4,29 @@ import * as jwt from 'jsonwebtoken';
 
 export class VisionService {
   private static _visionService: VisionService = new VisionService();
-  // private static _accessToken = VisionService.getAccessToken();
 
   private constructor() {}
   public static get instance(): VisionService {
     return VisionService._visionService;
   }
 
-  // public static get accessToken() {
-  //   return VisionService._accessToken;
-  // }
-
-  private static getAccessToken() {
-    const tokenOptions = VisionService.createTokenOptions();
+  private getAccessToken() {
+    const tokenOptions = this.createTokenOptions();
     console.log('tokenOptions: ' + tokenOptions);
     return new Promise((resolve, reject) => {
       rp(tokenOptions)
-        .then((data) => {
-          // console.log('data: ' + circularJSON.stringify(data));
-          const accessToken = data['access_token'];
-          resolve(accessToken)
-        })
-        .catch((err) => {
-          console.log(err);
-          reject(err);
-        })
-      ;
+      .then((data) => {
+        const accessToken = data['access_token'];
+        resolve(accessToken)
+      })
+      .catch((err) => {
+        console.log(err);
+        reject(err);
+      });
     });
   }
 
-  private static createTokenOptions() {
+  private createTokenOptions() {
     const url = process.env.EINSTEIN_VISION_URL + process.env.EINSTEIN_API_VERSION;
     const private_key = process.env.EINSTEIN_VISION_PRIVATE_KEY;
     const account_id = process.env.EINSTEIN_VISION_ACCOUNT_ID;
@@ -65,6 +58,21 @@ export class VisionService {
       json: true
     };
     return options;
+  }
+
+  private getImageClassification(targetImage, accessToken) {
+    const predictOptions = this.createPredictOptions(targetImage, accessToken);
+    console.log('predictOptions: ' + predictOptions);
+    return new Promise((resolve, reject) => {
+      rp(predictOptions)
+      .then((body) => {
+        resolve(body);
+      })
+      .catch((err) => {
+        console.log(err);
+        reject(err);
+      });
+    });
   }
 
   private createPredictOptions(targetImage, accessToken) {
@@ -126,37 +134,58 @@ export class VisionService {
   // });
 
   public imageClassify = (targetImage) => {
+    return new Promise((resolve, reject) => {
+      // access_tokenを取得する
+      this.getAccessToken()
+      .then((accessToken) => {
+        console.log('#################### getAccessToken accessToken: ' + accessToken);
+        // 予測結果を取得する
+        this.getImageClassification(targetImage, accessToken)
+        .then((body) => {
+          resolve(body);
+        })
+        .catch((err) => {
+          console.log('#################### getImageClassification err: ' + err);
+          reject(err);
+        });
+      })
+      .catch((err) => {
+        console.log('#################### getAccessToken err: ' + err);
+        reject(err);
+      });
+    });
+
     // const createPredictOptions = (accessToken) => new Promise((resolve, reject) => {
       //   console.log('#################### 3. createPredictOptions ####################');
       //   const predictOpitions = this.createPredictOptions(targetImage, accessToken);
       //   console.log('#################### accessToken: ' + accessToken);
       //   resolve(predictOpitions);
       // });
-    const requestPredict = (predictOpitions) => {
-      return new Promise((resolve, reject) => {
-        rp(predictOpitions)
-          .then((body) => {
-            // POST succeeded...
-            console.log('#################### body: ' + circularJSON.stringify(body));
-            resolve(circularJSON.stringify(body));
-          }).catch((err) => {
-            // POST failed...
-            console.log('#################### err: ' + err);
-            reject(err);
-          })
-        ;
-      });
-    };
+    // const requestPredict = (predictOpitions) => {
+    //   return new Promise((resolve, reject) => {
+    //     rp(predictOpitions)
+    //       .then((body) => {
+    //         // POST succeeded...
+    //         console.log('#################### body: ' + circularJSON.stringify(body));
+    //         resolve(circularJSON.stringify(body));
+    //       }).catch((err) => {
+    //         // POST failed...
+    //         console.log('#################### err: ' + err);
+    //         reject(err);
+    //       })
+    //     ;
+    //   });
+    // };
 
-    const promise = Promise.reject('').catch(() => {
-      VisionService.getAccessToken().then((accessToken) => {
-        console.log('accessToken: ' + circularJSON.stringify(accessToken));
-        const predictOpitions = this.createPredictOptions(targetImage, accessToken);
-        requestPredict(predictOpitions);
-      });
-    });
+    // const promise = Promise.reject('').catch(() => {
+    //   VisionService.getAccessToken().then((accessToken) => {
+    //     console.log('accessToken: ' + circularJSON.stringify(accessToken));
+    //     const predictOpitions = this.createPredictOptions(targetImage, accessToken);
+    //     requestPredict(predictOpitions);
+    //   });
+    // });
 
-    return promise;
+    // return promise;
 
     // return new Promise((resolve, reject) => {
       // const accessToken = VisionService.getAccessToken();
