@@ -100,6 +100,7 @@ export class VisionService {
     const createPredictOptions = (accessToken) => new Promise((resolve, reject) => {
       console.log('#################### 3. createPredictOptions ####################');
       const predictOpitions = this.createPredictOptions(targetImage, accessToken);
+      console.log('#################### accessToken: ' + accessToken);
       resolve(predictOpitions);
     });
 
@@ -108,10 +109,11 @@ export class VisionService {
       rp(predictOpitions)
         .then((body) => {
           // POST succeeded...
+          console.log('#################### body: ' + circularJSON.stringify(body));
           resolve(circularJSON.stringify(body));
         }).catch((err) => {
           // POST failed...
-          console.log(err);
+          console.log('#################### err: ' + err);
           reject(err);
         })
       ;
