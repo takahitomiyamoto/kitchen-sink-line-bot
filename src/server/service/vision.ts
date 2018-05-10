@@ -17,9 +17,11 @@ export class VisionService {
 
   private static getAccessToken() {
     const tokenOptions = VisionService.createTokenOptions();
+    console.log('tokenOptions: ' + tokenOptions);
     return new Promise((resolve, reject) => {
       rp(tokenOptions)
         .then((data) => {
+          console.log('data: ' + circularJSON.stringify(data));
           const accessToken = data['access_token'];
           resolve(accessToken)
         })
