@@ -1,4 +1,4 @@
-require('dotenv').config()
+// require('dotenv').config()
 import { configHeroku } from './config/heroku';
 import { app } from './webapi';
 

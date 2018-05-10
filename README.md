@@ -5,4 +5,4 @@ kitchen-sink LINE Bot for Heroku
 
 # Acknowledgement
 - [line/line-bot-sdk-nodejs](https://github.com/line/line-bot-sdk-nodejs/tree/master/examples/kitchensink)
-- [inversify/inversify-express-example - Example using inversify-binding-decorators](https://github.com/inversify/inversify-express-example/tree/master/BindingDecorators)
+- [hinabasfdc/einstein-vision_sampleapp01](https://github.com/hinabasfdc/einstein-vision_sampleapp01)

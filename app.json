@@ -22,8 +22,20 @@
       "value":"1234",
       "required":false
     },
+    "EINSTEIN_VISION_MODEL_ID": {
+      "description": "Einstein Vision Model ID",
+      "value":"MultiLabelImageClassifier",
+      "required":false
+    },
+    "EINSTEIN_API_VERSION": {
+      "description": "Einstein API Version",
+      "value":"v2",
+      "required":false
+    },
     "addons": [
-      "einstein-vision"
+      {
+        "plan": "einstein-vision:starter"
+      }
     ]
   }
 }

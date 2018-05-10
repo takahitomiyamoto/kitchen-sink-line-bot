@@ -32,10 +32,10 @@ app.post('/callback', line.middleware(configLine), (req, res) => {
 app.use((err, req, res, next) => {
   if (err instanceof SignatureValidationFailed) {
     res.status(401).send(err.signature)
-    return
+    return;
   } else if (err instanceof JSONParseError) {
     res.status(400).send(err.raw)
-    return
+    return;
   }
   next(err) // will throw default 500
 });
