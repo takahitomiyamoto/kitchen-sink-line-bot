@@ -1,6 +1,7 @@
 import * as circularJSON from 'circular-json';
 import * as rp from 'request-promise';
 import * as jwt from 'jsonwebtoken';
+import * as request from 'request';
 
 export class VisionService {
   private static _visionService: VisionService = new VisionService();
@@ -64,14 +65,19 @@ export class VisionService {
     const predictOptions = this.createPredictOptions(targetImage, accessToken);
     console.log('predictOptions: ' + predictOptions);
     return new Promise((resolve, reject) => {
-      rp(predictOptions)
-      .then((body) => {
+      request.post(predictOptions, (err, response, body) => {
+        if (err) {
+          reject(err)
+        }
         resolve(body);
-      })
-      .catch((err) => {
-        console.log(err);
-        reject(err);
       });
+      // .then((body) => {
+      //   resolve(body);
+      // })
+      // .catch((err) => {
+      //   console.log(err);
+      //   reject(err);
+      // });
     });
   }
 
