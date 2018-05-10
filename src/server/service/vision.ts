@@ -147,10 +147,15 @@ export class VisionService {
     });
 
     return new Promise((resolve, reject) => {
-      const accessToken = VisionService.getAccessToken();
-      console.log('accessToken: ' + circularJSON.stringify(accessToken));
-      const predictOpitions = this.createPredictOptions(targetImage, accessToken);
-      requestPredict(predictOpitions);
+      // const accessToken = VisionService.getAccessToken();
+      // console.log('accessToken: ' + circularJSON.stringify(accessToken));
+      // const predictOpitions = this.createPredictOptions(targetImage, accessToken);
+      // requestPredict(predictOpitions);
+      VisionService.getAccessToken().then((accessToken) => {
+        console.log('accessToken: ' + circularJSON.stringify(accessToken));
+        const predictOpitions = this.createPredictOptions(targetImage, accessToken);
+        requestPredict(predictOpitions);
+      });
     });
 
     // return new Promise((resolve, reject) => {
