@@ -148,7 +148,9 @@ export class VisionService {
         // 予測結果を取得する
         this.getImageClassification(targetImage, accessToken)
         .then((body) => {
-          resolve(body);
+          console.log('accessToken: ' + accessToken);
+          console.log(circularJSON.stringify(body));
+          resolve(circularJSON.stringify(body));
         })
         .catch((err) => {
           console.log('#################### getImageClassification err: ' + err);
