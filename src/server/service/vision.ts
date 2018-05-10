@@ -85,24 +85,24 @@ export class VisionService {
     return new Promise((resolve, reject) => {
       // call Image Classification API
       const options = this.createTokenOptions();
-      this.getAccessToken(options)
-        .then((accessToken) => {
-          this.createPredictOptions(targetImage, accessToken);
+      const accessToken = this.getAccessToken(options)
+        // .then((accessToken) => {
+      const opitions = this.createPredictOptions(targetImage, accessToken);
+        // })
+        // .then((options) => {
+      rp(options)
+        .then((body) => {
+          // POST succeeded...
+          resolve(circularJSON.stringify(body));
         })
-        .then((options) => {
-          rp(options)
-            .then((body) => {
-              // POST succeeded...
-              resolve(circularJSON.stringify(body));
-            })
-            .catch((err) => {
-              // POST failed...
-              console.log(err);
-              reject(err);
-            })
-          ;
+        .catch((err) => {
+          // POST failed...
+          console.log(err);
+          reject(err);
         })
       ;
+        // })
+      // ;
       // setTimeout(() => {
       //   resolve('★★★');
       // }, 1000);
