@@ -99,7 +99,7 @@ export class VisionService {
     }).then((tokenOptions) => {
       console.log('#################### 2 ####################');
       counter += 1;
-      if (counter > 1) {
+      if (counter > 0) {
         return;
       }
       return this.getAccessToken(tokenOptions);
