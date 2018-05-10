@@ -124,8 +124,8 @@ export class VisionService {
       ;
     });
 
+    let counter = 0;
     return new Promise((resolve, reject) => {
-      let counter = 0;
       createTokenOptions.then((tokenOptions) => {
         counter++;
         return getAccessToken(tokenOptions, counter);
