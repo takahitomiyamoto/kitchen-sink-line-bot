@@ -72,7 +72,7 @@ export class VisionService {
       .then((data) => {
         // const data = JSON.parse(body);
         accessToken = data['access_token'];
-        console.log('accessToken: ' + accessToken);
+        // console.log('accessToken: ' + accessToken);
       })
       .catch((err) => {
         console.log(err);
@@ -85,9 +85,15 @@ export class VisionService {
     return new Promise((resolve, reject) => {
       // call Image Classification API
       const tokenOptions = this.createTokenOptions();
+      console.log('--------------------');
+      console.log('tokenOptions: ' + tokenOptions);
       const accessToken = this.getAccessToken(tokenOptions)
+      console.log('--------------------');
+      console.log('accessToken: ' + accessToken);
         // .then((accessToken) => {
       const predictOpitions = this.createPredictOptions(targetImage, accessToken);
+      console.log('--------------------');
+      console.log('predictOpitions: ' + predictOpitions);
         // })
         // .then((options) => {
       rp(predictOpitions)
