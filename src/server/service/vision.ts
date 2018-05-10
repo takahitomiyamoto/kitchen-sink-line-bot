@@ -132,31 +132,43 @@ export class VisionService {
       //   console.log('#################### accessToken: ' + accessToken);
       //   resolve(predictOpitions);
       // });
-    const requestPredict = (predictOpitions) => new Promise((resolve, reject) => {
-      rp(predictOpitions)
-        .then((body) => {
-          // POST succeeded...
-          console.log('#################### body: ' + circularJSON.stringify(body));
-          resolve(circularJSON.stringify(body));
-        }).catch((err) => {
-          // POST failed...
-          console.log('#################### err: ' + err);
-          reject(err);
-        })
-      ;
-    });
+    const requestPredict = (predictOpitions) => {
+      return new Promise((resolve, reject) => {
+        rp(predictOpitions)
+          .then((body) => {
+            // POST succeeded...
+            console.log('#################### body: ' + circularJSON.stringify(body));
+            resolve(circularJSON.stringify(body));
+          }).catch((err) => {
+            // POST failed...
+            console.log('#################### err: ' + err);
+            reject(err);
+          })
+        ;
+      });
+    };
 
-    return new Promise((resolve, reject) => {
-      // const accessToken = VisionService.getAccessToken();
-      // console.log('accessToken: ' + circularJSON.stringify(accessToken));
-      // const predictOpitions = this.createPredictOptions(targetImage, accessToken);
-      // requestPredict(predictOpitions);
+    const promise = Promise.reject('').catch(() => {
       VisionService.getAccessToken().then((accessToken) => {
         console.log('accessToken: ' + circularJSON.stringify(accessToken));
         const predictOpitions = this.createPredictOptions(targetImage, accessToken);
         requestPredict(predictOpitions);
       });
     });
+
+    return promise;
+
+    // return new Promise((resolve, reject) => {
+      // const accessToken = VisionService.getAccessToken();
+      // console.log('accessToken: ' + circularJSON.stringify(accessToken));
+      // const predictOpitions = this.createPredictOptions(targetImage, accessToken);
+      // requestPredict(predictOpitions);
+      // VisionService.getAccessToken().then((accessToken) => {
+      //   console.log('accessToken: ' + circularJSON.stringify(accessToken));
+      //   const predictOpitions = this.createPredictOptions(targetImage, accessToken);
+      //   requestPredict(predictOpitions);
+      // });
+    // });
 
     // return new Promise((resolve, reject) => {
     //   const accessToken = VisionService.accessToken;
