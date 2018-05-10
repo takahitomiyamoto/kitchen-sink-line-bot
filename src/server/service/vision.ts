@@ -84,13 +84,13 @@ export class VisionService {
   public imageClassify = (targetImage) => {
     return new Promise((resolve, reject) => {
       // call Image Classification API
-      const options = this.createTokenOptions();
-      const accessToken = this.getAccessToken(options)
+      const tokenOptions = this.createTokenOptions();
+      const accessToken = this.getAccessToken(tokenOptions)
         // .then((accessToken) => {
-      const opitions = this.createPredictOptions(targetImage, accessToken);
+      const predictOpitions = this.createPredictOptions(targetImage, accessToken);
         // })
         // .then((options) => {
-      rp(options)
+      rp(predictOpitions)
         .then((body) => {
           // POST succeeded...
           resolve(circularJSON.stringify(body));
