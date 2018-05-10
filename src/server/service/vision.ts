@@ -84,6 +84,10 @@ export class VisionService {
     });
   }
 
+  private increment = (counter) => {
+    console.log('####################' + (counter + 1) + '####################');
+  }
+
   public imageClassify = (targetImage) => {
     // let createTokenOptions = new Promise((resolve, reject) => {
     //   console.log('#################### 1 ####################');
@@ -92,24 +96,26 @@ export class VisionService {
     // });
     let counter = 0;
     return new Promise((resolve, reject) => {
-      console.log('#################### 1 ####################');
+      this.increment(counter);
       // return this.createTokenOptions();
       const tokenOptions = this.createTokenOptions();
       resolve(tokenOptions);
     }).then((tokenOptions) => {
-      console.log('#################### 2 ####################');
-      counter += 1;
-      if (counter > 0) {
-        return;
-      }
-      return this.getAccessToken(tokenOptions);
+      this.increment(counter);
+      return new Promise((resolve, reject) => {
+        resolve(this.getAccessToken(tokenOptions));
+      })
     }).then((accessToken) => {
-      console.log('#################### 3 ####################');
+      this.increment(counter);
+      // let access_token;
+      // if (undefined === accessToken) {
+      //   return;
+      // }
       const access_token = accessToken;
       console.log('access_token: ' + access_token);
       return this.createPredictOptions(targetImage, access_token);
     }).then((predictOpitions) => {
-      console.log('#################### 4 ####################');
+      this.increment(counter);
       return new Promise((resolve, reject) => {
         rp(predictOpitions)
           .then((body) => {
