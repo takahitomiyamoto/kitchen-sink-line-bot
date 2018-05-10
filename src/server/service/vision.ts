@@ -117,14 +117,15 @@ export class VisionService {
       ;
     });
 
-    createTokenOptions.then((tokenOptions) => {
-      return getAccessToken(tokenOptions);
-    }).then((accessToken) => {
-      return createPredictOptions(accessToken);
-    }).then((predictOpitions) => {
-      return requestPredict(predictOpitions);
+    return new Promise((resolve, reject) => {
+      createTokenOptions.then((tokenOptions) => {
+        return getAccessToken(tokenOptions);
+      }).then((accessToken) => {
+        return createPredictOptions(accessToken);
+      }).then((predictOpitions) => {
+        return requestPredict(predictOpitions);
+      });
     });
-
     // let counter = 0;
     // return new Promise((resolve, reject) => {
     //   this.logger('createTokenOptions: ' + counter);
