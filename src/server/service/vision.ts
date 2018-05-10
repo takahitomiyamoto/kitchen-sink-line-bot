@@ -73,7 +73,7 @@ export class VisionService {
         .then((data) => {
           // const data = JSON.parse(body);
           const accessToken = data['access_token'];
-          console.log('0: accessToken: ' + accessToken);
+          // console.log('0: accessToken: ' + accessToken);
           resolve(accessToken)
         })
         .catch((err) => {
@@ -85,36 +85,68 @@ export class VisionService {
   }
 
   public imageClassify = (targetImage) => {
+    // let createTokenOptions = new Promise((resolve, reject) => {
+    //   console.log('#################### 1 ####################');
+    //   const tokenOptions = this.createTokenOptions();
+    //   resolve(tokenOptions);
+    // });
     return new Promise((resolve, reject) => {
-      // call Image Classification API
+      console.log('#################### 1 ####################');
+      // return this.createTokenOptions();
       const tokenOptions = this.createTokenOptions();
+      resolve(tokenOptions);
+    }).then((tokenOptions) => {
+      console.log('#################### 2 ####################');
+      return this.getAccessToken(tokenOptions);
+    }).then((accessToken) => {
+      console.log('#################### 3 ####################');
+      console.log('accessToken: ' + accessToken);
+      return this.createPredictOptions(targetImage, accessToken);
+    }).then((predictOpitions) => {
+      console.log('#################### 4 ####################');
+      return new Promise((resolve, reject) => {
+        rp(predictOpitions)
+          .then((body) => {
+            // POST succeeded...
+            resolve(circularJSON.stringify(body));
+          }).catch((err) => {
+            // POST failed...
+            console.log(err);
+            reject(err);
+          })
+        ;
+      });
+    });
+  }
+
+    // return new Promise((resolve, reject) => {
+      // call Image Classification API
+      // const tokenOptions = this.createTokenOptions();
       // console.log('--------------------');
       // console.log('tokenOptions: ' + circularJSON.stringify(tokenOptions));
-      this.getAccessToken(tokenOptions)
-        .then((accessToken) => {
-          console.log('--------------------');
-          console.log('1: accessToken: ' + accessToken);
-          const predictOpitions = this.createPredictOptions(targetImage, accessToken);
-          console.log('--------------------');
-          console.log('predictOpitions: ' + circularJSON.stringify(predictOpitions));
-          rp(predictOpitions)
-            .then((body) => {
-              // POST succeeded...
-              resolve(circularJSON.stringify(body));
-            })
-            .catch((err) => {
-              // POST failed...
-              console.log(err);
-              reject(err);
-            })
-          ;
-        })
-      ;
+      // this.getAccessToken(tokenOptions)
+        // .then((accessToken) => {
+          // console.log('--------------------');
+          // console.log('1: accessToken: ' + accessToken);
+          // const predictOpitions = this.createPredictOptions(targetImage, accessToken);
+          // console.log('--------------------');
+          // console.log('predictOpitions: ' + circularJSON.stringify(predictOpitions));
+      //     rp(predictOpitions)
+      //       .then((body) => {
+      //         // POST succeeded...
+      //         resolve(circularJSON.stringify(body));
+      //       })
+      //       .catch((err) => {
+      //         // POST failed...
+      //         console.log(err);
+      //         reject(err);
+      //       })
+      //     ;
+      //   })
+      // ;
       // setTimeout(() => {
       //   resolve('★★★');
       // }, 1000);
-    });
-  }
 
   public objectDetect = (targetImage) => {
     return new Promise((resolve, reject) => {
