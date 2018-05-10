@@ -84,51 +84,82 @@ export class VisionService {
     });
   }
 
-  private increment = (counter) => {
-    console.log('####################' + (counter + 1) + '####################');
-  }
-
   public imageClassify = (targetImage) => {
-    // let createTokenOptions = new Promise((resolve, reject) => {
-    //   console.log('#################### 1 ####################');
-    //   const tokenOptions = this.createTokenOptions();
-    //   resolve(tokenOptions);
-    // });
-    let counter = 0;
-    return new Promise((resolve, reject) => {
-      this.increment(counter);
-      // return this.createTokenOptions();
+    const createTokenOptions = new Promise((resolve, reject) => {
+      console.log('#################### 1. createTokenOptions ####################');
       const tokenOptions = this.createTokenOptions();
       resolve(tokenOptions);
-    }).then((tokenOptions) => {
-      this.increment(counter);
-      return new Promise((resolve, reject) => {
-        resolve(this.getAccessToken(tokenOptions));
-      })
-    }).then((accessToken) => {
-      this.increment(counter);
-      // let access_token;
-      // if (undefined === accessToken) {
-      //   return;
-      // }
-      const access_token = accessToken;
-      console.log('access_token: ' + access_token);
-      return this.createPredictOptions(targetImage, access_token);
-    }).then((predictOpitions) => {
-      this.increment(counter);
-      return new Promise((resolve, reject) => {
-        rp(predictOpitions)
-          .then((body) => {
-            // POST succeeded...
-            resolve(circularJSON.stringify(body));
-          }).catch((err) => {
-            // POST failed...
-            console.log(err);
-            reject(err);
-          })
-        ;
-      });
     });
+
+    const getAccessToken = (tokenOptions) => new Promise((resolve, reject) => {
+      console.log('#################### 2. getAccessToken ####################');
+      const accessToken = this.getAccessToken(tokenOptions);
+      resolve(accessToken);
+    });
+
+    const createPredictOptions = (accessToken) => new Promise((resolve, reject) => {
+      console.log('#################### 3. createPredictOptions ####################');
+      const predictOpitions = this.createPredictOptions(targetImage, accessToken);
+      resolve(predictOpitions);
+    });
+
+    const requestPredict = (predictOpitions) => new Promise((resolve, reject) => {
+      console.log('#################### 4. requestPredict ####################');
+      rp(predictOpitions)
+        .then((body) => {
+          // POST succeeded...
+          resolve(circularJSON.stringify(body));
+        }).catch((err) => {
+          // POST failed...
+          console.log(err);
+          reject(err);
+        })
+      ;
+    });
+
+    createTokenOptions.then((tokenOptions) => {
+      return getAccessToken(tokenOptions);
+    }).then((accessToken) => {
+      return createPredictOptions(accessToken);
+    }).then((predictOpitions) => {
+      return requestPredict(predictOpitions);
+    });
+
+    // let counter = 0;
+    // return new Promise((resolve, reject) => {
+    //   this.logger('createTokenOptions: ' + counter);
+    //   // return this.createTokenOptions();
+    //   const tokenOptions = this.createTokenOptions();
+    //   resolve(tokenOptions);
+    // }).then((tokenOptions) => {
+    //   counter = this.increment(counter);
+    //   return new Promise((resolve, reject) => {
+    //     resolve(this.getAccessToken(tokenOptions));
+    //   })
+    // }).then((accessToken) => {
+    //   counter = this.increment(counter);
+    //   // let access_token;
+    //   // if (undefined === accessToken) {
+    //   //   return;
+    //   // }
+    //   const access_token = accessToken;
+    //   console.log('access_token: ' + access_token);
+    //   return this.createPredictOptions(targetImage, access_token);
+    // }).then((predictOpitions) => {
+    //   counter = this.increment(counter);
+    //   return new Promise((resolve, reject) => {
+    //     rp(predictOpitions)
+    //       .then((body) => {
+    //         // POST succeeded...
+    //         resolve(circularJSON.stringify(body));
+    //       }).catch((err) => {
+    //         // POST failed...
+    //         console.log(err);
+    //         reject(err);
+    //       })
+    //     ;
+    //   });
+    // });
   }
 
     // return new Promise((resolve, reject) => {
