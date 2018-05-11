@@ -99,7 +99,10 @@ const handleImage = (message, replyToken) => {
         // const data = Buffer.from(body);
         // const targetImageBase64 = data.toString('base64');
         console.log('stream end targetImageBase64: ' + targetImageBase64.length);
-        return promise2(targetImageBase64, values[1]);
+        Promise.all([promise0])
+        .then((accessToken) => {
+          return promise2(targetImageBase64, accessToken);
+        });
       })
     })
   })])
