@@ -84,21 +84,27 @@ const handleImage = (message, replyToken) => {
   visionService.instance.getAccessToken_(function(accessToken) {
     console.log('-------------------- accessToken: ' + accessToken);
     // 2. 画像のバイナリデータを取得する
-    visionService.instance.getMessageContent(message.id, function(targetImageBase64) {
-      console.log('-------------------- targetImageBase64: ' + targetImageBase64);
-      // 3. Einstein Vision の予測結果を取得する
-      visionService.instance.getImageClassification_(targetImageBase64, accessToken, function(predictresponse) {
-        console.log('-------------------- predictresponse: ' + predictresponse);
-        // 4. Einstein Vision の予測結果を返信する
-        const _predictresponse = predictresponse;
-        const messageToBeSent = {
-          type:'text',
-          text: `画像の分析の結果、 "${_predictresponse}" `
-        };
-        return sendMessage(messageToBeSent, replyToken);
-      })
-    })
-  })
+    client.getMessageContent(message.id)
+    .then((stream) => {
+      stream.on('data', (chunk) => {
+        const data = Buffer.from(chunk);
+        const targetImageBase64 = data.toString('base64');
+  // visionService.instance.getMessageContent(message.id, function(targetImageBase64) {
+        console.log('-------------------- targetImageBase64: ' + targetImageBase64);
+        // 3. Einstein Vision の予測結果を取得する
+        visionService.instance.getImageClassification_(targetImageBase64, accessToken, function(predictresponse) {
+          console.log('-------------------- predictresponse: ' + predictresponse);
+          // 4. Einstein Vision の予測結果を返信する
+          const _predictresponse = predictresponse;
+          const messageToBeSent = {
+            type:'text',
+            text: `画像の分析の結果、 "${_predictresponse}" `
+          };
+          return sendMessage(messageToBeSent, replyToken);
+        });
+      });
+    });
+  });
   // client.getMessageContent(message.id)
   //   .then((stream) => {
   //     // stream.setEncoding('utf8');
