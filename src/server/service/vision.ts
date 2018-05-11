@@ -51,7 +51,8 @@ export class VisionService {
     const options = {
       uri: 'https://api.line.me/v2/bot/message/' + messageId + '/content',
       headers: {
-        'Authorization': 'Bearer ' + process.env.LINE_CHANNEL_ACCESS_TOKEN
+        'Authorization': 'Bearer ' + process.env.LINE_CHANNEL_ACCESS_TOKEN,
+        'Content-Type': 'multipart/form-data'
       },
       json: true
     };
