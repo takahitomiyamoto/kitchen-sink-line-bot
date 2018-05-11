@@ -87,7 +87,13 @@ const handleImage = (message, replyToken) => {
     console.log('Promiss.all values: ' + values);
     return promise2(values[0], values[1]);
   }).then((predictresponse) => {
-    console.log('Promiss.all predictresponse: ' + predictresponse);
+    console.log('Promiss.all predictresponse: ' + circularJSON.stringify(predictresponse));
+    const _predictresponse = predictresponse;
+    const messageToBeSent = {
+      type:'text',
+      text: `画像の分析の結果、 "${_predictresponse}" `
+    };
+    return sendMessage(messageToBeSent, replyToken);
   }).catch((error) => {
     console.log('Promiss.all error: ' + circularJSON.stringify(error));
   });

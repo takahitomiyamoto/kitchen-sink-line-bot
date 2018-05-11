@@ -154,7 +154,8 @@ export class VisionService {
         if (error) {
           reject(error)
         }
-        resolve(body);
+        const predictresponse = circularJSON.stringify(body);
+        resolve(predictresponse);
       });
       // .then((body) => {
       //   resolve(body);
@@ -172,6 +173,7 @@ export class VisionService {
     const modelId = process.env.EINSTEIN_VISION_MODEL_ID;
     const formData = {
       modelId: modelId,
+      numResults: 1,
       sampleBase64Content: targetImage
     };
     const options = {
