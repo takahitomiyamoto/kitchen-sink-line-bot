@@ -26,6 +26,27 @@ export class VisionService {
     // });
   }
 
+  public getMessageContent_(messageId) {
+    const options = {
+      uri: 'https://api.line.me/v2/bot/message/' + messageId + '/content',
+      headers: {
+        'Authorization': 'Bearer ' + process.env.LINE_CHANNEL_ACCESS_TOKEN
+      },
+      json: true
+    };
+    return new Promise((resolve, reject) => {
+      rp(options)
+      .then((chunk) => {
+        const data = Buffer.from(chunk);
+        const targetImageBase64 = data.toString('base64');
+        resolve(targetImageBase64);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    });
+  }
+
   public getMessageContent(messageId, callback) {
     const options = {
       uri: 'https://api.line.me/v2/bot/message/' + messageId + '/content',
@@ -122,7 +143,7 @@ export class VisionService {
     // });
   }
 
-  private getImageClassification(targetImage, accessToken) {
+  public getImageClassification(targetImage, accessToken) {
     const predictOptions = this.createPredictOptions(targetImage, accessToken);
     console.log('predictOptions: ' + predictOptions);
     return new Promise((resolve, reject) => {
