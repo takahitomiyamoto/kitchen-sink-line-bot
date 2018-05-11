@@ -97,6 +97,17 @@ const handleImage = (message, replyToken) => {
       Promise.all([promise0])
       .then((accessToken) => {
         return promise2(targetImageBase64, accessToken);
+      })
+      .then((predictresponse) => {
+        console.log('Promiss.all predictresponse: ' + circularJSON.stringify(predictresponse));
+        const _predictresponse = predictresponse;
+        const messageToBeSent = {
+          type:'text',
+          text: `画像の分析の結果、 "${_predictresponse}" `
+        };
+        return sendMessage(messageToBeSent, replyToken);
+      }).catch((error) => {
+        console.log('Promiss.all error: ' + circularJSON.stringify(error));
       });
       // });
       // stream.on('end', () => {
@@ -110,17 +121,17 @@ const handleImage = (message, replyToken) => {
     });
   })
   // ])
-  .then((predictresponse) => {
-    console.log('Promiss.all predictresponse: ' + circularJSON.stringify(predictresponse));
-    const _predictresponse = predictresponse;
-    const messageToBeSent = {
-      type:'text',
-      text: `画像の分析の結果、 "${_predictresponse}" `
-    };
-    return sendMessage(messageToBeSent, replyToken);
-  }).catch((error) => {
-    console.log('Promiss.all error: ' + circularJSON.stringify(error));
-  });
+  // .then((predictresponse) => {
+  //   console.log('Promiss.all predictresponse: ' + circularJSON.stringify(predictresponse));
+  //   const _predictresponse = predictresponse;
+  //   const messageToBeSent = {
+  //     type:'text',
+  //     text: `画像の分析の結果、 "${_predictresponse}" `
+  //   };
+  //   return sendMessage(messageToBeSent, replyToken);
+  // }).catch((error) => {
+  //   console.log('Promiss.all error: ' + circularJSON.stringify(error));
+  // });
 
 
   // // 1. Einstein Vision の access_token を取得する
