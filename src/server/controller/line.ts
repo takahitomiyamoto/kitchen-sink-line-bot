@@ -92,11 +92,13 @@ const handleImage = (message, replyToken) => {
       stream.on('data', (chunk) => {
         const data = Buffer.from(chunk);
         targetImageBase64 = data.toString('base64');
+        console.log('stream on targetImageBase64: ' + targetImageBase64.length);
+        return promise2(targetImageBase64, values[1]);
       });
       stream.on('end', () => {
         // const data = Buffer.from(body);
         // const targetImageBase64 = data.toString('base64');
-        console.log('-------------------- targetImageBase64: ' + targetImageBase64);
+        console.log('stream end targetImageBase64: ' + targetImageBase64.length);
         return promise2(targetImageBase64, values[1]);
       })
     })
