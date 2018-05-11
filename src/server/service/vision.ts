@@ -38,7 +38,7 @@ export class VisionService {
     // return new Promise((resolve, reject) => {
       rp(options)
       .then((chunk) => {
-        const data = Buffer.from(chunk, 'utf8');
+        const data = Buffer.from(chunk, 'base64');
         const targetImageBase64 = data.toString('base64');
         return callback(targetImageBase64);
       })
