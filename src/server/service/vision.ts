@@ -168,8 +168,8 @@ export class VisionService {
         }
         if (response['statusCode'] === 200) {
           // console.log('response: ' + circularJSON.stringify(response));
-          const predictresponse = circularJSON.stringify(body);
-          resolve(predictresponse);
+          // const predictresponse = circularJSON.stringify(body);
+          resolve(body);
           // return predictresponse;
         }
         reject(circularJSON.stringify(body));
