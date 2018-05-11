@@ -157,7 +157,7 @@ export class VisionService {
   public getImageClassification(targetImage, accessToken) {
     const predictOptions = this.createPredictOptions(targetImage, accessToken);
     // console.log('predictOptions: ' + predictOptions);
-    // return new Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
       request.post(predictOptions, (error, response, body) => {
         // console.log('error: ' + circularJSON.stringify(error));
         // console.log('response: ' + circularJSON.stringify(response));
@@ -169,9 +169,10 @@ export class VisionService {
         if (response['statusCode'] === 200) {
           console.log('response: ' + circularJSON.stringify(response));
           const predictresponse = circularJSON.stringify(body);
-          // resolve(predictresponse);
-          return predictresponse;
+          resolve(predictresponse);
+          // return predictresponse;
         }
+        reject(circularJSON.stringify(body));
       });
       // .then((body) => {
       //   resolve(body);
@@ -180,7 +181,7 @@ export class VisionService {
       //   console.log(err);
       //   reject(err);
       // });
-    // });
+    });
   }
 
   private createPredictOptions(targetImage, accessToken) {
