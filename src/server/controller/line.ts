@@ -98,16 +98,16 @@ const handleImage = (message, replyToken) => {
         .then((accessToken) => {
           return promise2(targetImageBase64, accessToken);
         });
+      // });
+      // stream.on('end', () => {
+      //   // const data = Buffer.from(body);
+      //   // const targetImageBase64 = data.toString('base64');
+      //   console.log('stream end targetImageBase64: ' + targetImageBase64.length);
+      //   Promise.all([promise0])
+      //   .then((accessToken) => {
+      //     return promise2(targetImageBase64, accessToken);
+      //   });
       });
-      stream.on('end', () => {
-        // const data = Buffer.from(body);
-        // const targetImageBase64 = data.toString('base64');
-        console.log('stream end targetImageBase64: ' + targetImageBase64.length);
-        Promise.all([promise0])
-        .then((accessToken) => {
-          return promise2(targetImageBase64, accessToken);
-        });
-      })
     })
   ])
   .then((predictresponse) => {
