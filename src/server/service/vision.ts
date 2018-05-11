@@ -157,17 +157,19 @@ export class VisionService {
   public getImageClassification(targetImage, accessToken) {
     const predictOptions = this.createPredictOptions(targetImage, accessToken);
     // console.log('predictOptions: ' + predictOptions);
-    return new Promise((resolve, reject) => {
+    // return new Promise((resolve, reject) => {
       request.post(predictOptions, (error, response, body) => {
         // console.log('error: ' + circularJSON.stringify(error));
         console.log('response: ' + circularJSON.stringify(response));
         console.log('body: ' + circularJSON.stringify(body));
         if (error) {
-          reject(error)
+          // reject(error)
+          console.log(error)
         }
         if (response['statusCode'] === 200) {
           const predictresponse = circularJSON.stringify(body);
-          resolve(predictresponse);
+          // resolve(predictresponse);
+          return predictresponse;
         }
       });
       // .then((body) => {
@@ -177,7 +179,7 @@ export class VisionService {
       //   console.log(err);
       //   reject(err);
       // });
-    });
+    // });
   }
 
   private createPredictOptions(targetImage, accessToken) {
@@ -216,30 +218,30 @@ export class VisionService {
     return options;
   }
 
-  public imageClassify = (targetImage) => {
-    return new Promise((resolve, reject) => {
-      // access_tokenを取得する
-      this.getAccessToken()
-      .then((accessToken) => {
-        console.log('#################### getAccessToken accessToken: ' + accessToken);
-        // 予測結果を取得する
-        this.getImageClassification(targetImage, accessToken)
-        .then((body) => {
-          console.log('accessToken: ' + accessToken);
-          console.log(circularJSON.stringify(body));
-          resolve(circularJSON.stringify(body));
-        })
-        .catch((err) => {
-          console.log('#################### getImageClassification err: ' + err);
-          reject(err);
-        });
-      })
-      .catch((err) => {
-        console.log('#################### getAccessToken err: ' + err);
-        reject(err);
-      });
-    });
-  }
+  // public imageClassify = (targetImage) => {
+  //   return new Promise((resolve, reject) => {
+  //     // access_tokenを取得する
+  //     this.getAccessToken()
+  //     .then((accessToken) => {
+  //       console.log('#################### getAccessToken accessToken: ' + accessToken);
+  //       // 予測結果を取得する
+  //       this.getImageClassification(targetImage, accessToken)
+  //       .then((body) => {
+  //         console.log('accessToken: ' + accessToken);
+  //         console.log(circularJSON.stringify(body));
+  //         resolve(circularJSON.stringify(body));
+  //       })
+  //       .catch((err) => {
+  //         console.log('#################### getImageClassification err: ' + err);
+  //         reject(err);
+  //       });
+  //     })
+  //     .catch((err) => {
+  //       console.log('#################### getAccessToken err: ' + err);
+  //       reject(err);
+  //     });
+  //   });
+  // }
 
   public objectDetect = (targetImage) => {
     return new Promise((resolve, reject) => {
