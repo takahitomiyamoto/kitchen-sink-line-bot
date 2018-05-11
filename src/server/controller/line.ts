@@ -78,7 +78,7 @@ const handleImage = (message, replyToken) => {
   console.log('handleImage');
   console.log('message: ' + circularJSON.stringify(message));
   console.log('replyToken: ' + replyToken);
-  const promise0 = visionService.instance.getMessageContent_(message.id);
+  const promise0 = visionService.instance.getMessageContent_(client, message.id);
   const promise1 = visionService.instance.getAccessToken();
   const promise2 = (v1, v2) => visionService.instance.getImageClassification(v1, v2);
   Promise.all([Promise.all([promise0, promise1])

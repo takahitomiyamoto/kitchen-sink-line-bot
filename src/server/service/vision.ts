@@ -26,25 +26,33 @@ export class VisionService {
     // });
   }
 
-  public getMessageContent_(messageId) {
-    const options = {
-      uri: 'https://api.line.me/v2/bot/message/' + messageId + '/content',
-      headers: {
-        'Authorization': 'Bearer ' + process.env.LINE_CHANNEL_ACCESS_TOKEN
-      },
-      json: true
-    };
-    return new Promise((resolve, reject) => {
-      rp(options)
-      .then((chunk) => {
+  public getMessageContent_(client, messageId) {
+    client.getMessageContent(messageId)
+    .then((stream) => {
+      stream.on('data', (chunk) => {
         const data = Buffer.from(chunk);
         const targetImageBase64 = data.toString('base64');
-        resolve(targetImageBase64);
+        return targetImageBase64;
       })
-      .catch((err) => {
-        console.log(err);
-      });
-    });
+    })
+  // const options = {
+  //     uri: 'https://api.line.me/v2/bot/message/' + messageId + '/content',
+  //     headers: {
+  //       'Authorization': 'Bearer ' + process.env.LINE_CHANNEL_ACCESS_TOKEN
+  //     },
+  //     json: true
+  //   };
+    // return new Promise((resolve, reject) => {
+    //   rp(options)
+    //   .then((chunk) => {
+    //     const data = Buffer.from(chunk);
+    //     const targetImageBase64 = data.toString('base64');
+      //   resolve(targetImageBase64);
+      // })
+      // .catch((err) => {
+      //   console.log(err);
+      // });
+    // });
   }
 
   public getMessageContent(messageId, callback) {
