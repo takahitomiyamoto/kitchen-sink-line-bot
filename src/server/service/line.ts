@@ -132,7 +132,7 @@ export const defaultMessage = (replyToken) => {
 }
 
 export const sendMessage = (message, replyToken) => {
-  console.log('sendMessage: ' + message);
+  console.log('sendMessage: ' + circularJSON.stringify(message));
   return client.replyMessage(replyToken, message)
     .then((result) => {
       console.log('sendMessage result: ' + result);
