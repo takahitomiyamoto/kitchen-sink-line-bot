@@ -190,7 +190,7 @@ export class VisionService {
     const modelId = process.env.EINSTEIN_VISION_MODEL_ID;
     const formData = {
       modelId: modelId,
-      numResults: 1,
+      numResults: 3,
       sampleBase64Content: targetImage
     };
     const options = {
