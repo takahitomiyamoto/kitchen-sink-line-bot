@@ -81,7 +81,7 @@ const handleImage = (message, replyToken) => {
 
   client.getMessageContent(message.id)
     .then((stream) => {
-      stream.setEncoding('utf8');
+      // stream.setEncoding('utf8');
       stream.on('data', (chunk) => {
         const data = Buffer.from(chunk);
         const targetImageBase64 = data.toString('base64');
