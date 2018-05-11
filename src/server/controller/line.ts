@@ -82,9 +82,9 @@ const handleImage = (message, replyToken) => {
   const promise0 = visionService.instance.getAccessToken();
   const promise2 = (v1, v2) => visionService.instance.getImageClassification(v1, v2);
   Promise.all([
-    Promise.all([promise0])
-    .then((values) => {
-    console.log('Promiss.all values: ' + values);
+    // Promise.all([promise0])
+    // .then((values) => {
+    // console.log('Promiss.all values: ' + values);
 
     client.getMessageContent(message.id)
     .then((stream) => {
@@ -94,6 +94,10 @@ const handleImage = (message, replyToken) => {
         targetImageBase64 = data.toString('base64');
         console.log('stream on targetImageBase64: ' + targetImageBase64.length);
         // return promise2(targetImageBase64, values[0]);
+        Promise.all([promise0])
+        .then((accessToken) => {
+          return promise2(targetImageBase64, accessToken);
+        });
       });
       stream.on('end', () => {
         // const data = Buffer.from(body);
@@ -105,7 +109,7 @@ const handleImage = (message, replyToken) => {
         });
       })
     })
-  })])
+  ])
   .then((predictresponse) => {
     console.log('Promiss.all predictresponse: ' + circularJSON.stringify(predictresponse));
     const _predictresponse = predictresponse;
