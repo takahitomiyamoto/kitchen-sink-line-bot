@@ -98,12 +98,15 @@ const handleImage = (message, replyToken) => {
       .then((accessToken) => {
         return promise2(targetImageBase64, accessToken);
       })
+    })
+  })
       .then((predictresponse) => {
         console.log('Promiss.all predictresponse: ' + predictresponse);
-        const _name = predictresponse['probabilities'].get(0);
+        const _label = predictresponse['probabilities'].get(0);
+        console.log('label: ' + _label);
         const messageToBeSent = {
           type:'text',
-          text: `画像の分析の結果、 "${_name}" `
+          text: `画像の分析の結果、 ${_label}: ${_label} `
         };
         return sendMessage(messageToBeSent, replyToken);
       }).catch((error) => {
@@ -118,8 +121,8 @@ const handleImage = (message, replyToken) => {
       //   .then((accessToken) => {
       //     return promise2(targetImageBase64, accessToken);
       //   });
-    });
-  })
+    // });
+  // })
   // ])
   // .then((predictresponse) => {
   //   console.log('Promiss.all predictresponse: ' + circularJSON.stringify(predictresponse));
