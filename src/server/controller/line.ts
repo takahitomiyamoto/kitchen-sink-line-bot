@@ -99,9 +99,9 @@ const handleImage = (message, replyToken) => {
         return promise2(targetImageBase64, accessToken);
       })
       .then((predictresponse) => {
-        console.log('Promiss.all predictresponse: ' + predictresponse);
-        const _label = predictresponse['probabilities'];
-        console.log('label: ' + _label);
+        console.log('Promiss.all predictresponse: ' + circularJSON.stringify(predictresponse));
+        const _label = (predictresponse['probabilities'])[0];
+        console.log('label: ' + circularJSON.stringify(_label));
         const messageToBeSent = {
           type:'text',
           text: `画像の分析の結果、 ${_label}: ${_label} `
