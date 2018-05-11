@@ -167,7 +167,7 @@ export class VisionService {
           console.log(error)
         }
         if (response['statusCode'] === 200) {
-          console.log('response: ' + circularJSON.stringify(response));
+          // console.log('response: ' + circularJSON.stringify(response));
           const predictresponse = circularJSON.stringify(body);
           resolve(predictresponse);
           // return predictresponse;

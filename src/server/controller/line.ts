@@ -100,10 +100,10 @@ const handleImage = (message, replyToken) => {
       })
       .then((predictresponse) => {
         console.log('Promiss.all predictresponse: ' + predictresponse);
-        const _predictresponse = predictresponse;
+        const _name = predictresponse['probabilities'].get(0);
         const messageToBeSent = {
           type:'text',
-          text: `画像の分析の結果、 "${_predictresponse}" `
+          text: `画像の分析の結果、 "${_name}" `
         };
         return sendMessage(messageToBeSent, replyToken);
       }).catch((error) => {
