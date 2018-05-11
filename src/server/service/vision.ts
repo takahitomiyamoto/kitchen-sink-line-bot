@@ -48,7 +48,7 @@ export class VisionService {
     // });
   }
 
-  private getAccessToken() {
+  public getAccessToken() {
     const tokenOptions = this.createTokenOptions();
     console.log('tokenOptions: ' + tokenOptions);
     return new Promise((resolve, reject) => {

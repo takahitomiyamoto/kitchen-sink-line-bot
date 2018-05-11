@@ -79,7 +79,13 @@ const handleImage = (message, replyToken) => {
   console.log('message: ' + circularJSON.stringify(message));
   console.log('replyToken: ' + replyToken);
 
-  // TODO: callbackじゃなくてpromissで書き直す
+  const promise1 = visionService.instance.getAccessToken();
+  Promise.all([promise1])
+  .then((values) => {
+    console.log('Promiss.all values: ' + values);
+  }).catch((error) => {
+    console.log('Promiss.all error: ' + circularJSON.stringify(error));
+  });
   // 1. Einstein Vision の access_token を取得する
   visionService.instance.getAccessToken_(function(accessToken) {
     console.log('-------------------- accessToken: ' + accessToken);
