@@ -159,7 +159,7 @@ export class VisionService {
     return new Promise((resolve, reject) => {
       request.post(predictOptions, (error, response, body) => {
         // console.log('error: ' + circularJSON.stringify(error));
-        // console.log('response: ' + circularJSON.stringify(response));
+        console.log('response: ' + circularJSON.stringify(response));
         console.log('body: ' + circularJSON.stringify(body));
         if (error) {
           reject(error)
