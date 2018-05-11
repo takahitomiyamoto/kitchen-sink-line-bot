@@ -88,21 +88,32 @@ export class VisionService {
     const url = process.env.EINSTEIN_VISION_URL + process.env.EINSTEIN_API_VERSION;
     const reqUrl = url + '/vision/predict';
     const modelId = process.env.EINSTEIN_VISION_MODEL_ID;
+    const formData = {
+      modelId: modelId,
+      sampleBase64Content: targetImage
+    };
     const options = {
-      method: 'POST',
-      uri: reqUrl,
-      timeout: 3000,
-      body: {
-        'modelId': modelId,
-        // 'numResults': 1,
-        'sampleBase64Content': targetImage
-      },
+      url: reqUrl,
       headers: {
         'Authorization': 'Bearer ' + accessToken,
         'Cache-Control': 'no-cache',
         'Content-Type': 'multipart/form-data'
       },
-      json: true
+      formData: formData
+      // method: 'POST',
+      // uri: reqUrl,
+      // timeout: 3000,
+      // body: {
+      //   'modelId': modelId,
+      //   // 'numResults': 1,
+      //   'sampleBase64Content': targetImage
+      // },
+      // headers: {
+      //   'Authorization': 'Bearer ' + accessToken,
+      //   'Cache-Control': 'no-cache',
+      //   'Content-Type': 'multipart/form-data'
+      // },
+      // json: true
     };
     return options;
   }
