@@ -99,7 +99,7 @@ const handleImage = (message, replyToken) => {
         return promise2(targetImageBase64, accessToken);
       })
       .then((predictresponse) => {
-        console.log('Promiss.all predictresponse: ' + circularJSON.stringify(predictresponse));
+        console.log('Promiss.all predictresponse: ' + predictresponse);
         const _predictresponse = predictresponse;
         const messageToBeSent = {
           type:'text',

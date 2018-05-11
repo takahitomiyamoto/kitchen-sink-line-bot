@@ -132,9 +132,10 @@ export const defaultMessage = (replyToken) => {
 }
 
 export const sendMessage = (message, replyToken) => {
+  console.log('sendMessage: ' + message);
   return client.replyMessage(replyToken, message)
     .then((result) => {
-      console.log(result);
+      console.log('sendMessage result: ' + result);
     })
     .catch((err) => {
       // error handling
