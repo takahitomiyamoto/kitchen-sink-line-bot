@@ -123,7 +123,7 @@ export class VisionService {
         'Content-Type': 'application/x-www-form-urlencoded',
         'accept': 'application/json'
       },
-      timeout: 1000,
+      // timeout: 1000,
       json: true
     };
     return options;
@@ -155,11 +155,11 @@ export class VisionService {
 
   public getImageClassification(targetImage, accessToken) {
     const predictOptions = this.createPredictOptions(targetImage, accessToken);
-    console.log('predictOptions: ' + predictOptions);
+    // console.log('predictOptions: ' + predictOptions);
     return new Promise((resolve, reject) => {
       request.post(predictOptions, (error, response, body) => {
-        console.log('error: ' + circularJSON.stringify(error));
-        console.log('response: ' + circularJSON.stringify(response));
+        // console.log('error: ' + circularJSON.stringify(error));
+        // console.log('response: ' + circularJSON.stringify(response));
         console.log('body: ' + circularJSON.stringify(body));
         if (error) {
           reject(error)
@@ -207,7 +207,7 @@ export class VisionService {
       //   'Cache-Control': 'no-cache',
       //   'Content-Type': 'multipart/form-data'
       // },
-      timeout: 3000,
+      timeout: 60000,
       json: true
     };
     return options;

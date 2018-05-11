@@ -79,11 +79,11 @@ const handleImage = (message, replyToken) => {
   console.log('message: ' + circularJSON.stringify(message));
   console.log('replyToken: ' + replyToken);
   // const promise0 = visionService.instance.getMessageContent_(client, message.id);
-  const promise0 = 0;
-  const promise1 = visionService.instance.getAccessToken();
+  const promise0 = visionService.instance.getAccessToken();
   const promise2 = (v1, v2) => visionService.instance.getImageClassification(v1, v2);
-  Promise.all([Promise.all([promise0, promise1])
-  .then((values) => {
+  Promise.all([
+    Promise.all([promise0])
+    .then((values) => {
     console.log('Promiss.all values: ' + values);
 
     client.getMessageContent(message.id)
@@ -93,7 +93,7 @@ const handleImage = (message, replyToken) => {
         const data = Buffer.from(chunk);
         targetImageBase64 = data.toString('base64');
         console.log('stream on targetImageBase64: ' + targetImageBase64.length);
-        return promise2(targetImageBase64, values[1]);
+        // return promise2(targetImageBase64, values[0]);
       });
       stream.on('end', () => {
         // const data = Buffer.from(body);
