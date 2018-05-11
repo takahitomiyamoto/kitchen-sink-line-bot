@@ -115,6 +115,7 @@ export class VisionService {
         'Content-Type': 'application/x-www-form-urlencoded',
         'accept': 'application/json'
       },
+      timeout: 1000,
       json: true
     };
     return options;
@@ -198,6 +199,7 @@ export class VisionService {
       //   'Cache-Control': 'no-cache',
       //   'Content-Type': 'multipart/form-data'
       // },
+      timeout: 3000,
       json: true
     };
     return options;
