@@ -81,11 +81,12 @@ const handleImage = (message, replyToken) => {
   const promise0 = visionService.instance.getMessageContent_(message.id);
   const promise1 = visionService.instance.getAccessToken();
   const promise2 = (v1, v2) => visionService.instance.getImageClassification(v1, v2);
-  Promise.all([promise0, promise1])
+  Promise.all([Promise.all([promise0, promise1])
   .then((values) => {
     console.log('Promiss.all values: ' + values);
     return promise2(values[0], values[1]);
-  }).then((predictresponse) => {
+  })])
+  .then((predictresponse) => {
     console.log('Promiss.all predictresponse: ' + circularJSON.stringify(predictresponse));
     const _predictresponse = predictresponse;
     const messageToBeSent = {
