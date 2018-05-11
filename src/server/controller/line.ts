@@ -98,8 +98,6 @@ const handleImage = (message, replyToken) => {
       .then((accessToken) => {
         return promise2(targetImageBase64, accessToken);
       })
-    })
-  })
       .then((predictresponse) => {
         console.log('Promiss.all predictresponse: ' + predictresponse);
         const _label = predictresponse['probabilities'].get(0);
@@ -109,9 +107,12 @@ const handleImage = (message, replyToken) => {
           text: `画像の分析の結果、 ${_label}: ${_label} `
         };
         return sendMessage(messageToBeSent, replyToken);
-      }).catch((error) => {
-        console.log('Promiss.all error: ' + circularJSON.stringify(error));
-      });
+      })
+    })
+  })
+  .catch((error) => {
+    console.log('Promiss.all error: ' + circularJSON.stringify(error));
+  });
       // });
       // stream.on('end', () => {
       //   // const data = Buffer.from(body);
@@ -121,8 +122,6 @@ const handleImage = (message, replyToken) => {
       //   .then((accessToken) => {
       //     return promise2(targetImageBase64, accessToken);
       //   });
-    // });
-  // })
   // ])
   // .then((predictresponse) => {
   //   console.log('Promiss.all predictresponse: ' + circularJSON.stringify(predictresponse));
