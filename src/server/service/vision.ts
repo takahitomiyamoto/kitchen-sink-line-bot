@@ -85,6 +85,7 @@ export class VisionService {
       rp(tokenOptions)
       .then((data) => {
         const accessToken = data['access_token'];
+        console.log('expires_in: ' + data['expires_in']);
         resolve(accessToken)
       })
       .catch((err) => {
@@ -118,7 +119,7 @@ export class VisionService {
     const options = {
       method: 'POST',
       uri: reqUrl,
-      body: `grant_type=urn:ietf:params:oauth:grant-type:jwt-bearer&assertion=${encodeURIComponent(assertion)}`,
+      body: `grant_type=urn:ietf:params:oauth:grant-type:jwt-bearer&assertion=${encodeURIComponent(assertion)}&scope=offline`,
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
         'accept': 'application/json'
