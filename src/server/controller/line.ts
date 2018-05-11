@@ -100,11 +100,12 @@ const handleImage = (message, replyToken) => {
       })
       .then((predictresponse) => {
         console.log('Promiss.all predictresponse: ' + circularJSON.stringify(predictresponse));
-        const _label = (predictresponse['probabilities'])[0];
-        console.log('label: ' + circularJSON.stringify(_label));
+        const _probabilities_0 = (predictresponse['probabilities'])[0];
+        const _label = _probabilities_0['label'];
+        const _probability = _probabilities_0['probability'];
         const messageToBeSent = {
           type:'text',
-          text: `画像の分析の結果、 ${_label}: ${_label} `
+          text: `画像の分析の結果、 ${_label}: ${_probability} `
         };
         return sendMessage(messageToBeSent, replyToken);
       })
