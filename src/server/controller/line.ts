@@ -88,13 +88,14 @@ const handleImage = (message, replyToken) => {
 
     client.getMessageContent(message.id)
     .then((stream) => {
-      let body = '';
+      let targetImageBase64;
       stream.on('data', (chunk) => {
-        body += chunk;
+        const data = Buffer.from(chunk);
+        targetImageBase64 = data.toString('base64');
       });
       stream.on('end', () => {
-        const data = Buffer.from(body);
-        const targetImageBase64 = data.toString('base64');
+        // const data = Buffer.from(body);
+        // const targetImageBase64 = data.toString('base64');
         console.log('-------------------- targetImageBase64: ' + targetImageBase64);
         return promise2(targetImageBase64, values[1]);
       })
