@@ -130,29 +130,29 @@ export class VisionService {
     return options;
   }
 
-  public getImageClassification_(targetImage, accessToken, callback) {
-    const predictOptions = this.createPredictOptions(targetImage, accessToken);
-    console.log('predictOptions: ' + predictOptions);
-    // return new Promise((resolve, reject) => {
-      request.post(predictOptions, (error, response, body) => {
-        console.log('error: ' + circularJSON.stringify(error));
-        console.log('response: ' + circularJSON.stringify(response));
-        console.log('body: ' + circularJSON.stringify(body));
-        if (error) {
-          console.log(error);
-        }
-        const predictresponse = circularJSON.stringify(body);
-        return callback(predictresponse);
-      });
-      // .then((body) => {
-      //   resolve(body);
-      // })
-      // .catch((err) => {
-      //   console.log(err);
-      //   reject(err);
-      // });
-    // });
-  }
+  // public getImageClassification_(targetImage, accessToken, callback) {
+  //   const predictOptions = this.createPredictOptions(targetImage, accessToken);
+  //   console.log('predictOptions: ' + predictOptions);
+  //   // return new Promise((resolve, reject) => {
+  //     request.post(predictOptions, (error, response, body) => {
+  //       console.log('error: ' + circularJSON.stringify(error));
+  //       console.log('response: ' + circularJSON.stringify(response));
+  //       console.log('body: ' + circularJSON.stringify(body));
+  //       if (error) {
+  //         console.log(error);
+  //       }
+  //       const predictresponse = circularJSON.stringify(body);
+  //       return callback(predictresponse);
+  //     });
+  //     // .then((body) => {
+  //     //   resolve(body);
+  //     // })
+  //     // .catch((err) => {
+  //     //   console.log(err);
+  //     //   reject(err);
+  //     // });
+  //   // });
+  // }
 
   public getImageClassification(targetImage, accessToken) {
     const predictOptions = this.createPredictOptions(targetImage, accessToken);
@@ -163,8 +163,8 @@ export class VisionService {
         // console.log('response: ' + circularJSON.stringify(response));
         // console.log('body: ' + circularJSON.stringify(body));
         if (error) {
-          // reject(error)
-          console.log(error)
+          reject(error)
+          // console.log(error)
         }
         if (response['statusCode'] === 200) {
           // console.log('response: ' + circularJSON.stringify(response));
