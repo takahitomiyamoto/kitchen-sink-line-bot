@@ -65,12 +65,12 @@ export class VisionService {
     const predictOptions = this.createPredictOptions(targetImage, accessToken);
     console.log('predictOptions: ' + predictOptions);
     return new Promise((resolve, reject) => {
-      request.post(predictOptions, (err, response, body) => {
-        console.log('err: ' + err);
-        console.log('response: ' + response);
-        console.log('body: ' + body);
-        if (err) {
-          reject(err)
+      request.post(predictOptions, (error, response, body) => {
+        console.log('error: ' + circularJSON.stringify(error));
+        console.log('response: ' + circularJSON.stringify(response));
+        console.log('body: ' + circularJSON.stringify(body));
+        if (error) {
+          reject(error)
         }
         resolve(body);
       });
