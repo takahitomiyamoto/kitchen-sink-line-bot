@@ -94,10 +94,10 @@ const handleImage = (message, replyToken) => {
         targetImageBase64 = data.toString('base64');
         console.log('stream on targetImageBase64: ' + targetImageBase64.length);
         // return promise2(targetImageBase64, values[0]);
-        Promise.all([promise0])
-        .then((accessToken) => {
-          return promise2(targetImageBase64, accessToken);
-        });
+        // Promise.all([promise0])
+        // .then((accessToken) => {
+        //   return promise2(targetImageBase64, accessToken);
+        // });
       });
       stream.on('end', () => {
         // const data = Buffer.from(body);
