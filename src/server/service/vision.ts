@@ -158,6 +158,7 @@ export class VisionService {
     const predictOptions = this.createPredictOptions(targetImage, accessToken);
     // console.log('predictOptions: ' + predictOptions);
     return new Promise((resolve, reject) => {
+      try {
       request.post(predictOptions, (error, response, body) => {
         // console.log('error: ' + circularJSON.stringify(error));
         // console.log('response: ' + circularJSON.stringify(response));
@@ -173,14 +174,11 @@ export class VisionService {
           // return predictresponse;
         }
         reject(circularJSON.stringify(body));
-      });
-      // .then((body) => {
-      //   resolve(body);
-      // })
-      // .catch((err) => {
-      //   console.log(err);
-      //   reject(err);
-      // });
+      })
+      } catch(err) {
+        console.log(err);
+        reject(err);
+      }
     });
   }
 

@@ -109,12 +109,14 @@ const handleImage = (message, replyToken) => {
         };
         return sendMessage(messageToBeSent, replyToken);
       })
+      .catch((error) => {
+        console.log('Promiss.all error: ' + circularJSON.stringify(error));
+      });
     })
-  })
-  .catch((error) => {
+  }).catch((error) => {
     console.log('Promiss.all error: ' + circularJSON.stringify(error));
   });
-      // });
+  // });
       // stream.on('end', () => {
       //   // const data = Buffer.from(body);
       //   // const targetImageBase64 = data.toString('base64');
