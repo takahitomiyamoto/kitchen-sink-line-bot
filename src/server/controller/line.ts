@@ -78,7 +78,7 @@ const handleImage = (message, replyToken) => {
   console.log('handleImage');
   console.log('message: ' + circularJSON.stringify(message));
   console.log('replyToken: ' + replyToken);
-
+/*
   const promise0 = visionService.instance.getMessageContent_(message.id);
   const promise1 = visionService.instance.getAccessToken();
   const promise2 = (v1, v2) => visionService.instance.getImageClassification(v1, v2);
@@ -97,8 +97,7 @@ const handleImage = (message, replyToken) => {
   }).catch((error) => {
     console.log('Promiss.all error: ' + circularJSON.stringify(error));
   });
-/*
-  // 1. Einstein Vision の access_token を取得する
+*/  // 1. Einstein Vision の access_token を取得する
   visionService.instance.getAccessToken_(function(accessToken) {
     console.log('-------------------- accessToken: ' + accessToken);
     // 2. 画像のバイナリデータを取得する
@@ -123,7 +122,6 @@ const handleImage = (message, replyToken) => {
       });
     });
   });
-*/
   // client.getMessageContent(message.id)
   //   .then((stream) => {
   //     // stream.setEncoding('utf8');
