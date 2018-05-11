@@ -165,8 +165,10 @@ export class VisionService {
         if (error) {
           reject(error)
         }
-        const predictresponse = circularJSON.stringify(body);
-        resolve(predictresponse);
+        if (response['statusCode'] === 200) {
+          const predictresponse = circularJSON.stringify(body);
+          resolve(predictresponse);
+        }
       });
       // .then((body) => {
       //   resolve(body);
