@@ -100,7 +100,7 @@ const handleImage = (message, replyToken) => {
       })
       .then((predictresponse) => {
         console.log('Promiss.all predictresponse: ' + predictresponse);
-        const _label = predictresponse['probabilities'][0];
+        const _label = predictresponse['probabilities'];
         console.log('label: ' + _label);
         const messageToBeSent = {
           type:'text',
