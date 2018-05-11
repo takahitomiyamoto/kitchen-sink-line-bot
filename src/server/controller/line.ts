@@ -79,12 +79,26 @@ const handleImage = (message, replyToken) => {
   console.log('message: ' + circularJSON.stringify(message));
   console.log('replyToken: ' + replyToken);
 
-  const _type = 'test';
-  const messageToBeSent = {
-    type:'text',
-    text: `画像の分析の結果、 "${_type}" `
-  };
-  return sendMessage(messageToBeSent, replyToken);
+  // TODO: callbackじゃなくてpromissで書き直す
+  // 1. Einstein Vision の access_token を取得する
+  visionService.instance.getAccessToken_(function(accessToken) {
+    console.log('-------------------- accessToken: ' + accessToken);
+    // 2. 画像のバイナリデータを取得する
+    visionService.instance.getMessageContent(message.id, function(targetImageBase64) {
+      console.log('-------------------- targetImageBase64: ' + targetImageBase64);
+      // 3. Einstein Vision の予測結果を取得する
+      visionService.instance.getImageClassification_(targetImageBase64, accessToken, function(predictresponse) {
+        console.log('-------------------- predictresponse: ' + predictresponse);
+        // 4. Einstein Vision の予測結果を返信する
+        const _predictresponse = predictresponse;
+        const messageToBeSent = {
+          type:'text',
+          text: `画像の分析の結果、 "${_predictresponse}" `
+        };
+        return sendMessage(messageToBeSent, replyToken);
+      })
+    })
+  })
   // client.getMessageContent(message.id)
   //   .then((stream) => {
   //     // stream.setEncoding('utf8');

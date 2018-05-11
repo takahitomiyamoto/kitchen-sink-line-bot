@@ -11,6 +11,43 @@ export class VisionService {
     return VisionService._visionService;
   }
 
+  public getAccessToken_(callback) {
+    const tokenOptions = this.createTokenOptions();
+    console.log('tokenOptions: ' + tokenOptions);
+    // return new Promise((resolve, reject) => {
+      rp(tokenOptions)
+      .then((data) => {
+        const accessToken = data['access_token'];
+        return callback(accessToken);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    // });
+  }
+
+  public getMessageContent(messageId, callback) {
+    const options = {
+      uri: 'https://api.line.me/v2/bot/message/' + messageId + '/content',
+      headers: {
+        'Authorization': 'Bearer ' + process.env.LINE_CHANNEL_ACCESS_TOKEN
+      },
+      json: true
+    };
+    console.log('options: ' + options);
+    // return new Promise((resolve, reject) => {
+      rp(options)
+      .then((chunk) => {
+        const data = Buffer.from(chunk);
+        const targetImageBase64 = data.toString('base64');
+        return callback(targetImageBase64);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    // });
+  }
+
   private getAccessToken() {
     const tokenOptions = this.createTokenOptions();
     console.log('tokenOptions: ' + tokenOptions);
@@ -61,6 +98,30 @@ export class VisionService {
     return options;
   }
 
+  public getImageClassification_(targetImage, accessToken, callback) {
+    const predictOptions = this.createPredictOptions(targetImage, accessToken);
+    console.log('predictOptions: ' + predictOptions);
+    // return new Promise((resolve, reject) => {
+      request.post(predictOptions, (error, response, body) => {
+        console.log('error: ' + circularJSON.stringify(error));
+        console.log('response: ' + circularJSON.stringify(response));
+        console.log('body: ' + circularJSON.stringify(body));
+        if (error) {
+          console.log(error);
+        }
+        const predictresponse = circularJSON.stringify(body);
+        return callback(predictresponse);
+      });
+      // .then((body) => {
+      //   resolve(body);
+      // })
+      // .catch((err) => {
+      //   console.log(err);
+      //   reject(err);
+      // });
+    // });
+  }
+
   private getImageClassification(targetImage, accessToken) {
     const predictOptions = this.createPredictOptions(targetImage, accessToken);
     console.log('predictOptions: ' + predictOptions);
@@ -99,7 +160,7 @@ export class VisionService {
         'Cache-Control': 'no-cache',
         'Content-Type': 'multipart/form-data'
       },
-      formData: formData
+      formData: formData,
       // method: 'POST',
       // uri: reqUrl,
       // timeout: 3000,
@@ -113,7 +174,7 @@ export class VisionService {
       //   'Cache-Control': 'no-cache',
       //   'Content-Type': 'multipart/form-data'
       // },
-      // json: true
+      json: true
     };
     return options;
   }
