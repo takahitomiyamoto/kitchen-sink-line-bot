@@ -27,14 +27,14 @@ export class VisionService {
   }
 
   public getMessageContent_(client, messageId) {
-    client.getMessageContent(messageId)
-    .then((stream) => {
-      stream.on('data', (chunk) => {
-        const data = Buffer.from(chunk);
-        const targetImageBase64 = data.toString('base64');
-        return targetImageBase64;
-      })
-    })
+    // client.getMessageContent(messageId)
+    // .then((stream) => {
+    //   stream.on('data', (chunk) => {
+    //     const data = Buffer.from(chunk);
+    //     const targetImageBase64 = data.toString('base64');
+    //     return targetImageBase64;
+    //   })
+    // })
   // const options = {
   //     uri: 'https://api.line.me/v2/bot/message/' + messageId + '/content',
   //     headers: {
