@@ -79,40 +79,46 @@ const handleImage = (message, replyToken) => {
   console.log('message: ' + circularJSON.stringify(message));
   console.log('replyToken: ' + replyToken);
 
-  client.getMessageContent(message.id)
-    .then((stream) => {
-      // stream.setEncoding('utf8');
-      stream.on('data', (chunk) => {
-        const data = Buffer.from(chunk);
-        const targetImageBase64 = data.toString('base64');
-        let _type;
-        visionService.instance.imageClassify(targetImageBase64)
-          .then(type => {
-            _type = type;
-            console.log('type: ' + _type);
-            // return salesforceService.instance.findHouses(_type);
-          }).then(houses => sendMessage(
-            [
-              {
-                type:'text',
-                text: `画像の分析の結果、 "${_type}" `
-              },
-              // formatter.formatProperties(houses)
-            ],
-            replyToken
-          )).catch((err) => {
-            // POST failed...
-            console.log('err: ' + err);
-          })
-        ;
-      });
+  const _type = 'test';
+  const messageToBeSent = {
+    type:'text',
+    text: `画像の分析の結果、 "${_type}" `
+  };
+  return sendMessage(messageToBeSent, replyToken);
+  // client.getMessageContent(message.id)
+  //   .then((stream) => {
+  //     // stream.setEncoding('utf8');
+  //     stream.on('data', (chunk) => {
+  //       const data = Buffer.from(chunk);
+  //       const targetImageBase64 = data.toString('base64');
+  //       let _type;
+  //       visionService.instance.imageClassify(targetImageBase64)
+  //         .then(type => {
+  //           _type = type;
+  //           console.log('type: ' + _type);
+  //           // return salesforceService.instance.findHouses(_type);
+  //         }).then(houses => sendMessage(
+  //           [
+  //             {
+  //               type:'text',
+  //               text: `画像の分析の結果、 "${_type}" `
+  //             },
+  //             // formatter.formatProperties(houses)
+  //           ],
+  //           replyToken
+  //         )).catch((err) => {
+  //           // POST failed...
+  //           console.log('err: ' + err);
+  //         })
+  //       ;
+  //     });
 
-      stream.on('error', (err) => {
-        // error handling
-        console.log('err: ' + err);
-      });
-    })
-  ;
+  //     stream.on('error', (err) => {
+  //       // error handling
+  //       console.log('err: ' + err);
+  //     });
+  //   })
+  // ;
 }
 
 export const handleVideo = (message, replyToken) => {
