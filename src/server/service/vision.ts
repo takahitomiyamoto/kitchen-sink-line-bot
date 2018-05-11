@@ -66,6 +66,9 @@ export class VisionService {
     console.log('predictOptions: ' + predictOptions);
     return new Promise((resolve, reject) => {
       request.post(predictOptions, (err, response, body) => {
+        console.log('err: ' + err);
+        console.log('response: ' + response);
+        console.log('body: ' + body);
         if (err) {
           reject(err)
         }
@@ -104,41 +107,6 @@ export class VisionService {
     return options;
   }
 
-  // private static getAccessToken(options) {
-  //   return new Promise((resolve, reject) => {
-  //     // let accessToken;
-  //     rp(options)
-  //       .then((data) => {
-  //         // const data = JSON.parse(body);
-  //         const accessToken = data['access_token'];
-  //         // console.log('0: accessToken: ' + accessToken);
-  //         resolve(accessToken)
-  //       })
-  //       .catch((err) => {
-  //         console.log(err);
-  //         reject(err);
-  //       })
-  //     ;
-  //   });
-  // }
-
-  // private static createTokenOptions = new Promise((resolve, reject) => {
-  //   console.log('#################### 1. createTokenOptions ####################');
-  //   const tokenOptions = this.createTokenOptions();
-  //   resolve(tokenOptions);
-  // });
-
-  // private static getAccessToken = (tokenOptions, counter) => new Promise((resolve, reject) => {
-  //   console.log('#################### 2. getAccessToken ####################');
-  //   console.log('#################### counter: ' + counter);
-  //   // 2回目以降は取得しない
-  //   if (counter > 1) {
-  //     return;
-  //   }
-  //   const ACCESS_TOKEN = this.getAccessToken(tokenOptions);
-  //   resolve(ACCESS_TOKEN);
-  // });
-
   public imageClassify = (targetImage) => {
     return new Promise((resolve, reject) => {
       // access_tokenを取得する
@@ -162,6 +130,17 @@ export class VisionService {
         reject(err);
       });
     });
+  }
+
+  public objectDetect = (targetImage) => {
+    return new Promise((resolve, reject) => {
+      // call Object Detection API
+      setTimeout(() => {
+        resolve('★★★');
+      }, 1000);
+    });
+  }
+}
 
     // const createPredictOptions = (accessToken) => new Promise((resolve, reject) => {
       //   console.log('#################### 3. createPredictOptions ####################');
@@ -250,7 +229,6 @@ export class VisionService {
     //     ;
     //   });
     // });
-  }
 
     // return new Promise((resolve, reject) => {
       // call Image Classification API
@@ -280,13 +258,3 @@ export class VisionService {
       // setTimeout(() => {
       //   resolve('★★★');
       // }, 1000);
-
-  public objectDetect = (targetImage) => {
-    return new Promise((resolve, reject) => {
-      // call Object Detection API
-      setTimeout(() => {
-        resolve('★★★');
-      }, 1000);
-    });
-  }
-}
