@@ -2,7 +2,7 @@ import * as circularJSON from 'circular-json';
 import * as rp from 'request-promise';
 import * as jwt from 'jsonwebtoken';
 import * as request from 'request';
-import { sendMessage } from '../service/line';
+import { LineService as lineService } from '../service/line';
 
 export class VisionService {
   private static _visionService: VisionService = new VisionService();
@@ -125,7 +125,7 @@ export class VisionService {
       };
 
       const promise2 = (messageToBeSent) => {
-        sendMessage(messageToBeSent, replyToken);
+        lineService.instance.sendMessage(messageToBeSent, replyToken);
       };
 
       Promise.all([promise0(detectOptions)])
