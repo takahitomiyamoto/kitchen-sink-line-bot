@@ -176,7 +176,7 @@ export class VisionService {
       numResults: 3,
       // sampleLocation: 'https://einstein.ai/images/alpine.jpg'
       // sampleLocation: targetImage
-      sampleContent: '@/uploaded/alpine.jpg'
+      sampleContent: '/uploaded/alpine.jpg'
     };
     const options = {
       method: 'POST',
