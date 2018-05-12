@@ -96,11 +96,10 @@ export class VisionService {
         // console.log('promise2 predictresponse: ' + predictresponse);
         // console.log('promise2 predictresponse: ' + predictresponse.length);
         const probabilities = (predictresponse[0])['probabilities'];
-        console.log('promise2 probabilities: ' + probabilities);
-        console.log('promise2 probabilities: ' + probabilities.length);
+        console.log('probabilities: ' + probabilities.length);
         probabilities.sort((a, b) => {
-          if (a.probability > b.probability) return -1;
-          if (a.probability < b.probability) return 1;
+          if (a.probability > b.probability) { return -1; }
+          if (a.probability < b.probability) { return 1; }
           return 0;
         });
         console.log(probabilities);
@@ -108,13 +107,13 @@ export class VisionService {
           const p = probabilities[i];
           console.log('------------------------------');
           console.log(circularJSON.stringify(p));
-          console.log('label : ' + p['label']);
-          console.log('probability : ' + p['probability']);
+          console.log('label : ' + p.label);
+          console.log('probability : ' + p.probability);
         }
         // console.log('promise2 predictresponse: ' + predictresponse.length);
-        const _probabilities_0 = ((predictresponse[0])['probabilities'])[0];
-        const _label = _probabilities_0['label'];
-        const _probability = _probabilities_0['probability'];
+        const _probabilities_0 = probabilities[0];
+        const _label = _probabilities_0.label;
+        const _probability = _probabilities_0.probability;
         // const _label = 'label';
         // const _probability = 'probability';
         const messageToBeSent = {
