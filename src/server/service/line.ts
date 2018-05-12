@@ -25,12 +25,14 @@ export class LineService {
         console.log('LineService then: ' + downloadPath);
         const writable = fs.createWriteStream(downloadPath);
         console.log('LineService then: writable');
+        writable.on('open', () => {
         stream.pipe(writable);
         console.log('LineService then: writable pipe');
         stream.on('end', () => resolve(downloadPath));
         console.log('LineService then: end');
         stream.on('error', reject);
         console.log('LineService then: error');
+        })
       }))
     ;
   }
