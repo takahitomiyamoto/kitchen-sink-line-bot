@@ -71,7 +71,7 @@ export class VisionService {
   }
 
   public getObjectDetection = (targetImage, accessToken) => {
-    return new Promise((resolve, reject) => {
+    // return new Promise((resolve, reject) => {
       const detectOptions = this.createDetectOptions(targetImage, accessToken);
       console.log('detectOptions: ' + circularJSON.stringify(detectOptions));
     // }).then((detectOptions: any) => {
@@ -81,12 +81,12 @@ export class VisionService {
         console.log('data: ' + circularJSON.stringify(data));
       // const accessToken = data['access_token'];
       //   console.log('expires_in: ' + data['expires_in']);
-        resolve(data)
-        // return data;
+        // resolve(data)
+        return data;
       })
       .catch((err) => {
         console.log(err);
-        reject(err);
+        // reject(err);
       });
       // try {
       // request.post(detectOptions, (error, response, body) => {
@@ -105,7 +105,7 @@ export class VisionService {
       // } catch(err) {
       //   reject(err);
       // }
-    });
+    // });
   // });
   }
 
@@ -175,8 +175,8 @@ export class VisionService {
       modelId: modelId,
       numResults: 3,
       // sampleLocation: 'https://einstein.ai/images/alpine.jpg'
-      // sampleLocation: targetImage
-      sampleContent: '/uploaded/alpine.jpg'
+      sampleLocation: targetImage
+      // sampleContent: '/uploaded/alpine.jpg'
     };
     const options = {
       method: 'POST',
