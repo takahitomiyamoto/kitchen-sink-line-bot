@@ -77,11 +77,12 @@ export class VisionService {
       request.post(detectOptions, (error, response, body) => {
         console.log('error: ' + circularJSON.stringify(error));
         console.log('response: ' + circularJSON.stringify(response));
-        console.log('body: ' + circularJSON.stringify(body));
+        // console.log('body: ' + circularJSON.stringify(body));
         if (error) {
           reject(error)
         }
         if (response['statusCode'] === 200) {
+          console.log('---------------------------------------- OK ---------------------------------------- ' + circularJSON.stringify(body));
           resolve(body);
         }
         reject(circularJSON.stringify(body));
