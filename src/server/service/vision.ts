@@ -156,7 +156,7 @@ export class VisionService {
     const formData = {
       modelId: modelId,
       numResults: 3,
-      sampleLocation: 'https://ara-line-bot-20180515.herokuapp.com/uploaded/sfdg-20180301-02.jpg'
+      sampleLocation: 'https://einstein.ai/images/alpine.jpg'
     };
     const options = {
       url: reqUrl,
