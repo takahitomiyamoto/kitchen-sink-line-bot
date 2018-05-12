@@ -19,9 +19,10 @@ export class LineService {
   public downloadContent = (messageId, downloadPath) => {
     console.log('LineService downloadContent');
     console.log('LineService messageId: ' + messageId);
-    console.log('LineService downloadPath: ' + downloadPath);
+    // console.log('LineService downloadPath: ' + downloadPath);
     return this.client.getMessageContent(messageId)
       .then((stream) => new Promise((resolve, reject) => {
+        console.log('LineService then: ' + downloadPath);
         const writable = fs.createWriteStream(downloadPath);
         stream.pipe(writable);
         stream.on('end', () => resolve(downloadPath));
