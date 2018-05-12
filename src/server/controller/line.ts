@@ -97,22 +97,22 @@ export class LineController {
       cp.execSync(`convert -resize 240x jpeg:${downloadFile} jpeg:${previewFile}`);
       cp.execSync(`mv ${downloadFile} .${downloadFileUploaded}`);
       cp.execSync(`mv ${previewFile} .${previewFileUploaded}`);
-      // return lineService.instance.client.replyMessage(
-      //   replyToken,
-      //   {
-      //     type: 'image',
-      //     originalContentUrl: `${baseURL}${downloadFileUploaded}`,
-      //     previewImageUrl: `${baseURL}${downloadFileUploaded}`
-      //   }
-      // );
-    }).then(() => {
-      Promise.all([getAccessToken])
-      .then((accessToken) => {
-        console.log('accessToken: ' + accessToken);
-        Promise.all([getObjectDetection(targetFile, accessToken)])
-      }).catch((error) => {
-        console.log('error: ' + circularJSON.stringify(error));
-      });
+      return lineService.instance.client.replyMessage(
+        replyToken,
+        {
+          type: 'image',
+          originalContentUrl: `${lineService.instance.baseURL}${downloadFileUploaded}`,
+          previewImageUrl: `${lineService.instance.baseURL}${downloadFileUploaded}`
+        }
+      );
+    // }).then(() => {
+    //   Promise.all([getAccessToken])
+    //   .then((accessToken) => {
+    //     console.log('accessToken: ' + accessToken);
+    //     Promise.all([getObjectDetection(targetFile, accessToken)])
+    //   }).catch((error) => {
+    //     console.log('error: ' + circularJSON.stringify(error));
+    //   });
     })
   }
 }
