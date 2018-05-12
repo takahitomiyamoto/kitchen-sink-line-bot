@@ -83,6 +83,7 @@ const handleImage = (message, replyToken) => {
 
   Promise.all([lineService.instance.downloadContent(message.id, downloadPath)])
   .then((downloadPath:any) => {
+    console.log('downloadContent then: ' + downloadPath);
     // ImageMagick is needed here to run 'convert'
     // Please consider about security and performance by yourself
     cp.execSync(`convert -resize 240x jpeg:${downloadPath} jpeg:${previewPath}`);
