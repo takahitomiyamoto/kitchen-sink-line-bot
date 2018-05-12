@@ -16,28 +16,17 @@ export class LineService {
 
   public baseURL = process.env.HEROKU_BASE_URL;
   public client = new line.Client(configLine);
-  public downloadContent = (messageId, downloadPath) => {
-    console.log('LineService downloadContent');
-    console.log('LineService messageId: ' + messageId);
-    // console.log('LineService downloadPath: ' + downloadPath);
+
+  public downloadContent = (messageId, downloadFile) => {
     return this.client.getMessageContent(messageId)
       .then((stream) => new Promise((resolve, reject) => {
-        console.log('LineService then: ' + downloadPath);
-        // fs.mkdirSync('output');
-        const writable = fs.createWriteStream(`${messageId}.jpg`);
-        // const writable = fs.createWriteStream(downloadPath);
-        // const errorHandling = (err) => { console.log(err) }
-        console.log('LineService then: writable');
-        // writable.on('open', () => {
-        // stream.pipe(writable);
+        const writable = fs.createWriteStream(downloadFile);
         stream.on('error', reject).pipe(writable);
         console.log('LineService then: writable pipe');
-        stream.on('end', () => resolve(`${messageId}.jpg`));
-        // stream.on('end', () => resolve(downloadPath));
+        stream.on('end', () => resolve(downloadFile));
         console.log('LineService then: end');
         stream.on('error', reject);
         console.log('LineService then: error');
-        // })
       }))
     ;
   }

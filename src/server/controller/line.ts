@@ -75,99 +75,40 @@ const handleText = (message, replyToken, source) => {
 }
 
 const handleImage = (message, replyToken) => {
-  // const downloadPath = path.join(__dirname, 'downloaded', `${message.id}.jpg`);
-  // const previewPath = path.join(__dirname, 'downloaded', `${message.id}-preview.jpg`);
-  const baseURL = lineService.instance.baseURL;
-  const downloadFile = `${message.id}.jpg`;
-  const previewFile = `${message.id}-preview.jpg`;
-
-  Promise.all([lineService.instance.downloadContent(message.id, downloadFile)])
-  .then((downloadFile:any) => {
-    console.log('downloadContent then: ' + downloadFile);
-    // ImageMagick is needed here to run 'convert'
-    // Please consider about security and performance by yourself
-    cp.execSync(`convert -resize 240x jpeg:${downloadFile} jpeg:${previewFile}`);
-    cp.execSync(`mv ${downloadFile} ./uploaded/${downloadFile}`);
-    cp.execSync(`mv ${previewFile} ./uploaded/${previewFile}`);
-    // cp.execSync(`convert -resize 240x jpeg:${message.id}.jpg jpeg:${message.id}-preview.jpg`);
-    // console.log('originalContentUrl: ' + baseURL + '/uploaded/' + path.basename(downloadPath));
-    // console.log('previewImageUrl: ' + baseURL + '/uploaded/' + path.basename(previewPath));
-      return client.replyMessage(
-        replyToken,
-        {
-          type: 'image',
-          originalContentUrl: baseURL + '/uploaded/' + downloadFile,
-          previewImageUrl: baseURL + '/uploaded/' + previewFile,
-        }
-      );
-  });
-/*
   console.log('handleImage');
   console.log('message: ' + circularJSON.stringify(message));
   console.log('replyToken: ' + replyToken);
-  const promise0 = visionService.instance.getAccessToken();
-  const promise1 = (target, accessToken) => {
-    // visionService.instance.getImageClassification(target, accessToken);
-    visionService.instance.getObjectDetection(target, accessToken, replyToken);
-  };
-  // const promise2 = (predictresponse) => {
-  //   console.log('Promiss.all predictresponse: ' + circularJSON.stringify(predictresponse));
-  //   const _probabilities_0 = (predictresponse['probabilities'])[0];
-  //   const _label = _probabilities_0['label'];
-  //   const _probability = _probabilities_0['probability'];
-  //   const messageToBeSent = {
-  //     type:'text',
-  //     text: `画像の分析の結果、 ${_label}: ${_probability} `
-  //   };
-  //   return sendMessage(messageToBeSent, replyToken);
-  // };
-  // client.getMessageContent(message.id)
-  // .then((stream) => {
-  //   let targetImageBase64;
-  //   stream.on('data', (chunk) => {
-  //     const data = Buffer.from(chunk);
-  //     targetImageBase64 = data.toString('base64');
-  //     console.log('stream on targetImageBase64: ' + targetImageBase64.length);
-  Promise.all([promise0])
-  .then((accessToken) => {
-    console.log('accessToken: ' + accessToken);
-    Promise.all([promise1('https://ara-line-bot-20180515.herokuapp.com/uploaded/alpine.jpg', accessToken)])
-    // .then((predictresponse) => {
-      // console.log('predictresponse: ' + circularJSON.stringify(predictresponse));
-      // Promise.all([promise2(predictresponse)])
-      // .then(() => {
-      //   console.log('----- END -----');
-      // });
-    // .then((messageToBeSent) => {
-    //   console.log('messageToBeSent: ' + circularJSON.stringify(messageToBeSent));
-    //   return sendMessage(messageToBeSent, replyToken);
-    // });
-  }).catch((error) => {
-    console.log('error: ' + circularJSON.stringify(error));
-  });
-   // return promise1('https://einstein.ai/images/alpine.jpg', accessToken);
-      // Promise.all([promise1('https://einstein.ai/images/alpine.jpg', accessToken)])
-      // Promise.all([promise1('https://ara-line-bot-20180515.herokuapp.com/uploaded/alpine.jpg', accessToken)])
-      // return promise1('https://ara-line-bot-20180515.herokuapp.com/uploaded/alpine.jpg', accessToken);
-      // })
-      // .then((predictresponse) => {
-      //   console.log('Promiss.all predictresponse: ' + circularJSON.stringify(predictresponse));
-      //   const _probabilities_0 = (predictresponse['probabilities'])[0];
-      //   const _label = _probabilities_0['label'];
-      //   const _probability = _probabilities_0['probability'];
-      //   const messageToBeSent = {
-      //     type:'text',
-      //     text: `画像の分析の結果、 ${_label}: ${_probability} `
-      //   };
-      //   return sendMessage(messageToBeSent, replyToken);
-      // })
-      // .catch((error) => {
-      //   console.log('Promiss.all error: ' + circularJSON.stringify(error));
-      // });
-    // }).catch((error) => {
-    //   console.log('Promiss.all error: ' + circularJSON.stringify(error));
-    // });
-*/
+  const downloadFile = `${message.id}.jpg`;
+  const previewFile = `${message.id}-preview.jpg`;
+  const downloadFileUploaded = `/uploaded/${downloadFile}`;
+  const previewFileUploaded = `/uploaded/${previewFile}`;
+  const downloadContent = lineService.instance.downloadContent(message.id, downloadFile);
+  const getAccessToken = visionService.instance.getAccessToken();
+  const getObjectDetection = (target, accessToken) => visionService.instance.getObjectDetection(target, accessToken, replyToken);
+
+  Promise.all([downloadContent])
+  .then((downloadFile) => {
+    cp.execSync(`convert -resize 240x jpeg:${downloadFile} jpeg:${previewFile}`);
+    cp.execSync(`mv ${downloadFile} ${downloadFileUploaded}`);
+    cp.execSync(`mv ${previewFile} ${previewFileUploaded}`);
+    return client.replyMessage(
+      replyToken,
+      {
+        type: 'image',
+        originalContentUrl: `${baseURL}${downloadFileUploaded}`,
+        previewImageUrl: `${baseURL}${downloadFileUploaded}`
+      }
+    );
+  }).then(() => {
+    Promise.all([getAccessToken])
+    .then((accessToken) => {
+      console.log('accessToken: ' + accessToken);
+      const target = 'https://ara-line-bot-20180515.herokuapp.com/uploaded/alpine.jpg';
+      Promise.all([getObjectDetection(target, accessToken)])
+    }).catch((error) => {
+      console.log('error: ' + circularJSON.stringify(error));
+    });
+  })
 }
 
 export const handleVideo = (message, replyToken) => {
