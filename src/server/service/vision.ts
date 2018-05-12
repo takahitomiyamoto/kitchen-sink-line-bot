@@ -12,28 +12,28 @@ export class VisionService {
     return VisionService._visionService;
   }
 
-  public getMessageContent(messageId, callback) {
-    const options = {
-      uri: 'https://api.line.me/v2/bot/message/' + messageId + '/content',
-      headers: {
-        'Authorization': 'Bearer ' + process.env.LINE_CHANNEL_ACCESS_TOKEN,
-        'Content-Type': 'multipart/form-data'
-      },
-      json: true
-    };
-    console.log('options: ' + options);
-    // return new Promise((resolve, reject) => {
-      rp(options)
-      .then((chunk) => {
-        const data = Buffer.from(chunk);
-        const targetImageBase64 = data.toString('base64');
-        return callback(targetImageBase64);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    // });
-  }
+  // public getMessageContent(messageId, callback) {
+  //   const options = {
+  //     uri: 'https://api.line.me/v2/bot/message/' + messageId + '/content',
+  //     headers: {
+  //       'Authorization': 'Bearer ' + process.env.LINE_CHANNEL_ACCESS_TOKEN,
+  //       'Content-Type': 'multipart/form-data'
+  //     },
+  //     json: true
+  //   };
+  //   console.log('options: ' + options);
+  //   // return new Promise((resolve, reject) => {
+  //     rp(options)
+  //     .then((chunk) => {
+  //       const data = Buffer.from(chunk);
+  //       const targetImageBase64 = data.toString('base64');
+  //       return callback(targetImageBase64);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  //   // });
+  // }
 
   public getAccessToken() {
     const tokenOptions = this.createTokenOptions();
@@ -52,24 +52,24 @@ export class VisionService {
     });
   }
 
-  public getImageClassification(targetImage, accessToken) {
-    const predictOptions = this.createPredictOptions(targetImage, accessToken);
-    return new Promise((resolve, reject) => {
-      try {
-      request.post(predictOptions, (error, response, body) => {
-        if (error) {
-          reject(error)
-        }
-        if (response['statusCode'] === 200) {
-          resolve(body);
-        }
-        reject(circularJSON.stringify(body));
-      })
-      } catch(err) {
-        reject(err);
-      }
-    });
-  }
+  // public getImageClassification(targetImage, accessToken) {
+  //   const predictOptions = this.createPredictOptions(targetImage, accessToken);
+  //   return new Promise((resolve, reject) => {
+  //     try {
+  //     request.post(predictOptions, (error, response, body) => {
+  //       if (error) {
+  //         reject(error)
+  //       }
+  //       if (response['statusCode'] === 200) {
+  //         resolve(body);
+  //       }
+  //       reject(circularJSON.stringify(body));
+  //     })
+  //     } catch(err) {
+  //       reject(err);
+  //     }
+  //   });
+  // }
 
   public getObjectDetection = (targetImage, accessToken, replyToken) => {
     return new Promise((resolve, reject) => {
@@ -78,19 +78,16 @@ export class VisionService {
 
       const promise0 = (detectOptions) => {
         return new Promise((resolve, reject) => {
-        rp(detectOptions)
-        .then((data) => {
-          console.log('data: ' + circularJSON.stringify(data));
-      // const accessToken = data['access_token'];
-      //   console.log('expires_in: ' + data['expires_in']);
-        resolve(data)
-          // return data;
-        })
-        .catch((err) => {
-          console.log(err);
-        // reject(err);
+          rp(detectOptions)
+          .then((data) => {
+            console.log('data: ' + circularJSON.stringify(data));
+            resolve(data)
+          })
+          .catch((err) => {
+            console.log(err);
+            reject(err);
+          });
         });
-      });
       };
 
       const promise1 = (predictresponse) => {
@@ -103,14 +100,6 @@ export class VisionService {
         });
         console.log(probabilities);
 
-        // for (let i in probabilities) {
-        //   const p = probabilities[i];
-        //   console.log('------------------------------');
-        //   console.log(circularJSON.stringify(p));
-        //   console.log('label : ' + p.label);
-        //   console.log('probability : ' + p.probability);
-        // }
-        // console.log('promise2 predictresponse: ' + predictresponse.length);
         const _count = probabilities.length;
         const _probabilities_0 = probabilities[0];
         const _label = _probabilities_0.label;
@@ -119,8 +108,6 @@ export class VisionService {
           type:'text',
           text: `${_count}個 見つかりました。たとえば ${_probability}% の確率で ${_label} があります。`
         };
-        // return sendMessage_(messageToBeSent, replyToken);
-        // console.log('promise2 messageToBeSent: ' + circularJSON.stringify(messageToBeSent));
         return messageToBeSent;
       };
 
@@ -138,39 +125,6 @@ export class VisionService {
       .catch((err) => {
         console.log(err);
       });
-      // }).then((detectOptions: any) => {
-      // return new Promise((resolve, reject) => {
-      //   rp(detectOptions)
-      // .then((data) => {
-      //   console.log('data: ' + circularJSON.stringify(data));
-      // // const accessToken = data['access_token'];
-      // //   console.log('expires_in: ' + data['expires_in']);
-      //   // resolve(data)
-      //   return data;
-      // })
-      // .catch((err) => {
-      //   console.log(err);
-      //   // reject(err);
-      // });
-      // try {
-      // request.post(detectOptions, (error, response, body) => {
-      //   console.log('error: ' + circularJSON.stringify(error));
-      //   console.log('response: ' + circularJSON.stringify(response));
-      //   // console.log('body: ' + circularJSON.stringify(body));
-      //   if (error) {
-      //     // reject(error)
-      //   }
-      //   if (response['statusCode'] === 200) {
-      //     console.log('---------------------------------------- OK ---------------------------------------- ' + circularJSON.stringify(body));
-      //     return body;
-      //     // resolve(body);
-      //   }
-      //   // reject(circularJSON.stringify(body));
-      // })
-      // } catch(err) {
-      //   // reject(err);
-      // }
-    // });
     });
   }
 
@@ -232,16 +186,13 @@ export class VisionService {
   }
 
   private createDetectOptions(targetImage, accessToken) {
-    // return new Promise((resolve, reject) => {
     const url = process.env.EINSTEIN_VISION_URL + process.env.EINSTEIN_API_VERSION;
     const reqUrl = url + '/vision/detect';
     const modelId = process.env.EINSTEIN_VISION_MODEL_ID;
     const formData = {
       modelId: modelId,
-      numResults: 3,
-      // sampleLocation: 'https://einstein.ai/images/alpine.jpg'
+      // numResults: 3,
       sampleLocation: targetImage
-      // sampleContent: '/uploaded/alpine.jpg'
     };
     const options = {
       method: 'POST',
@@ -256,7 +207,5 @@ export class VisionService {
       json: true
     };
     return options;
-    // resolve(options);
-    // })
   }
 }

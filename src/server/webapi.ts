@@ -2,7 +2,7 @@ import * as express from 'express';
 import * as circularJSON from 'circular-json';
 import * as line from '@line/bot-sdk';
 import { configLine } from './config/line';
-import { handleEvent } from './controller/line';
+import { LineController as lineController } from './controller/line';
 import { JSONParseError, SignatureValidationFailed } from "@line/bot-sdk";
 
 // TODO: export class WebApi
@@ -20,7 +20,7 @@ app.post('/callback', line.middleware(configLine), (req, res) => {
   }
 
   // handle events separately
-  Promise.all(req.body.events.map(handleEvent))
+  Promise.all(req.body.events.map(lineController.instance.handleEvent))
     .then(() => res.end())
     .catch((err) => {
       console.error(err);
