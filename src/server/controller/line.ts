@@ -89,10 +89,11 @@ const handleImage = (message, replyToken) => {
   //     const data = Buffer.from(chunk);
   //     targetImageBase64 = data.toString('base64');
   //     console.log('stream on targetImageBase64: ' + targetImageBase64.length);
-  Promise.all([promise0])
+    Promise.all([promise0])
     .then((accessToken) => {
         // return promise1('https://einstein.ai/images/alpine.jpg', accessToken);
-      Promise.all([promise1('https://einstein.ai/images/alpine.jpg', accessToken)])
+      // Promise.all([promise1('https://einstein.ai/images/alpine.jpg', accessToken)])
+      Promise.all([promise1('https://ara-line-bot-20180515.herokuapp.com/uploaded/alpine.jpg', accessToken)])
       // })
       .then((predictresponse) => {
         console.log('Promiss.all predictresponse: ' + circularJSON.stringify(predictresponse));
