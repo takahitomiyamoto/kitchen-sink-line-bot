@@ -3,6 +3,7 @@ import * as path from 'path';
 import * as cp from 'child_process';
 import * as fs from 'fs';
 import { configLine } from '../config/line';
+import { LineService as lineService } from '../service/line';
 import { client, baseURL, replyText, hasInitalMessage, initalMessage, hasContinueMessage, continueMessage, hasStopMessage, stopMessage, hasLocationQuestion, requestImage, defaultMessage, downloadContent, sendMessage } from '../service/line';
 import { VisionService as visionService } from '../service/vision';
 import { SalesforceService as salesforceService } from '../service/salesforce';
@@ -74,6 +75,29 @@ const handleText = (message, replyToken, source) => {
 }
 
 const handleImage = (message, replyToken) => {
+  // const downloadPath = path.join(__dirname, 'downloaded', `${message.id}.jpg`);
+  // const previewPath = path.join(__dirname, 'downloaded', `${message.id}-preview.jpg`);
+  const baseURL = lineService.instance.baseURL;
+  const downloadPath = path.join(baseURL, 'downloaded', `${message.id}.jpg`);
+  const previewPath = path.join(baseURL, 'downloaded', `${message.id}-preview.jpg`);
+
+  Promise.all([lineService.instance.downloadContent(message.id, downloadPath)])
+  .then((downloadPath:any) => {
+    // ImageMagick is needed here to run 'convert'
+    // Please consider about security and performance by yourself
+    cp.execSync(`convert -resize 240x jpeg:${downloadPath} jpeg:${previewPath}`);
+    console.log('originalContentUrl: ' + baseURL + '/downloaded/' + path.basename(downloadPath));
+    console.log('previewImageUrl: ' + baseURL + '/downloaded/' + path.basename(previewPath));
+      // return client.replyMessage(
+      //   replyToken,
+      //   {
+      //     type: 'image',
+      //     originalContentUrl: baseURL + '/downloaded/' + path.basename(downloadPath),
+      //     previewImageUrl: baseURL + '/downloaded/' + path.basename(previewPath),
+      //   }
+      // );
+  });
+
   console.log('handleImage');
   console.log('message: ' + circularJSON.stringify(message));
   console.log('replyToken: ' + replyToken);

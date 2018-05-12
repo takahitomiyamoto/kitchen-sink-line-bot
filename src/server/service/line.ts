@@ -6,7 +6,28 @@ import * as fs from 'fs';
 import { configLine } from '../config/line';
 import { message } from '../constant/line';
 
-// TODO: export class LineService
+// TODO:
+export class LineService {
+  private static _lineService: LineService = new LineService();
+  private constructor() {}
+  public static get instance(): LineService {
+    return LineService._lineService;
+  }
+
+  public baseURL = process.env.HEROKU_BASE_URL;
+  public client = new line.Client(configLine);
+  public downloadContent = (messageId, downloadPath) => {
+    return this.client.getMessageContent(messageId)
+      .then((stream) => new Promise((resolve, reject) => {
+        const writable = fs.createWriteStream(downloadPath);
+        stream.pipe(writable);
+        stream.on('end', () => resolve(downloadPath));
+        stream.on('error', reject);
+      }))
+    ;
+  }
+
+}
 
 // base URL for webhook server
 export const baseURL = process.env.HEROKU_BASE_URL;
