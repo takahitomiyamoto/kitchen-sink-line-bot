@@ -104,12 +104,15 @@ const handleImage = (message, replyToken) => {
   .then((accessToken) => {
     console.log('accessToken: ' + accessToken);
     Promise.all([promise1('https://ara-line-bot-20180515.herokuapp.com/uploaded/alpine.jpg', accessToken)])
-    .then((predictresponse) => {
-      console.log('predictresponse: ' + circularJSON.stringify(predictresponse));
-      Promise.all([promise2(predictresponse)])
-      .then(() => {
-        console.log('----- END -----');
-      });
+    // .then((predictresponse) => {
+      // console.log('predictresponse: ' + circularJSON.stringify(predictresponse));
+      // Promise.all([promise2(predictresponse)])
+      // .then(() => {
+      //   console.log('----- END -----');
+      // });
+    .then((messageToBeSent) => {
+      console.log('messageToBeSent: ' + circularJSON.stringify(messageToBeSent));
+      return sendMessage(messageToBeSent, replyToken);
     });
   }).catch((error) => {
     console.log('error: ' + circularJSON.stringify(error));

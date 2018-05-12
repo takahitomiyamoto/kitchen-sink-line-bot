@@ -90,10 +90,24 @@ export class VisionService {
         });
       };
 
+      const promise2 = (predictresponse) => {
+        console.log('Promiss.all predictresponse: ' + circularJSON.stringify(predictresponse));
+        const _probabilities_0 = (predictresponse['probabilities'])[0];
+        const _label = _probabilities_0['label'];
+        const _probability = _probabilities_0['probability'];
+        const messageToBeSent = {
+          type:'text',
+          text: `画像の分析の結果、 ${_label}: ${_probability} `
+        };
+        // return sendMessage_(messageToBeSent, replyToken);
+        return messageToBeSent;
+      };
+
       Promise.all([promise_(detectOptions)])
       .then((data) => {
         // return data;
-        resolve(data);
+        // resolve(data);
+        return promise2(data);
       })
       .catch((err) => {
         console.log(err);
