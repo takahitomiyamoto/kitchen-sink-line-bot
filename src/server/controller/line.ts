@@ -86,9 +86,10 @@ const handleImage = (message, replyToken) => {
     console.log('downloadContent then: ' + downloadPath);
     // ImageMagick is needed here to run 'convert'
     // Please consider about security and performance by yourself
-    cp.execSync(`convert -resize 240x jpeg:${downloadPath} jpeg:${previewPath}`);
-    console.log('originalContentUrl: ' + baseURL + '/uploaded/' + path.basename(downloadPath));
-    console.log('previewImageUrl: ' + baseURL + '/uploaded/' + path.basename(previewPath));
+    // cp.execSync(`convert -resize 240x jpeg:${downloadPath} jpeg:${previewPath}`);
+    cp.execSync(`convert -resize 240x jpeg:${message.id}.jpg jpeg:${message.id}-preview.jpg`);
+    // console.log('originalContentUrl: ' + baseURL + '/uploaded/' + path.basename(downloadPath));
+    // console.log('previewImageUrl: ' + baseURL + '/uploaded/' + path.basename(previewPath));
       // return client.replyMessage(
       //   replyToken,
       //   {
