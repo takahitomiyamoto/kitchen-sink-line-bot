@@ -74,7 +74,30 @@ export class VisionService {
     // return new Promise((resolve, reject) => {
       const detectOptions = this.createDetectOptions(targetImage, accessToken);
       console.log('detectOptions: ' + circularJSON.stringify(detectOptions));
-    // }).then((detectOptions: any) => {
+
+      const promise_ = (detectOptions) => {
+        rp(detectOptions)
+        .then((data) => {
+          console.log('data: ' + circularJSON.stringify(data));
+      // const accessToken = data['access_token'];
+      //   console.log('expires_in: ' + data['expires_in']);
+        // resolve(data)
+          return data;
+        })
+        .catch((err) => {
+          console.log(err);
+        // reject(err);
+        });
+      };
+
+      Promise.all([promise_(detectOptions)])
+      .then((data) => {
+        return data;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+      // }).then((detectOptions: any) => {
       // return new Promise((resolve, reject) => {
       //   rp(detectOptions)
       // .then((data) => {
@@ -88,24 +111,24 @@ export class VisionService {
       //   console.log(err);
       //   // reject(err);
       // });
-      try {
-      request.post(detectOptions, (error, response, body) => {
-        console.log('error: ' + circularJSON.stringify(error));
-        console.log('response: ' + circularJSON.stringify(response));
-        // console.log('body: ' + circularJSON.stringify(body));
-        if (error) {
-          // reject(error)
-        }
-        if (response['statusCode'] === 200) {
-          console.log('---------------------------------------- OK ---------------------------------------- ' + circularJSON.stringify(body));
-          return body;
-          // resolve(body);
-        }
-        // reject(circularJSON.stringify(body));
-      })
-      } catch(err) {
-        // reject(err);
-      }
+      // try {
+      // request.post(detectOptions, (error, response, body) => {
+      //   console.log('error: ' + circularJSON.stringify(error));
+      //   console.log('response: ' + circularJSON.stringify(response));
+      //   // console.log('body: ' + circularJSON.stringify(body));
+      //   if (error) {
+      //     // reject(error)
+      //   }
+      //   if (response['statusCode'] === 200) {
+      //     console.log('---------------------------------------- OK ---------------------------------------- ' + circularJSON.stringify(body));
+      //     return body;
+      //     // resolve(body);
+      //   }
+      //   // reject(circularJSON.stringify(body));
+      // })
+      // } catch(err) {
+      //   // reject(err);
+      // }
     // });
   // });
   }
