@@ -93,8 +93,9 @@ const handleImage = (message, replyToken) => {
     .then((accessToken) => {
         // return promise1('https://einstein.ai/images/alpine.jpg', accessToken);
       // Promise.all([promise1('https://einstein.ai/images/alpine.jpg', accessToken)])
-      Promise.all([promise1('https://ara-line-bot-20180515.herokuapp.com/uploaded/alpine.jpg', accessToken)])
-      // })
+      // Promise.all([promise1('https://ara-line-bot-20180515.herokuapp.com/uploaded/alpine.jpg', accessToken)])
+      return promise1('https://ara-line-bot-20180515.herokuapp.com/uploaded/alpine.jpg', accessToken);
+      })
       .then((predictresponse) => {
         console.log('Promiss.all predictresponse: ' + circularJSON.stringify(predictresponse));
         const _probabilities_0 = (predictresponse['probabilities'])[0];
@@ -109,9 +110,9 @@ const handleImage = (message, replyToken) => {
       .catch((error) => {
         console.log('Promiss.all error: ' + circularJSON.stringify(error));
       });
-    }).catch((error) => {
-      console.log('Promiss.all error: ' + circularJSON.stringify(error));
-    });
+    // }).catch((error) => {
+    //   console.log('Promiss.all error: ' + circularJSON.stringify(error));
+    // });
 }
 
 export const handleVideo = (message, replyToken) => {
