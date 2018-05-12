@@ -93,10 +93,12 @@ export class VisionService {
       };
 
       const promise2 = (predictresponse) => {
-        console.log('Promiss.all predictresponse: ' + circularJSON.stringify(predictresponse));
-        const _probabilities_0 = (predictresponse['probabilities'])[0];
-        const _label = _probabilities_0['label'];
-        const _probability = _probabilities_0['probability'];
+        console.log('promise2 predictresponse: ' + circularJSON.stringify(predictresponse));
+        // const _probabilities_0 = (predictresponse['probabilities'])[0];
+        // const _label = _probabilities_0['label'];
+        // const _probability = _probabilities_0['probability'];
+        const _label = 'label';
+        const _probability = 'probability';
         const messageToBeSent = {
           type:'text',
           text: `画像の分析の結果、 ${_label}: ${_probability} `
