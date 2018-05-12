@@ -2,6 +2,7 @@ import * as circularJSON from 'circular-json';
 import * as rp from 'request-promise';
 import * as jwt from 'jsonwebtoken';
 import * as request from 'request';
+import { sendMessage } from '../service/line';
 
 export class VisionService {
   private static _visionService: VisionService = new VisionService();
@@ -70,7 +71,7 @@ export class VisionService {
     });
   }
 
-  public getObjectDetection = (targetImage, accessToken) => {
+  public getObjectDetection = (targetImage, accessToken, replyToken) => {
     return new Promise((resolve, reject) => {
       const detectOptions = this.createDetectOptions(targetImage, accessToken);
       console.log('detectOptions: ' + circularJSON.stringify(detectOptions));
@@ -92,7 +93,7 @@ export class VisionService {
       });
       };
 
-      const promise2 = (predictresponse) => {
+      const promise1 = (predictresponse) => {
         // TODO: メソッド化 確度で降順にソート
         const probabilities = (predictresponse[0])['probabilities'];
         probabilities.sort((a, b) => {
@@ -119,15 +120,20 @@ export class VisionService {
           text: `${_count}個 見つかりました。たとえば ${_probability}% の確率で ${_label} があります。`
         };
         // return sendMessage_(messageToBeSent, replyToken);
-        console.log('promise2 messageToBeSent: ' + circularJSON.stringify(messageToBeSent));
+        // console.log('promise2 messageToBeSent: ' + circularJSON.stringify(messageToBeSent));
         return messageToBeSent;
+      };
+
+      const promise2 = (messageToBeSent) => {
+        sendMessage(messageToBeSent, replyToken);
       };
 
       Promise.all([promise0(detectOptions)])
       .then((data) => {
-        return promise2(data);
+        return promise1(data);
       }).then((messageToBeSent) => {
         console.log('messageToBeSent: ' + circularJSON.stringify(messageToBeSent));
+        return promise2(messageToBeSent);
       })
       .catch((err) => {
         console.log(err);

@@ -80,19 +80,19 @@ const handleImage = (message, replyToken) => {
   const promise0 = visionService.instance.getAccessToken();
   const promise1 = (target, accessToken) => {
     // visionService.instance.getImageClassification(target, accessToken);
-    visionService.instance.getObjectDetection(target, accessToken);
+    visionService.instance.getObjectDetection(target, accessToken, replyToken);
   };
-  const promise2 = (predictresponse) => {
-    console.log('Promiss.all predictresponse: ' + circularJSON.stringify(predictresponse));
-    const _probabilities_0 = (predictresponse['probabilities'])[0];
-    const _label = _probabilities_0['label'];
-    const _probability = _probabilities_0['probability'];
-    const messageToBeSent = {
-      type:'text',
-      text: `画像の分析の結果、 ${_label}: ${_probability} `
-    };
-    return sendMessage(messageToBeSent, replyToken);
-  };
+  // const promise2 = (predictresponse) => {
+  //   console.log('Promiss.all predictresponse: ' + circularJSON.stringify(predictresponse));
+  //   const _probabilities_0 = (predictresponse['probabilities'])[0];
+  //   const _label = _probabilities_0['label'];
+  //   const _probability = _probabilities_0['probability'];
+  //   const messageToBeSent = {
+  //     type:'text',
+  //     text: `画像の分析の結果、 ${_label}: ${_probability} `
+  //   };
+  //   return sendMessage(messageToBeSent, replyToken);
+  // };
   // client.getMessageContent(message.id)
   // .then((stream) => {
   //   let targetImageBase64;
@@ -110,10 +110,10 @@ const handleImage = (message, replyToken) => {
       // .then(() => {
       //   console.log('----- END -----');
       // });
-    .then((messageToBeSent) => {
-      console.log('messageToBeSent: ' + circularJSON.stringify(messageToBeSent));
-      return sendMessage(messageToBeSent, replyToken);
-    });
+    // .then((messageToBeSent) => {
+    //   console.log('messageToBeSent: ' + circularJSON.stringify(messageToBeSent));
+    //   return sendMessage(messageToBeSent, replyToken);
+    // });
   }).catch((error) => {
     console.log('error: ' + circularJSON.stringify(error));
   });
