@@ -1,6 +1,7 @@
 .vscode
 .sfdx
 dist/
+*.txt
 
 # Dependency directories
 node_modules/

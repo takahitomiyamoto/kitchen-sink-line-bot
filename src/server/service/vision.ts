@@ -153,7 +153,7 @@ export class VisionService {
     const formData = {
       modelId: modelId,
       numResults: 3,
-      sampleBase64Content: targetImage
+      sampleContent: targetImage
     };
     const options = {
       url: reqUrl,
