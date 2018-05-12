@@ -6,6 +6,8 @@ import * as fs from 'fs';
 import { configLine } from '../config/line';
 import { message } from '../constant/line';
 
+// TODO: export class LineService
+
 // base URL for webhook server
 export const baseURL = process.env.HEROKU_BASE_URL;
 
@@ -135,10 +137,11 @@ export const sendMessage = (message, replyToken) => {
   console.log('sendMessage: ' + circularJSON.stringify(message));
   return client.replyMessage(replyToken, message)
     .then((result) => {
-      console.log('sendMessage result: ' + result);
+      console.log('sendMessage result: ' + circularJSON.stringify(result));
     })
     .catch((err) => {
       // error handling
+      console.log('sendMessage err: ' + circularJSON.stringify(err));
     })
   ;
 }

@@ -7,15 +7,14 @@ import { client, baseURL, replyText, hasInitalMessage, initalMessage, hasContinu
 import { VisionService as visionService } from '../service/vision';
 import { SalesforceService as salesforceService } from '../service/salesforce';
 
+// TODO: export class LineController
+
 // callback function to handle a single event
 export const handleEvent = (event) => {
   console.log('event: ' + circularJSON.stringify(event));
   switch (event.type) {
     case 'message':
       const message = event.message;
-      // console.log('message.type: ' + message.type);
-      // console.log('message: ' + circularJSON.stringify(message));
-      // console.log('event.replyTokene: ' + event.replyToken);
       switch (message.type) {
         case 'text':
           return handleText(message, event.replyToken, event.source);
@@ -78,14 +77,11 @@ const handleImage = (message, replyToken) => {
   console.log('handleImage');
   console.log('message: ' + circularJSON.stringify(message));
   console.log('replyToken: ' + replyToken);
-  // const promise0 = visionService.instance.getMessageContent_(client, message.id);
   const promise0 = visionService.instance.getAccessToken();
-  const promise2 = (v1, v2) => visionService.instance.getImageClassification(v1, v2);
-  // Promise.all([
-    // Promise.all([promise0])
-    // .then((values) => {
-    // console.log('Promiss.all values: ' + values);
-
+  const promise1 = (target, accessToken) => {
+    // visionService.instance.getImageClassification(target, accessToken);
+    visionService.instance.getObjectDetection(target, accessToken);
+  };
   client.getMessageContent(message.id)
   .then((stream) => {
     let targetImageBase64;
@@ -93,10 +89,9 @@ const handleImage = (message, replyToken) => {
       const data = Buffer.from(chunk);
       targetImageBase64 = data.toString('base64');
       console.log('stream on targetImageBase64: ' + targetImageBase64.length);
-      // return promise2(targetImageBase64, values[0]);
       Promise.all([promise0])
       .then((accessToken) => {
-        return promise2(targetImageBase64, accessToken);
+        return promise1(targetImageBase64, accessToken);
       })
       .then((predictresponse) => {
         console.log('Promiss.all predictresponse: ' + circularJSON.stringify(predictresponse));
@@ -116,90 +111,6 @@ const handleImage = (message, replyToken) => {
   }).catch((error) => {
     console.log('Promiss.all error: ' + circularJSON.stringify(error));
   });
-  // });
-      // stream.on('end', () => {
-      //   // const data = Buffer.from(body);
-      //   // const targetImageBase64 = data.toString('base64');
-      //   console.log('stream end targetImageBase64: ' + targetImageBase64.length);
-      //   Promise.all([promise0])
-      //   .then((accessToken) => {
-      //     return promise2(targetImageBase64, accessToken);
-      //   });
-  // ])
-  // .then((predictresponse) => {
-  //   console.log('Promiss.all predictresponse: ' + circularJSON.stringify(predictresponse));
-  //   const _predictresponse = predictresponse;
-  //   const messageToBeSent = {
-  //     type:'text',
-  //     text: `画像の分析の結果、 "${_predictresponse}" `
-  //   };
-  //   return sendMessage(messageToBeSent, replyToken);
-  // }).catch((error) => {
-  //   console.log('Promiss.all error: ' + circularJSON.stringify(error));
-  // });
-
-
-  // // 1. Einstein Vision の access_token を取得する
-  // visionService.instance.getAccessToken_(function(accessToken) {
-  //   console.log('-------------------- accessToken: ' + accessToken);
-  //   // 2. 画像のバイナリデータを取得する
-  //   client.getMessageContent(message.id)
-  //   .then((stream) => {
-  //     stream.on('data', (chunk) => {
-  //       const data = Buffer.from(chunk);
-  //       const targetImageBase64 = data.toString('base64');
-  // // visionService.instance.getMessageContent(message.id, function(targetImageBase64) {
-  //       console.log('-------------------- targetImageBase64: ' + targetImageBase64);
-  //       // 3. Einstein Vision の予測結果を取得する
-  //       visionService.instance.getImageClassification_(targetImageBase64, accessToken, function(predictresponse) {
-  //         console.log('-------------------- predictresponse: ' + predictresponse);
-  //         // 4. Einstein Vision の予測結果を返信する
-  //         const _predictresponse = predictresponse;
-  //         const messageToBeSent = {
-  //           type:'text',
-  //           text: `画像の分析の結果、 "${_predictresponse}" `
-  //         };
-  //         return sendMessage(messageToBeSent, replyToken);
-  //       });
-  //     });
-  //   });
-  // });
-
-
-  // client.getMessageContent(message.id)
-  //   .then((stream) => {
-  //     // stream.setEncoding('utf8');
-  //     stream.on('data', (chunk) => {
-  //       const data = Buffer.from(chunk);
-  //       const targetImageBase64 = data.toString('base64');
-  //       let _type;
-  //       visionService.instance.imageClassify(targetImageBase64)
-  //         .then(type => {
-  //           _type = type;
-  //           console.log('type: ' + _type);
-  //           // return salesforceService.instance.findHouses(_type);
-  //         }).then(houses => sendMessage(
-  //           [
-  //             {
-  //               type:'text',
-  //               text: `画像の分析の結果、 "${_type}" `
-  //             },
-  //             // formatter.formatProperties(houses)
-  //           ],
-  //           replyToken
-  //         )).catch((err) => {
-  //           // POST failed...
-  //           console.log('err: ' + err);
-  //         })
-  //       ;
-  //     });
-
-  //     stream.on('error', (err) => {
-  //       // error handling
-  //       console.log('err: ' + err);
-  //     });
-  //   })
-  // ;
 }
 
 export const handleVideo = (message, replyToken) => {
