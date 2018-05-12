@@ -53,13 +53,19 @@ export class VisionService {
     });
     console.log(probabilities);
 
+    let textMsg = '';
     const _count = probabilities.length;
-    const _probabilities_0 = probabilities[0];
-    const _label = _probabilities_0.label;
-    const _probability = Math.round(_probabilities_0.probability * 100);
+    if (_count === 0) {
+      textMsg = `家が見つかりません。`;
+    } else {
+      const _probabilities_0 = probabilities[0];
+      const _label = _probabilities_0.label;
+      const _probability = Math.round(_probabilities_0.probability * 100);
+      textMsg = `${_count}個 見つかりました。たとえば ${_probability}% の確率で ${_label} があります。`;
+    }
     const messageToBeSent = {
       type:'text',
-      text: `${_count}個 見つかりました。たとえば ${_probability}% の確率で ${_label} があります。`
+      text: textMsg
     };
     return messageToBeSent;
   };
