@@ -17,6 +17,9 @@ export class LineService {
   public baseURL = process.env.HEROKU_BASE_URL;
   public client = new line.Client(configLine);
   public downloadContent = (messageId, downloadPath) => {
+    console.log('LineService downloadContent');
+    console.log('LineService messageId: ' + messageId);
+    console.log('LineService downloadPath: ' + downloadPath);
     return this.client.getMessageContent(messageId)
       .then((stream) => new Promise((resolve, reject) => {
         const writable = fs.createWriteStream(downloadPath);
