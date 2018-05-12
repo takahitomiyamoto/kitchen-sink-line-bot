@@ -89,10 +89,10 @@ const handleImage = (message, replyToken) => {
   //     const data = Buffer.from(chunk);
   //     targetImageBase64 = data.toString('base64');
   //     console.log('stream on targetImageBase64: ' + targetImageBase64.length);
-      Promise.all([promise0])
+  Promise.all([Promise.all([promise0])
       .then((accessToken) => {
         return promise1('https://einstein.ai/images/alpine.jpg', accessToken);
-      })
+      })])
       .then((predictresponse) => {
         console.log('Promiss.all predictresponse: ' + circularJSON.stringify(predictresponse));
         const _probabilities_0 = (predictresponse['probabilities'])[0];
