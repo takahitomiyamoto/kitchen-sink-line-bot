@@ -82,6 +82,17 @@ const handleImage = (message, replyToken) => {
     // visionService.instance.getImageClassification(target, accessToken);
     visionService.instance.getObjectDetection(target, accessToken);
   };
+  const promise2 = (predictresponse) => {
+    console.log('Promiss.all predictresponse: ' + circularJSON.stringify(predictresponse));
+    const _probabilities_0 = (predictresponse['probabilities'])[0];
+    const _label = _probabilities_0['label'];
+    const _probability = _probabilities_0['probability'];
+    const messageToBeSent = {
+      type:'text',
+      text: `画像の分析の結果、 ${_label}: ${_probability} `
+    };
+    return sendMessage(messageToBeSent, replyToken);
+  };
   // client.getMessageContent(message.id)
   // .then((stream) => {
   //   let targetImageBase64;
@@ -89,27 +100,39 @@ const handleImage = (message, replyToken) => {
   //     const data = Buffer.from(chunk);
   //     targetImageBase64 = data.toString('base64');
   //     console.log('stream on targetImageBase64: ' + targetImageBase64.length);
-    Promise.all([promise0])
-    .then((accessToken) => {
-        // return promise1('https://einstein.ai/images/alpine.jpg', accessToken);
+  Promise.all([promise0])
+  .then((accessToken) => {
+    console.log('accessToken: ' + accessToken);
+    Promise.all([promise1('https://ara-line-bot-20180515.herokuapp.com/uploaded/alpine.jpg', accessToken)])
+    .then((predictresponse) => {
+      console.log('predictresponse: ' + circularJSON.stringify(predictresponse));
+      Promise.all([promise2(predictresponse)])
+      .then(() => {
+        console.log('----- END -----');
+      });
+    });
+  }).catch((error) => {
+    console.log('error: ' + circularJSON.stringify(error));
+  });
+   // return promise1('https://einstein.ai/images/alpine.jpg', accessToken);
       // Promise.all([promise1('https://einstein.ai/images/alpine.jpg', accessToken)])
       // Promise.all([promise1('https://ara-line-bot-20180515.herokuapp.com/uploaded/alpine.jpg', accessToken)])
-      return promise1('https://ara-line-bot-20180515.herokuapp.com/uploaded/alpine.jpg', accessToken);
-      })
-      .then((predictresponse) => {
-        console.log('Promiss.all predictresponse: ' + circularJSON.stringify(predictresponse));
-        const _probabilities_0 = (predictresponse['probabilities'])[0];
-        const _label = _probabilities_0['label'];
-        const _probability = _probabilities_0['probability'];
-        const messageToBeSent = {
-          type:'text',
-          text: `画像の分析の結果、 ${_label}: ${_probability} `
-        };
-        return sendMessage(messageToBeSent, replyToken);
-      })
-      .catch((error) => {
-        console.log('Promiss.all error: ' + circularJSON.stringify(error));
-      });
+      // return promise1('https://ara-line-bot-20180515.herokuapp.com/uploaded/alpine.jpg', accessToken);
+      // })
+      // .then((predictresponse) => {
+      //   console.log('Promiss.all predictresponse: ' + circularJSON.stringify(predictresponse));
+      //   const _probabilities_0 = (predictresponse['probabilities'])[0];
+      //   const _label = _probabilities_0['label'];
+      //   const _probability = _probabilities_0['probability'];
+      //   const messageToBeSent = {
+      //     type:'text',
+      //     text: `画像の分析の結果、 ${_label}: ${_probability} `
+      //   };
+      //   return sendMessage(messageToBeSent, replyToken);
+      // })
+      // .catch((error) => {
+      //   console.log('Promiss.all error: ' + circularJSON.stringify(error));
+      // });
     // }).catch((error) => {
     //   console.log('Promiss.all error: ' + circularJSON.stringify(error));
     // });
