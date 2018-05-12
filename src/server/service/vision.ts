@@ -98,6 +98,12 @@ export class VisionService {
         const probabilities = (predictresponse[0])['probabilities'];
         console.log('promise2 probabilities: ' + probabilities);
         console.log('promise2 probabilities: ' + probabilities.length);
+        probabilities.sort((a, b) => {
+          if (a.probability > b.probability) return -1;
+          if (a.probability < b.probability) return 1;
+          return 0;
+        });
+        console.log(probabilities);
         for (let i in probabilities) {
           const p = probabilities[i];
           console.log('------------------------------');
