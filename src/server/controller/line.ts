@@ -97,7 +97,7 @@ const handleImage = (message, replyToken) => {
       //   }
       // );
   });
-
+/*
   console.log('handleImage');
   console.log('message: ' + circularJSON.stringify(message));
   console.log('replyToken: ' + replyToken);
@@ -163,6 +163,7 @@ const handleImage = (message, replyToken) => {
     // }).catch((error) => {
     //   console.log('Promiss.all error: ' + circularJSON.stringify(error));
     // });
+*/
 }
 
 export const handleVideo = (message, replyToken) => {
