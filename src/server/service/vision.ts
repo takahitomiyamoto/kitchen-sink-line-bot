@@ -71,7 +71,7 @@ export class VisionService {
   }
 
   public getObjectDetection = (targetImage, accessToken) => {
-    // return new Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
       const detectOptions = this.createDetectOptions(targetImage, accessToken);
       console.log('detectOptions: ' + circularJSON.stringify(detectOptions));
 
@@ -92,7 +92,8 @@ export class VisionService {
 
       Promise.all([promise_(detectOptions)])
       .then((data) => {
-        return data;
+        // return data;
+        resolve(data);
       })
       .catch((err) => {
         console.log(err);
@@ -130,7 +131,7 @@ export class VisionService {
       //   // reject(err);
       // }
     // });
-  // });
+    });
   }
 
   private createTokenOptions() {
