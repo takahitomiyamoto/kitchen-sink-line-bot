@@ -72,17 +72,18 @@ export class VisionService {
 
   public getObjectDetection = (targetImage, accessToken) => {
     const detectOptions = this.createDetectOptions(targetImage, accessToken);
-    return new Promise((resolve, reject) => {
+    // return new Promise((resolve, reject) => {
       rp(detectOptions)
       .then((data) => {
         console.log('data: ' + circularJSON.stringify(data));
       // const accessToken = data['access_token'];
       //   console.log('expires_in: ' + data['expires_in']);
-        resolve(data)
+        // resolve(data)
+        return data;
       })
       .catch((err) => {
         console.log(err);
-        reject(err);
+        // reject(err);
       });
       // try {
       // request.post(detectOptions, (error, response, body) => {
@@ -101,7 +102,7 @@ export class VisionService {
       // } catch(err) {
       //   reject(err);
       // }
-    });
+    // });
   }
 
   private createTokenOptions() {
