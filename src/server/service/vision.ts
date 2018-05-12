@@ -98,11 +98,12 @@ export class VisionService {
         const probabilities = (predictresponse[0])['probabilities'];
         console.log('promise2 probabilities: ' + probabilities);
         console.log('promise2 probabilities: ' + probabilities.length);
-        for (let p in probabilities) {
+        for (let i in probabilities) {
+          const p = probabilities[i];
           console.log('------------------------------');
-          console.log('p : ' + circularJSON.stringify(p));
-          // console.log('label : ' + p['label']);
-          // console.log('probability : ' + p['probability']);
+          console.log(circularJSON.stringify(p));
+          console.log('label : ' + p['label']);
+          console.log('probability : ' + p['probability']);
         }
         // console.log('promise2 predictresponse: ' + predictresponse.length);
         const _probabilities_0 = ((predictresponse[0])['probabilities'])[0];
