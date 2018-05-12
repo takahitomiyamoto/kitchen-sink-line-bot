@@ -28,7 +28,7 @@ export class LineService {
         // const writable = fs.createWriteStream(downloadPath);
         // const errorHandling = (err) => { console.log(err) }
         console.log('LineService then: writable');
-        writable.on('open', () => {
+        // writable.on('open', () => {
         // stream.pipe(writable);
         stream.on('error', reject).pipe(writable);
         console.log('LineService then: writable pipe');
@@ -37,7 +37,7 @@ export class LineService {
         console.log('LineService then: end');
         stream.on('error', reject);
         console.log('LineService then: error');
-        })
+        // })
       }))
     ;
   }
