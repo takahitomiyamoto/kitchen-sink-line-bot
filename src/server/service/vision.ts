@@ -153,7 +153,7 @@ export class VisionService {
     const formData = {
       modelId: modelId,
       numResults: 3,
-      sampleLocation: 'https://ara-line-bot-20180515.herokuapp.com/uploaded/logo.png'
+      sampleLocation: 'https://ara-line-bot-20180515.herokuapp.com/uploaded/sfdg-20180301-02.jpg'
     };
     const options = {
       url: reqUrl,
