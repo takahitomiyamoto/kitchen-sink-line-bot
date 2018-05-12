@@ -96,13 +96,16 @@ export class VisionService {
         // console.log('promise2 predictresponse: ' + predictresponse);
         // console.log('promise2 predictresponse: ' + predictresponse.length);
         const probabilities = (predictresponse[0])['probabilities'];
-        console.log('probabilities: ' + probabilities.length);
+        // console.log('probabilities: ' + probabilities.length);
+
+        // TODO: メソッド化 確度で降順にソート
         probabilities.sort((a, b) => {
           if (a.probability > b.probability) { return -1; }
           if (a.probability < b.probability) { return 1; }
           return 0;
         });
         console.log(probabilities);
+
         for (let i in probabilities) {
           const p = probabilities[i];
           console.log('------------------------------');
@@ -112,13 +115,14 @@ export class VisionService {
         }
         // console.log('promise2 predictresponse: ' + predictresponse.length);
         const _probabilities_0 = probabilities[0];
+        const _count = probabilities.length;
         const _label = _probabilities_0.label;
-        const _probability = _probabilities_0.probability;
+        const _probability = Math.round(_probabilities_0.probability * 100);
         // const _label = 'label';
         // const _probability = 'probability';
         const messageToBeSent = {
           type:'text',
-          text: `画像の分析の結果、 ${_label}: ${_probability} `
+          text: `${_count}個見つかりました。たとえば、${_probability}%の確率で${_label}があります。`
         };
         // return sendMessage_(messageToBeSent, replyToken);
         console.log('promise2 messageToBeSent: ' + circularJSON.stringify(messageToBeSent));
