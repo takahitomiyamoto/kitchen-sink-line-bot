@@ -22,11 +22,8 @@ export class LineService {
       .then((stream) => new Promise((resolve, reject) => {
         const writable = fs.createWriteStream(downloadFile);
         stream.on('error', reject).pipe(writable);
-        console.log('LineService then: writable pipe');
         stream.on('end', () => resolve(downloadFile));
-        console.log('LineService then: end');
         stream.on('error', reject);
-        console.log('LineService then: error');
       }))
     ;
   }

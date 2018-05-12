@@ -91,14 +91,14 @@ const handleImage = (message, replyToken) => {
     cp.execSync(`convert -resize 240x jpeg:${downloadFile} jpeg:${previewFile}`);
     cp.execSync(`mv ${downloadFile} .${downloadFileUploaded}`);
     cp.execSync(`mv ${previewFile} .${previewFileUploaded}`);
-    return client.replyMessage(
-      replyToken,
-      {
-        type: 'image',
-        originalContentUrl: `${baseURL}${downloadFileUploaded}`,
-        previewImageUrl: `${baseURL}${downloadFileUploaded}`
-      }
-    );
+    // return client.replyMessage(
+    //   replyToken,
+    //   {
+    //     type: 'image',
+    //     originalContentUrl: `${baseURL}${downloadFileUploaded}`,
+    //     previewImageUrl: `${baseURL}${downloadFileUploaded}`
+    //   }
+    // );
   }).then(() => {
     Promise.all([getAccessToken])
     .then((accessToken) => {
