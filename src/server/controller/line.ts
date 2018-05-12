@@ -78,27 +78,28 @@ const handleImage = (message, replyToken) => {
   // const downloadPath = path.join(__dirname, 'downloaded', `${message.id}.jpg`);
   // const previewPath = path.join(__dirname, 'downloaded', `${message.id}-preview.jpg`);
   const baseURL = lineService.instance.baseURL;
-  const downloadPath = path.join(baseURL, 'uploaded', `${message.id}.jpg`);
-  const previewPath = path.join(baseURL, 'uploaded', `${message.id}-preview.jpg`);
+  const downloadFile = `${message.id}.jpg`;
+  const previewFile = `${message.id}-preview.jpg`;
 
-  Promise.all([lineService.instance.downloadContent(message.id, downloadPath)])
-  .then((downloadPath:any) => {
-    console.log('downloadContent then: ' + downloadPath);
+  Promise.all([lineService.instance.downloadContent(message.id, downloadFile)])
+  .then((downloadFile:any) => {
+    console.log('downloadContent then: ' + downloadFile);
     // ImageMagick is needed here to run 'convert'
     // Please consider about security and performance by yourself
-    cp.execSync(`mv ${downloadPath} ./uploaded/${downloadPath}`);
-    // cp.execSync(`convert -resize 240x jpeg:${downloadPath} jpeg:${previewPath}`);
+    cp.execSync(`convert -resize 240x jpeg:${downloadFile} jpeg:${previewFile}`);
+    cp.execSync(`mv ${downloadFile} ./uploaded/${downloadFile}`);
+    cp.execSync(`mv ${previewFile} ./uploaded/${previewFile}`);
     // cp.execSync(`convert -resize 240x jpeg:${message.id}.jpg jpeg:${message.id}-preview.jpg`);
     // console.log('originalContentUrl: ' + baseURL + '/uploaded/' + path.basename(downloadPath));
     // console.log('previewImageUrl: ' + baseURL + '/uploaded/' + path.basename(previewPath));
-      // return client.replyMessage(
-      //   replyToken,
-      //   {
-      //     type: 'image',
-      //     originalContentUrl: baseURL + '/downloaded/' + path.basename(downloadPath),
-      //     previewImageUrl: baseURL + '/downloaded/' + path.basename(previewPath),
-      //   }
-      // );
+      return client.replyMessage(
+        replyToken,
+        {
+          type: 'image',
+          originalContentUrl: baseURL + '/uploaded/' + downloadFile,
+          previewImageUrl: baseURL + '/uploaded/' + previewFile,
+        }
+      );
   });
 /*
   console.log('handleImage');
