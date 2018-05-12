@@ -75,7 +75,7 @@ export class VisionService {
       const detectOptions = this.createDetectOptions(targetImage, accessToken);
       console.log('detectOptions: ' + circularJSON.stringify(detectOptions));
 
-      const promise_ = (detectOptions) => {
+      const promise0 = (detectOptions) => {
         return new Promise((resolve, reject) => {
         rp(detectOptions)
         .then((data) => {
@@ -93,12 +93,8 @@ export class VisionService {
       };
 
       const promise2 = (predictresponse) => {
-        // console.log('promise2 predictresponse: ' + predictresponse);
-        // console.log('promise2 predictresponse: ' + predictresponse.length);
-        const probabilities = (predictresponse[0])['probabilities'];
-        // console.log('probabilities: ' + probabilities.length);
-
         // TODO: メソッド化 確度で降順にソート
+        const probabilities = (predictresponse[0])['probabilities'];
         probabilities.sort((a, b) => {
           if (a.probability > b.probability) { return -1; }
           if (a.probability < b.probability) { return 1; }
@@ -106,34 +102,32 @@ export class VisionService {
         });
         console.log(probabilities);
 
-        for (let i in probabilities) {
-          const p = probabilities[i];
-          console.log('------------------------------');
-          console.log(circularJSON.stringify(p));
-          console.log('label : ' + p.label);
-          console.log('probability : ' + p.probability);
-        }
+        // for (let i in probabilities) {
+        //   const p = probabilities[i];
+        //   console.log('------------------------------');
+        //   console.log(circularJSON.stringify(p));
+        //   console.log('label : ' + p.label);
+        //   console.log('probability : ' + p.probability);
+        // }
         // console.log('promise2 predictresponse: ' + predictresponse.length);
-        const _probabilities_0 = probabilities[0];
         const _count = probabilities.length;
+        const _probabilities_0 = probabilities[0];
         const _label = _probabilities_0.label;
         const _probability = Math.round(_probabilities_0.probability * 100);
-        // const _label = 'label';
-        // const _probability = 'probability';
         const messageToBeSent = {
           type:'text',
-          text: `${_count}個見つかりました。たとえば、${_probability}%の確率で${_label}があります。`
+          text: `${_count}個 見つかりました。たとえば ${_probability}% の確率で ${_label} があります。`
         };
         // return sendMessage_(messageToBeSent, replyToken);
         console.log('promise2 messageToBeSent: ' + circularJSON.stringify(messageToBeSent));
         return messageToBeSent;
       };
 
-      Promise.all([promise_(detectOptions)])
+      Promise.all([promise0(detectOptions)])
       .then((data) => {
-        // return data;
-        // resolve(data);
         return promise2(data);
+      }).then((messageToBeSent) => {
+        console.log('messageToBeSent: ' + circularJSON.stringify(messageToBeSent));
       })
       .catch((err) => {
         console.log(err);
