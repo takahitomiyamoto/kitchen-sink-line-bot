@@ -76,18 +76,20 @@ export class VisionService {
       console.log('detectOptions: ' + circularJSON.stringify(detectOptions));
 
       const promise_ = (detectOptions) => {
+        return new Promise((resolve, reject) => {
         rp(detectOptions)
         .then((data) => {
           console.log('data: ' + circularJSON.stringify(data));
       // const accessToken = data['access_token'];
       //   console.log('expires_in: ' + data['expires_in']);
-        // resolve(data)
-          return data;
+        resolve(data)
+          // return data;
         })
         .catch((err) => {
           console.log(err);
         // reject(err);
         });
+      });
       };
 
       const promise2 = (predictresponse) => {
