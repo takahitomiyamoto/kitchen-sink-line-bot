@@ -73,7 +73,7 @@ export class VisionService {
   public getObjectDetection = (targetImage, accessToken) => {
     return new Promise((resolve, reject) => {
       const detectOptions = this.createDetectOptions(targetImage, accessToken);
-      console.log('detectOptions: ' + detectOptions);
+      console.log('detectOptions: ' + circularJSON.stringify(detectOptions));
     // }).then((detectOptions: any) => {
       // return new Promise((resolve, reject) => {
         rp(detectOptions)
