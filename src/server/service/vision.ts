@@ -12,29 +12,6 @@ export class VisionService {
     return VisionService._visionService;
   }
 
-  // public getMessageContent(messageId, callback) {
-  //   const options = {
-  //     uri: 'https://api.line.me/v2/bot/message/' + messageId + '/content',
-  //     headers: {
-  //       'Authorization': 'Bearer ' + process.env.LINE_CHANNEL_ACCESS_TOKEN,
-  //       'Content-Type': 'multipart/form-data'
-  //     },
-  //     json: true
-  //   };
-  //   console.log('options: ' + options);
-  //   // return new Promise((resolve, reject) => {
-  //     rp(options)
-  //     .then((chunk) => {
-  //       const data = Buffer.from(chunk);
-  //       const targetImageBase64 = data.toString('base64');
-  //       return callback(targetImageBase64);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  //   // });
-  // }
-
   public getAccessToken() {
     const tokenOptions = this.createTokenOptions();
     console.log('tokenOptions: ' + tokenOptions);
@@ -52,75 +29,55 @@ export class VisionService {
     });
   }
 
-  // public getImageClassification(targetImage, accessToken) {
-  //   const predictOptions = this.createPredictOptions(targetImage, accessToken);
-  //   return new Promise((resolve, reject) => {
-  //     try {
-  //     request.post(predictOptions, (error, response, body) => {
-  //       if (error) {
-  //         reject(error)
-  //       }
-  //       if (response['statusCode'] === 200) {
-  //         resolve(body);
-  //       }
-  //       reject(circularJSON.stringify(body));
-  //     })
-  //     } catch(err) {
-  //       reject(err);
-  //     }
-  //   });
-  // }
+  private postDetect = (detectOptions) => {
+    return new Promise((resolve, reject) => {
+      rp(detectOptions)
+      .then((data) => {
+        console.log('data: ' + circularJSON.stringify(data));
+        resolve(data)
+      })
+      .catch((err) => {
+        console.log(err);
+        reject(err);
+      });
+    });
+  };
+
+  private createMessageToBeSent = (predictresponse) => {
+    // TODO: メソッド化 確度で降順にソート
+    const probabilities = (predictresponse[0])['probabilities'];
+    probabilities.sort((a, b) => {
+      if (a.probability > b.probability) { return -1; }
+      if (a.probability < b.probability) { return 1; }
+      return 0;
+    });
+    console.log(probabilities);
+
+    const _count = probabilities.length;
+    const _probabilities_0 = probabilities[0];
+    const _label = _probabilities_0.label;
+    const _probability = Math.round(_probabilities_0.probability * 100);
+    const messageToBeSent = {
+      type:'text',
+      text: `${_count}個 見つかりました。たとえば ${_probability}% の確率で ${_label} があります。`
+    };
+    return messageToBeSent;
+  };
 
   public getObjectDetection = (targetImage, accessToken, replyToken) => {
+    const sendMessage = (messageToBeSent) => {
+      lineService.instance.sendMessage(messageToBeSent, replyToken);
+    };
+    const detectOptions = this.createDetectOptions(targetImage, accessToken);
+    console.log('detectOptions: ' + circularJSON.stringify(detectOptions));
+
     return new Promise((resolve, reject) => {
-      const detectOptions = this.createDetectOptions(targetImage, accessToken);
-      console.log('detectOptions: ' + circularJSON.stringify(detectOptions));
-
-      const promise0 = (detectOptions) => {
-        return new Promise((resolve, reject) => {
-          rp(detectOptions)
-          .then((data) => {
-            console.log('data: ' + circularJSON.stringify(data));
-            resolve(data)
-          })
-          .catch((err) => {
-            console.log(err);
-            reject(err);
-          });
-        });
-      };
-
-      const promise1 = (predictresponse) => {
-        // TODO: メソッド化 確度で降順にソート
-        const probabilities = (predictresponse[0])['probabilities'];
-        probabilities.sort((a, b) => {
-          if (a.probability > b.probability) { return -1; }
-          if (a.probability < b.probability) { return 1; }
-          return 0;
-        });
-        console.log(probabilities);
-
-        const _count = probabilities.length;
-        const _probabilities_0 = probabilities[0];
-        const _label = _probabilities_0.label;
-        const _probability = Math.round(_probabilities_0.probability * 100);
-        const messageToBeSent = {
-          type:'text',
-          text: `${_count}個 見つかりました。たとえば ${_probability}% の確率で ${_label} があります。`
-        };
-        return messageToBeSent;
-      };
-
-      const promise2 = (messageToBeSent) => {
-        lineService.instance.sendMessage(messageToBeSent, replyToken);
-      };
-
-      Promise.all([promise0(detectOptions)])
+      Promise.all([this.postDetect(detectOptions)])
       .then((data) => {
-        return promise1(data);
+        return this.createMessageToBeSent(data);
       }).then((messageToBeSent) => {
         console.log('messageToBeSent: ' + circularJSON.stringify(messageToBeSent));
-        return promise2(messageToBeSent);
+        return sendMessage(messageToBeSent);
       })
       .catch((err) => {
         console.log(err);
