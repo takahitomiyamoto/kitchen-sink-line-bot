@@ -23,16 +23,19 @@ export class LineService {
     return this.client.getMessageContent(messageId)
       .then((stream) => new Promise((resolve, reject) => {
         console.log('LineService then: ' + downloadPath);
+        // fs.mkdirSync('output');
         const writable = fs.createWriteStream(downloadPath);
+        // const errorHandling = (err) => { console.log(err) }
         console.log('LineService then: writable');
-        writable.on('open', () => {
-        stream.pipe(writable);
+        // writable.on('open', () => {
+        // stream.pipe(writable);
+        stream.on('error', reject).pipe(writable);
         console.log('LineService then: writable pipe');
         stream.on('end', () => resolve(downloadPath));
         console.log('LineService then: end');
         stream.on('error', reject);
         console.log('LineService then: error');
-        })
+        // })
       }))
     ;
   }
