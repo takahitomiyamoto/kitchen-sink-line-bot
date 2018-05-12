@@ -11,6 +11,7 @@ const app = express();
 // serve static and downloaded files
 app.use('/static', express.static('static'));
 app.use('/downloaded', express.static('downloaded'));
+app.use('/uploaded', express.static('uploaded'));
 
 // webhook callback
 app.post('/callback', line.middleware(configLine), (req, res) => {
