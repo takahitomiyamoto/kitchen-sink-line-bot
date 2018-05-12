@@ -72,9 +72,10 @@ export class VisionService {
 
   public getObjectDetection = (targetImage, accessToken) => {
     return new Promise((resolve, reject) => {
-    const detectOptions = this.createDetectOptions(targetImage, accessToken);
-    }).then((detectOptions: any) => {
-      return new Promise((resolve, reject) => {
+      const detectOptions = this.createDetectOptions(targetImage, accessToken);
+      console.log('detectOptions: ' + detectOptions);
+    // }).then((detectOptions: any) => {
+      // return new Promise((resolve, reject) => {
         rp(detectOptions)
       .then((data) => {
         console.log('data: ' + circularJSON.stringify(data));
@@ -105,7 +106,7 @@ export class VisionService {
       //   reject(err);
       // }
     });
-  });
+  // });
   }
 
   private createTokenOptions() {
@@ -166,7 +167,7 @@ export class VisionService {
   }
 
   private createDetectOptions(targetImage, accessToken) {
-    return new Promise((resolve, reject) => {
+    // return new Promise((resolve, reject) => {
     const url = process.env.EINSTEIN_VISION_URL + process.env.EINSTEIN_API_VERSION;
     const reqUrl = url + '/vision/detect';
     const modelId = process.env.EINSTEIN_VISION_MODEL_ID;
@@ -188,8 +189,8 @@ export class VisionService {
       timeout: 60000,
       json: true
     };
-    // return options;
-    resolve(options);
-    })
+    return options;
+    // resolve(options);
+    // })
   }
 }
