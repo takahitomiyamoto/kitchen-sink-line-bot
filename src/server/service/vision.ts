@@ -172,6 +172,7 @@ export class VisionService {
       sampleLocation: targetImage
     };
     const options = {
+      method: 'POST',
       url: reqUrl,
       headers: {
         'Authorization': 'Bearer ' + accessToken,
