@@ -94,7 +94,7 @@ export class VisionService {
 
       const promise2 = (predictresponse) => {
         console.log('promise2 predictresponse: ' + predictresponse);
-        const _probabilities_0 = (predictresponse['probabilities'])[0];
+        const _probabilities_0 = ((predictresponse[0])['probabilities'])[0];
         const _label = _probabilities_0['label'];
         const _probability = _probabilities_0['probability'];
         // const _label = 'label';
