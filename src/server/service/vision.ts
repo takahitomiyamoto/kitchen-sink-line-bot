@@ -104,6 +104,7 @@ export class VisionService {
           text: `画像の分析の結果、 ${_label}: ${_probability} `
         };
         // return sendMessage_(messageToBeSent, replyToken);
+        console.log('promise2 messageToBeSent: ' + circularJSON.stringify(messageToBeSent));
         return messageToBeSent;
       };
 
