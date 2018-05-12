@@ -89,8 +89,8 @@ const handleImage = (message, replyToken) => {
   Promise.all([downloadContent])
   .then((downloadFile) => {
     cp.execSync(`convert -resize 240x jpeg:${downloadFile} jpeg:${previewFile}`);
-    cp.execSync(`mv ${downloadFile} ${downloadFileUploaded}`);
-    cp.execSync(`mv ${previewFile} ${previewFileUploaded}`);
+    cp.execSync(`mv ${downloadFile} .${downloadFileUploaded}`);
+    cp.execSync(`mv ${previewFile} .${previewFileUploaded}`);
     return client.replyMessage(
       replyToken,
       {
