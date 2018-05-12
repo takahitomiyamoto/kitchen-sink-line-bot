@@ -157,7 +157,8 @@ export class VisionService {
     const formData = {
       modelId: modelId,
       numResults: 3,
-      sampleLocation: 'https://einstein.ai/images/alpine.jpg'
+      // sampleLocation: 'https://einstein.ai/images/alpine.jpg'
+      sampleLocation: targetImage
     };
     const options = {
       url: reqUrl,

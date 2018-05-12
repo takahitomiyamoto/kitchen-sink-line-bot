@@ -82,16 +82,16 @@ const handleImage = (message, replyToken) => {
     // visionService.instance.getImageClassification(target, accessToken);
     visionService.instance.getObjectDetection(target, accessToken);
   };
-  client.getMessageContent(message.id)
-  .then((stream) => {
-    let targetImageBase64;
-    stream.on('data', (chunk) => {
-      const data = Buffer.from(chunk);
-      targetImageBase64 = data.toString('base64');
-      console.log('stream on targetImageBase64: ' + targetImageBase64.length);
+  // client.getMessageContent(message.id)
+  // .then((stream) => {
+  //   let targetImageBase64;
+  //   stream.on('data', (chunk) => {
+  //     const data = Buffer.from(chunk);
+  //     targetImageBase64 = data.toString('base64');
+  //     console.log('stream on targetImageBase64: ' + targetImageBase64.length);
       Promise.all([promise0])
       .then((accessToken) => {
-        return promise1(targetImageBase64, accessToken);
+        return promise1('https://einstein.ai/images/alpine.jpg', accessToken);
       })
       .then((predictresponse) => {
         console.log('Promiss.all predictresponse: ' + circularJSON.stringify(predictresponse));
@@ -107,10 +107,10 @@ const handleImage = (message, replyToken) => {
       .catch((error) => {
         console.log('Promiss.all error: ' + circularJSON.stringify(error));
       });
-    })
-  }).catch((error) => {
-    console.log('Promiss.all error: ' + circularJSON.stringify(error));
-  });
+  //   })
+  // }).catch((error) => {
+  //   console.log('Promiss.all error: ' + circularJSON.stringify(error));
+  // });
 }
 
 export const handleVideo = (message, replyToken) => {
