@@ -114,8 +114,19 @@ export class LineService {
     return false;
   }
 
-  public stopMessage = (replyToken) => {
-    return this.replyText(replyToken, message.OK_TELL_ME_IF_NEEDED_JA);
+  public stopMessage = (replyToken, sticker) => {
+    const sticker_0 = sticker[0];
+    return this.client.replyMessage(
+      replyToken,
+      [
+        sticker_0,
+        {
+          type: 'text',
+          text: message.OK_TELL_ME_IF_NEEDED_JA
+        }
+      ]
+    );
+    // return this.replyText(replyToken, message.OK_TELL_ME_IF_NEEDED_JA);
   }
 
   public hasLocationQuestion = (text: string) => {
