@@ -13,7 +13,7 @@ const message = {
   OK_TELL_ME_IF_NEEDED_JA : 'わかりました。また何かありましたら教えてください。',
   SEARCH_LOCATION_JA : 'この場所ってどう？',
   SEND_ME_IMAGE : 'その場所の写真を送っていただけますか？',
-  SORRY_TELL_ME_AGAIN_JA : 'ごめんなさい！うまく理解できなかったので、最初からお願いできますか？',
+  SORRY_TELL_ME_AGAIN_JA : 'ごめんなさい！最初からお願いできますか？',
 };
 
 export { message }
