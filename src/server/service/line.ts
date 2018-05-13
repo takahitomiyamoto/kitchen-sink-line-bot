@@ -146,8 +146,19 @@ export class LineService {
     return false;
   }
 
-  public requestImage = (replyToken) => {
-    return this.replyText(replyToken, message.SEND_ME_IMAGE);
+  public requestImage = (replyToken, sticker) => {
+    const sticker_0 = sticker[0];
+    return this.client.replyMessage(
+      replyToken,
+      [
+        sticker_0,
+        {
+          type: 'text',
+          text: message.SEND_ME_IMAGE
+        }
+      ]
+    );
+    // return this.replyText(replyToken, message.SEND_ME_IMAGE);
   }
 
   public defaultMessage = (replyToken) => {
