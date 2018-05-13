@@ -133,20 +133,21 @@ export class LineController {
         console.log('text_JA: ' + circularJSON.stringify(text_JA));
         Promise.all([getTranslation(text_JA, accessToken)])
         .then((values: any) => {
-          const text_EN = values.text_EN;
-          const accessToken = values.accessToken;
-          console.log('text_EN: ' + text_EN);
-          console.log('accessToken: ' + accessToken);
+          console.log('values: ' + circularJSON.stringify(values));
+          // const text_EN = values.text_EN;
+          // const accessToken = values.accessToken;
+          // console.log('text_EN: ' + text_EN);
+          // console.log('accessToken: ' + accessToken);
           // 感情分析する
-          Promise.all([getSentiment(text_EN, accessToken)])
-          .then((sentiment) => {
-            // 得られた感情に対するスタンプを取得する
-            console.log('sentiment: ' + circularJSON.stringify(sentiment));
-            Promise.all([getSticker(sentiment)])
-            .then((sticker) => {
-              resolve(sticker);
-            })
-          })
+          // Promise.all([getSentiment(text_EN, accessToken)])
+          // .then((sentiment) => {
+          //   // 得られた感情に対するスタンプを取得する
+          //   console.log('sentiment: ' + circularJSON.stringify(sentiment));
+          //   Promise.all([getSticker(sentiment)])
+          //   .then((sticker) => {
+          //     resolve(sticker);
+          //   })
+          // })
         })
       }).catch((error) => {
         console.log('error: ' + circularJSON.stringify(error));
