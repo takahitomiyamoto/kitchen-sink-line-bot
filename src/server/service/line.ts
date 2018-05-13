@@ -157,4 +157,15 @@ export class LineService {
       })
     ;
   }
+
+  public handleSticker = (message, replyToken) => {
+    return this.client.replyMessage(
+      replyToken,
+      {
+        type: 'sticker',
+        packageId: message.packageId,
+        stickerId: message.stickerId,
+      }
+    );
   }
+}

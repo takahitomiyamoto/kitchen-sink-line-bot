@@ -32,7 +32,7 @@ export class LineController {
           case 'location':
             // return handleLocation(message, event.replyToken);
           case 'sticker':
-            // return handleSticker(message, event.replyToken);
+            return lineService.instance.handleSticker(message, event.replyToken);
           default:
             throw new Error(`Unknown message: ${JSON.stringify(message)}`);
         }
@@ -87,7 +87,6 @@ export class LineController {
     const downloadFileUploaded = `/uploaded/${downloadFile}`;
     const previewFileUploaded = `/uploaded/${previewFile}`;
     const targetFile = `${lineService.instance.baseURL}${downloadFileUploaded}`;
-    // const targetFile = `${lineService.instance.baseURL}/uploaded/alpine.jpg`;
     const downloadContent = lineService.instance.downloadContent(message.id, downloadFile);
     const getAccessToken = visionService.instance.getAccessToken();
     const getObjectDetection = (target, accessToken) => visionService.instance.getObjectDetection(target, accessToken, replyToken);
