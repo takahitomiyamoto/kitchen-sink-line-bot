@@ -146,6 +146,7 @@ export class VisionService {
       })
       .catch((err) => {
         console.log(err);
+        reject(err);
       });
     });
   }
