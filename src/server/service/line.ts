@@ -85,7 +85,20 @@ export class LineService {
   }
 
   public continueMessage = (replyToken) => {
-    return this.replyText(replyToken, message.OK_TELL_ME_AGAIN_JA);
+    return this.client.replyMessage(
+      replyToken,
+      [
+        {
+          type: 'sticker',
+          packageId: '2',
+          stickerId: '179'
+        },
+        {
+          type: 'text',
+          text: message.OK_TELL_ME_AGAIN_JA
+        }
+      ]
+    );
   }
 
   public validate = (array, text) => {
