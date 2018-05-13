@@ -128,8 +128,8 @@ export class LineService {
       [
         {
           type: 'sticker',
-          packageId: message.SORRY_PACKAGE_ID,
-          stickerId: message.SORRY_STICKER_ID
+          packageId: message.NO_THANKS_PACKAGE_ID,
+          stickerId: message.NO_THANKS_STICKER_ID
         },
         {
           type: 'text',
@@ -185,26 +185,6 @@ export class LineService {
       replyToken,
       [
         _sticker,
-        // {
-        //   type: 'template',
-        //   altText: 'defaultMessage',
-        //   template: {
-        //     type: 'confirm',
-        //     text: message.SORRY_TELL_ME_AGAIN_JA,
-        //     actions: [
-        //       {
-        //         label: message.BUTTONS_YES_JA,
-        //         type: 'message',
-        //         text: message.BUTTONS_YES_JA
-        //       },
-        //       {
-        //         label: message.NO_THANKS_JA,
-        //         type: 'message',
-        //         text: message.NO_THANKS_JA
-        //       }
-        //     ]
-        //   }
-        // }
         {
           type: 'template',
           altText: 'defaultMessage',
