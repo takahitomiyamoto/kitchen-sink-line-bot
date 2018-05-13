@@ -168,13 +168,16 @@ export class LineService {
   }
 
   public defaultMessage = (replyToken, sticker) => {
-    let _sticker = sticker[0];
-    if ({} === _sticker) {
+    console.log('defaultMessage');
+    let _sticker;
+    if ({} === sticker) {
       _sticker = {
         type: 'sticker',
         packageId: message.UNKNOWN_PACKAGE_ID,
         stickerId: message.UNKNOWN_STICKER_ID
       };
+    } else {
+      _sticker = sticker[0];
     }
 
     return this.client.replyMessage(
