@@ -165,7 +165,7 @@ export class LineService {
   }
 
   public defaultMessage = (replyToken, sticker) => {
-    let _sticker = sticker;
+    let _sticker = sticker[0];
     if ({} === _sticker) {
       _sticker = {
         type: 'sticker',
