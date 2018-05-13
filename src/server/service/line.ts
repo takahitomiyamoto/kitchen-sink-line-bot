@@ -206,7 +206,7 @@ export class LineService {
           template: {
             type: 'buttons',
             title: message.RESULT_MESSAGE_JA,
-            text: messageToBeSent.text + '\uDBC0\uDC01' + message.ADDITIONAL_MESSAGE_JA,
+            text: messageToBeSent.text + '\n' + message.ADDITIONAL_MESSAGE_JA,
             actions: [
               {
                 label: message.GOOGLE_EARTH_JA,
