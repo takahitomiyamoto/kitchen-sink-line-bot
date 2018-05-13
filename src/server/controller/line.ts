@@ -32,7 +32,7 @@ export class LineController {
           case 'location':
             // return handleLocation(message, event.replyToken);
           case 'sticker':
-            return lineService.instance.handleSticker(message, event.replyToken);
+            return lineService.instance.defaultMessage(event.replyToken);
           default:
             throw new Error(`Unknown message: ${JSON.stringify(message)}`);
         }
