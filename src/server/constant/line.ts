@@ -30,7 +30,7 @@ const message = {
   RESULT_MESSAGE_JA : '分析結果です。',
   ADDITIONAL_MESSAGE_JA : '他に確認したい場所はありますか？',
   SEARCH_LOCATION_JA : 'この場所ってどう？',
-  SEND_ME_IMAGE : 'その場所の写真を送っていただけますか？\uDBC0\uDC01',
+  SEND_ME_IMAGE : 'その場所の写真を送っていただけますか？\uDBC0\uDC85',
   DEFAULT_MESSAGE_TITLE_JA : 'どうしましたか？',
   DEFAULT_MESSAGE_TEXT_JA : '何かご用でしょうか？？',
   THANKS : 'Thanks',
