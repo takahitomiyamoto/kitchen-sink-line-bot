@@ -76,7 +76,7 @@ export class LineController {
         // start next communication
         case (lineService.instance.hasLocationQuestion(message.text) && message.text):
           console.log('requestImage');
-          return lineService.instance.requestImage(replyToken);
+          return lineService.instance.requestImage(replyToken, sticker);
         default:
           console.log('defaultMessage');
           return lineService.instance.defaultMessage(replyToken);
