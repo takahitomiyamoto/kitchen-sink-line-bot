@@ -58,8 +58,8 @@ export class VisionService {
     } else {
       const _probabilities_0 = probabilities[0];
       const _label = _probabilities_0.label;
-      const _probability = Math.round(_probabilities_0.probability * 100);
-      textMsg = `家が${_count}軒以上見つかりましたよ \uDBC0\uDC01`;
+      // const _probability = Math.round(_probabilities_0.probability * 100);
+      textMsg = `家が${_count}軒以上見つかりましたよ`;
     }
     const messageToBeSent = {
       type:'text',
