@@ -59,7 +59,7 @@ export class VisionService {
       const _probabilities_0 = probabilities[0];
       const _label = _probabilities_0.label;
       const _probability = Math.round(_probabilities_0.probability * 100);
-      textMsg = `${_count}個 見つかりました。たとえば ${_probability}% の確率で ${_label} があります。`;
+      textMsg = `家が ${_count}軒以上見つかりましたよ。`;
     }
     const messageToBeSent = {
       type:'text',
@@ -123,7 +123,7 @@ export class VisionService {
       Promise.all([this.post(sentimentOptions)])
       .then((data) => {
         console.log('getSentiment data: ' + circularJSON.stringify(data));
-        return this.createMessageForDetection(data);
+        return this.createMessageForSentiment(data);
       }).then((messageToBeSent) => {
         console.log('messageToBeSent: ' + circularJSON.stringify(messageToBeSent));
         resolve(messageToBeSent);
