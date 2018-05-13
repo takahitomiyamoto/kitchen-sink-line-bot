@@ -169,9 +169,9 @@ export class LineService {
 
   public defaultMessage = (replyToken, sticker) => {
     console.log('defaultMessage');
-    console.log('sticker: ' + sticker);
+    console.log('sticker: ' + circularJSON.stringify(sticker));
     let _sticker;
-    if ({} === sticker) {
+    if (0 === sticker.length) {
       _sticker = {
         type: 'sticker',
         packageId: message.UNKNOWN_PACKAGE_ID,
