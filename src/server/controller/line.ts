@@ -136,11 +136,11 @@ export class LineController {
           const accessToken = values_0.accessToken;
           // 感情分析する
           Promise.all([getSentiment(text_EN, accessToken)])
-          .then((sentiment) => {
+          .then((sentiment: any) => {
             // 得られた感情に対するスタンプを取得する
             console.log('sentiment: ' + circularJSON.stringify(sentiment));
-            const sentiment_0 = sentiment[0];
-            Promise.all([getSticker(sentiment_0)])
+            const sentiment_0_text = sentiment[0].text;
+            Promise.all([getSticker(sentiment_0_text)])
             .then((sticker) => {
               console.log('sticker: ' + circularJSON.stringify(sticker));
               resolve(sticker);
