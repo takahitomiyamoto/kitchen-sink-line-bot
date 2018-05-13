@@ -194,13 +194,39 @@ export class LineService {
     );
   }
 
-  public sendMessage = (replyToken, message) => {
-    console.log('sendMessage: ' + circularJSON.stringify(message));
+  public sendMessage = (replyToken, messageToBeSent) => {
+    console.log('sendMessage: ' + circularJSON.stringify(messageToBeSent));
     return this.client.replyMessage(
       replyToken,
       [
+        {
+          type: 'template',
+          altText: 'resultMessage',
+          template: {
+            type: 'buttons',
+            title: message.RESULT_MESSAGE_JA,
+            text: messageToBeSent.text,
+            actions: [
+              {
+                label: message.GOOGLE_EARTH_JA,
+                type: 'uri',
+                uri: 'https://earth.google.com/web/'
+              },
+              {
+                label: message.SEARCH_LOCATION_JA,
+                type: 'message',
+                text: message.SEARCH_LOCATION_JA
+              },
+              {
+                label: message.NO_THANKS_JA,
+                type: 'message',
+                text: message.NO_THANKS_JA
+              }
+            ]
+          }
+        },
         this.getSticker('positive'),
-        message
+        messageToBeSent
       ]
     )
     .then((result) => {
