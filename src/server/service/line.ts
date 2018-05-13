@@ -199,32 +199,6 @@ export class LineService {
     return this.client.replyMessage(
       replyToken,
       [
-        {
-          type: 'template',
-          altText: 'initalMessage',
-          template: {
-            type: 'buttons',
-            title: message.INITIAL_MESSAGE_TITLE,
-            text: message.INITIAL_MESSAGE_TEXT,
-            actions: [
-              {
-                label: message.GOOGLE_EARTH_JA,
-                type: 'uri',
-                uri: 'https://earth.google.com/web/'
-              },
-              {
-                label: message.SEARCH_LOCATION_JA,
-                type: 'message',
-                text: message.SEARCH_LOCATION_JA
-              },
-              {
-                label: message.NO_THANKS_JA,
-                type: 'message',
-                text: message.NO_THANKS_JA
-              }
-            ]
-          }
-        },
         this.getSticker('positive'),
         message
       ]
