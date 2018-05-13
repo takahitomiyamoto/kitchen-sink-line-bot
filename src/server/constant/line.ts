@@ -20,7 +20,7 @@ const message = {
   SAD_NO_THANKS_STICKER_ID : '18',
   NO_HOUSE_JA : '残念ながら家は見つかりませんでした...',
   OK_PACKAGE_ID : '2',
-  OK_STICKER_ID : '40',
+  OK_STICKER_ID : '502',
   OK_TELL_ME_AGAIN_JA : 'わかりました\uDBC0\uDC29 それではもう一度、別の言い方でお願いします\uDBC0\uDC39',
   OK_TELL_ME_IF_NEEDED_JA : 'そうですか... また何かありましたら教えてください\uDBC0\uDC86',
   POSITIVE_PACKAGE_ID : '2',
