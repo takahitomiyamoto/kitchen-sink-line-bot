@@ -201,26 +201,26 @@ export class LineService {
         [
           this.getSticker('positive'),
           message,
-          {
-            type: 'template',
-            altText: 'additionalMessage',
-            template: {
-              type: 'confirm',
-              text: message.ADDITONAL_MESSAGE_JA,
-              actions: [
-                {
-                  label: message.BUTTONS_YES_JA,
-                  type: 'message',
-                  text: message.SEARCH_LOCATION_JA
-                },
-                {
-                  label: message.BUTTONS_NO_JA,
-                  type: 'message',
-                  text: message.BUTTONS_NO_JA
-                }
-              ]
-            }
-            }
+          // {
+          //   type: 'template',
+          //   altText: 'additionalMessage',
+          //   template: {
+          //     type: 'confirm',
+          //     text: message.ADDITONAL_MESSAGE_JA,
+          //     actions: [
+          //       {
+          //         label: message.BUTTONS_YES_JA,
+          //         type: 'message',
+          //         text: message.SEARCH_LOCATION_JA
+          //       },
+          //       {
+          //         label: message.BUTTONS_NO_JA,
+          //         type: 'message',
+          //         text: message.BUTTONS_NO_JA
+          //       }
+          //     ]
+          //   }
+          // }
         ]
       )
       .then((result) => {
