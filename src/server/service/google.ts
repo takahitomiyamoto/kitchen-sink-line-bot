@@ -4,11 +4,9 @@ import { LineService as lineService } from '../service/line';
 
 // Imports the Google Cloud client library
 const Translate = require('@google-cloud/translate');
-// Your Google Cloud Platform project ID
 const projectId = process.env.GCP_PROJECT_ID;
 const client_email = process.env.GCP_CLIENT_EMAIL;
 const private_key = process.env.GCP_PRIVATE_KEY;
-// Creates a client
 const translate = new Translate({
   projectId: projectId,
   credentials: {
@@ -25,39 +23,15 @@ export class GoogleService {
   }
 
   public getTranslation = (text_JA, accessToken_sf) => {
-    // const translationOptions = this.createTranslationOptions(text_JA);
     return new Promise((resolve, reject) => {
-      // rp(translationOptions)
-      // .then((data) => {
-      //   console.log('data: ' + circularJSON.stringify(data));
-      //   let values = {
-      //     text_EN: text_JA,
-      //     accessToken: accessToken_sf
-      //   };
-      //   resolve(values)
-      // })
-      // .catch((err) => {
-      //   console.log(err);
-      //   reject(err);
-      // });
       const accessToken = accessToken_sf[0];
-      const text = text_JA;  //'The text to translate, e.g. Hello, world!';
-      const target = 'en'; //'The target language, e.g. ru';
+      const text = text_JA;
+      const target = 'en';
 
-      /*
-       * Translates the text into the target language. "text" can be a string for
-       * translating a single piece of text, or an array of strings for translating
-       * multiple texts.
-       */
-      translate
-      // .detect(text, target)
-      .translate(text, target)
+      translate.translate(text, target)
       .then((results) => {
         let translations = results[0];
         translations = Array.isArray(translations) ? translations : [translations];
-        // console.log('Translations:');
-        // translations.forEach((translation, i) => {
-          // console.log(`${text[i]} => (${target}) ${translation}`);
         const text_EN = translations[0];
         const values = {
           'text_EN': text_EN,
@@ -69,27 +43,4 @@ export class GoogleService {
       });
     });
   }
-
-  // private createTranslationOptions(text_JA) {
-  //   const url = process.env.EINSTEIN_VISION_URL + process.env.EINSTEIN_API_VERSION;
-  //   const reqUrl = url + '/language/sentiment';
-  //   const modelId = process.env.EINSTEIN_LANGUAGE_SENTIMENT_MODEL_ID;
-  //   const formData = {
-  //     modelId: modelId,
-  //     document: text
-  //   };
-  //   const options = {
-  //     method: 'POST',
-  //     url: reqUrl,
-  //     headers: {
-  //       'Authorization': 'Bearer ' + accessToken,
-  //       'Cache-Control': 'no-cache',
-  //       'Content-Type': 'multipart/form-data'
-  //     },
-  //     formData: formData,
-  //     timeout: 60000,
-  //     json: true
-  //   };
-  //   return options;
-  // }
 }

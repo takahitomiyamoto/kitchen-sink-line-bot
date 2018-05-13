@@ -1,7 +1,5 @@
 import * as circularJSON from 'circular-json';
-import * as path from 'path';
 import * as cp from 'child_process';
-import * as fs from 'fs';
 import { configLine } from '../config/line';
 import { LineService as lineService } from '../service/line';
 import { VisionService as visionService } from '../service/vision';
@@ -60,26 +58,25 @@ export class LineController {
 
   public handleText = (message, replyToken, source) => {
     console.log('handleText');
-    // TODO: 感情分析
     this.getSentimentSticker(message.text)
     .then((sticker) => {
-    switch (message.text) {
-      // start initial communication
-      case (lineService.instance.hasInitalMessage(message.text) && message.text):
-        return lineService.instance.initalMessage(replyToken);
-      // continue communication
-      case (lineService.instance.hasContinueMessage(message.text) && message.text):
-        return lineService.instance.continueMessage(replyToken);
-      // stop communication
-      case (lineService.instance.hasStopMessage(message.text) && message.text):
-        return lineService.instance.stopMessage(replyToken);
-      // start next communication
-      case (lineService.instance.hasLocationQuestion(message.text) && message.text):
-        return lineService.instance.requestImage(replyToken);
-      default:
-        console.log(`Echo message to ${replyToken}: ${message.text}`);
-        return lineService.instance.defaultMessage(replyToken);
-    }
+      switch (message.text) {
+        // start initial communication
+        case (lineService.instance.hasInitalMessage(message.text) && message.text):
+          return lineService.instance.initalMessage(replyToken);
+        // continue communication
+        case (lineService.instance.hasContinueMessage(message.text) && message.text):
+          return lineService.instance.continueMessage(replyToken);
+        // stop communication
+        case (lineService.instance.hasStopMessage(message.text) && message.text):
+          return lineService.instance.stopMessage(replyToken);
+        // start next communication
+        case (lineService.instance.hasLocationQuestion(message.text) && message.text):
+          return lineService.instance.requestImage(replyToken);
+        default:
+          console.log(`Echo message to ${replyToken}: ${message.text}`);
+          return lineService.instance.defaultMessage(replyToken);
+      }
     })
   }
 

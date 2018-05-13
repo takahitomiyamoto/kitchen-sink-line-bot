@@ -1,7 +1,6 @@
 import * as circularJSON from 'circular-json';
 import * as rp from 'request-promise';
 import * as jwt from 'jsonwebtoken';
-import * as request from 'request';
 import { LineService as lineService } from '../service/line';
 
 export class VisionService {
@@ -29,23 +28,9 @@ export class VisionService {
     });
   }
 
-  private postDetect = (detectOptions) => {
+  private post = (detectOptions) => {
     return new Promise((resolve, reject) => {
       rp(detectOptions)
-      .then((data) => {
-        console.log('data: ' + circularJSON.stringify(data));
-        resolve(data)
-      })
-      .catch((err) => {
-        console.log(err);
-        reject(err);
-      });
-    });
-  };
-
-  private postSentiment = (sentimentOptions) => {
-    return new Promise((resolve, reject) => {
-      rp(sentimentOptions)
       .then((data) => {
         console.log('data: ' + circularJSON.stringify(data));
         resolve(data)
@@ -100,7 +85,6 @@ export class VisionService {
     } else {
       const _probabilities_0 = probabilities[0];
       const _label = _probabilities_0.label;
-      // const _probability = Math.round(_probabilities_0.probability * 100);
       textMsg = _label;
     }
     const messageToBeSent = {
@@ -118,7 +102,7 @@ export class VisionService {
     console.log('detectOptions: ' + circularJSON.stringify(detectOptions));
 
     return new Promise((resolve, reject) => {
-      Promise.all([this.postDetect(detectOptions)])
+      Promise.all([this.post(detectOptions)])
       .then((data) => {
         return this.createMessageForDetection(data);
       }).then((messageToBeSent) => {
@@ -136,7 +120,7 @@ export class VisionService {
     console.log('sentimentOptions: ' + circularJSON.stringify(sentimentOptions));
 
     return new Promise((resolve, reject) => {
-      Promise.all([this.postSentiment(sentimentOptions)])
+      Promise.all([this.post(sentimentOptions)])
       .then((data) => {
         console.log('getSentiment data: ' + circularJSON.stringify(data));
         return this.createMessageForDetection(data);
@@ -185,36 +169,12 @@ export class VisionService {
     return options;
   }
 
-  // private createPredictOptions(targetImage, accessToken) {
-  //   const url = process.env.EINSTEIN_VISION_URL + process.env.EINSTEIN_API_VERSION;
-  //   const reqUrl = url + '/vision/predict';
-  //   const modelId = process.env.EINSTEIN_VISION_PREDICT_MODEL_ID;
-  //   const formData = {
-  //     modelId: modelId,
-  //     numResults: 3,
-  //     sampleBase64Content: targetImage
-  //   };
-  //   const options = {
-  //     url: reqUrl,
-  //     headers: {
-  //       'Authorization': 'Bearer ' + accessToken,
-  //       'Cache-Control': 'no-cache',
-  //       'Content-Type': 'multipart/form-data'
-  //     },
-  //     formData: formData,
-  //     timeout: 60000,
-  //     json: true
-  //   };
-  //   return options;
-  // }
-
   private createDetectOptions(targetImage, accessToken) {
     const url = process.env.EINSTEIN_VISION_URL + process.env.EINSTEIN_API_VERSION;
     const reqUrl = url + '/vision/detect';
     const modelId = process.env.EINSTEIN_VISION_DETECT_MODEL_ID;
     const formData = {
       modelId: modelId,
-      // numResults: 3,
       sampleLocation: targetImage
     };
     const options = {
@@ -242,6 +202,30 @@ export class VisionService {
     };
     const options = {
       method: 'POST',
+      url: reqUrl,
+      headers: {
+        'Authorization': 'Bearer ' + accessToken,
+        'Cache-Control': 'no-cache',
+        'Content-Type': 'multipart/form-data'
+      },
+      formData: formData,
+      timeout: 60000,
+      json: true
+    };
+    return options;
+  }
+
+  // @deprecated
+  private createPredictOptions(targetImage, accessToken) {
+    const url = process.env.EINSTEIN_VISION_URL + process.env.EINSTEIN_API_VERSION;
+    const reqUrl = url + '/vision/predict';
+    const modelId = process.env.EINSTEIN_VISION_PREDICT_MODEL_ID;
+    const formData = {
+      modelId: modelId,
+      numResults: 3,
+      sampleBase64Content: targetImage
+    };
+    const options = {
       url: reqUrl,
       headers: {
         'Authorization': 'Bearer ' + accessToken,

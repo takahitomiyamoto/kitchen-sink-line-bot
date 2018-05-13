@@ -1,7 +1,7 @@
 import { configHeroku } from './config/heroku';
-import { app } from './webapi';
+import { WebApi as webApi } from './webapi';
 
-// TODO: WebApiのインスタンスをappに設定する
+const app = webApi.instance.express;
 app.listen(configHeroku.port, () => {
   console.log(`listening on ${configHeroku.port}`);
 });

@@ -1,7 +1,5 @@
 import * as circularJSON from 'circular-json';
 import * as line from '@line/bot-sdk';
-import * as path from 'path';
-import * as cp from 'child_process';
 import * as fs from 'fs';
 import { configLine } from '../config/line';
 import { message } from '../constant/line';
@@ -24,7 +22,7 @@ export class LineService {
         stream.on('end', () => resolve(downloadFile));
         stream.on('error', reject);
       }))
-      ;
+    ;
   }
 
   public replyText = (token, texts) => {
@@ -126,8 +124,8 @@ export class LineService {
       [
         {
           type: 'sticker',
-          packageId: '2', //message.packageId,
-          stickerId: '149' //message.stickerId,
+          packageId: '2',
+          stickerId: '149'
         },
         {
           type: 'template',
@@ -163,7 +161,7 @@ export class LineService {
         // error handling
         console.log('sendMessage err: ' + circularJSON.stringify(err));
       })
-      ;
+    ;
   }
 
   public getSticker = (sentiment) => {
