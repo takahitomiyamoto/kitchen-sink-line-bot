@@ -220,10 +220,24 @@ export class LineService {
 
   public sendMessage = (replyToken, messageToBeSent) => {
     console.log('sendMessage: ' + circularJSON.stringify(messageToBeSent));
+    let _sticker;
+    if (message.NO_HOUSE_JA === messageToBeSent.text) {
+      _sticker = {
+        type: 'sticker',
+        packageId: message.NO_HOUSE_PACKAGE_ID,
+        stickerId: message.NO_HOUSE_STICKER_ID
+      };
+    } else {
+      _sticker = {
+        type: 'sticker',
+        packageId: message.POSITIVE_PACKAGE_ID,
+        stickerId: message.POSITIVE_STICKER_ID
+      };
+    }
     return this.client.replyMessage(
       replyToken,
       [
-        // this.getSticker('positive'),
+        _sticker,
         {
           type: 'template',
           altText: 'resultMessage',
@@ -250,7 +264,6 @@ export class LineService {
             ]
           }
         }
-        // messageToBeSent
       ]
     )
     .then((result) => {

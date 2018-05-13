@@ -19,6 +19,8 @@ const message = {
   SAD_NO_THANKS_PACKAGE_ID : '2',
   SAD_NO_THANKS_STICKER_ID : '18',
   NO_HOUSE_JA : '残念ながら家は見つかりませんでした...',
+  NO_HOUSE_PACKAGE_ID : '2',
+  NO_HOUSE_STICKER_ID : '154',
   OK_PACKAGE_ID : '2',
   OK_STICKER_ID : '502',
   OK_TELL_ME_AGAIN_JA : 'わかりました\uDBC0\uDC29 それではもう一度、別の言い方でお願いします\uDBC0\uDC39',
