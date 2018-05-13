@@ -142,7 +142,8 @@ export class LineController {
           .then((sentiment) => {
             // 得られた感情に対するスタンプを取得する
             console.log('sentiment: ' + circularJSON.stringify(sentiment));
-            Promise.all([getSticker(sentiment)])
+            const sentiment_0 = sentiment[0];
+            Promise.all([getSticker(sentiment_0)])
             .then((sticker) => {
               resolve(sticker);
             })

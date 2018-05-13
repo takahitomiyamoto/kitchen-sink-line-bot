@@ -57,8 +57,7 @@ export class VisionService {
     });
   };
 
-  private createMessageToBeSent = (predictresponse) => {
-    // TODO: メソッド化 確度で降順にソート
+  private createMessageForDetection = (predictresponse) => {
     const probabilities = (predictresponse[0])['probabilities'];
     probabilities.sort((a, b) => {
       if (a.probability > b.probability) { return -1; }
@@ -70,12 +69,39 @@ export class VisionService {
     let textMsg = '';
     const _count = probabilities.length;
     if (_count === 0) {
-      textMsg = `家が見つかりません。`;
+      textMsg = '家が見つかりません。';
     } else {
       const _probabilities_0 = probabilities[0];
       const _label = _probabilities_0.label;
       const _probability = Math.round(_probabilities_0.probability * 100);
       textMsg = `${_count}個 見つかりました。たとえば ${_probability}% の確率で ${_label} があります。`;
+    }
+    const messageToBeSent = {
+      type:'text',
+      text: textMsg
+    };
+    return messageToBeSent;
+  };
+
+  // TODO: createMessageForDetection と共通化する
+  private createMessageForSentiment = (predictresponse) => {
+    const probabilities = (predictresponse[0])['probabilities'];
+    probabilities.sort((a, b) => {
+      if (a.probability > b.probability) { return -1; }
+      if (a.probability < b.probability) { return 1; }
+      return 0;
+    });
+    console.log(probabilities);
+
+    let textMsg = '';
+    const _count = probabilities.length;
+    if (_count === 0) {
+      textMsg = '';
+    } else {
+      const _probabilities_0 = probabilities[0];
+      const _label = _probabilities_0.label;
+      const _probability = Math.round(_probabilities_0.probability * 100);
+      textMsg = _label;
     }
     const messageToBeSent = {
       type:'text',
@@ -94,7 +120,7 @@ export class VisionService {
     return new Promise((resolve, reject) => {
       Promise.all([this.postDetect(detectOptions)])
       .then((data) => {
-        return this.createMessageToBeSent(data);
+        return this.createMessageForDetection(data);
       }).then((messageToBeSent) => {
         console.log('messageToBeSent: ' + circularJSON.stringify(messageToBeSent));
         return sendMessage(messageToBeSent);
@@ -113,7 +139,10 @@ export class VisionService {
       Promise.all([this.postSentiment(sentimentOptions)])
       .then((data) => {
         console.log('getSentiment data: ' + circularJSON.stringify(data));
-        resolve(data);
+        return this.createMessageForDetection(data);
+      }).then((messageToBeSent) => {
+        console.log('messageToBeSent: ' + circularJSON.stringify(messageToBeSent));
+        resolve(messageToBeSent);
       })
       .catch((err) => {
         console.log(err);
