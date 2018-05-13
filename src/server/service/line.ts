@@ -163,7 +163,12 @@ export class LineService {
     console.log('handleSticker: ' + circularJSON.stringify(replyToken));
     return this.client.replyMessage(
       replyToken,
-      // [
+      [
+      {
+        type: 'sticker',
+        packageId: '4', //message.packageId,
+        stickerId: '293' //message.stickerId,
+      },
       {
         type: 'sticker',
         packageId: '4', //message.packageId,
@@ -189,7 +194,7 @@ export class LineService {
       //     ]
       //   }
       // }
-    // ]
+    ]
     );
   }
 }
