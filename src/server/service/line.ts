@@ -22,7 +22,7 @@ export class LineService {
         stream.on('end', () => resolve(downloadFile));
         stream.on('error', reject);
       }))
-    ;
+      ;
   }
 
   public replyText = (token, texts) => {
@@ -46,32 +46,40 @@ export class LineService {
 
   public initalMessage = (replyToken) => {
     return this.client.replyMessage(
-      replyToken, {
-        type: 'template',
-        altText: 'initalMessage',
-        template: {
-          type: 'buttons',
-          title: message.INITIAL_MESSAGE_TITLE,
-          text: message.INITIAL_MESSAGE_TEXT,
-          actions: [
-            {
-              label: message.GOOGLE_EARTH_JA,
-              type: 'uri',
-              uri: 'https://earth.google.com/web/'
-            },
-            {
-              label: message.SEARCH_LOCATION_JA,
-              type: 'message',
-              text: message.SEARCH_LOCATION_JA
-            },
-            {
-              label: message.NO_THANKS_JA,
-              type: 'message',
-              text: message.NO_THANKS_JA
-            }
-          ]
+      replyToken,
+      [
+        {
+          type: 'sticker',
+          packageId: message.POSITIVE_PACKAGE_ID,
+          stickerId: message.POSITIVE_STICKER_ID
+        },
+        {
+          type: 'template',
+          altText: 'initalMessage',
+          template: {
+            type: 'buttons',
+            title: message.INITIAL_MESSAGE_TITLE,
+            text: message.INITIAL_MESSAGE_TEXT,
+            actions: [
+              {
+                label: message.GOOGLE_EARTH_JA,
+                type: 'uri',
+                uri: 'https://earth.google.com/web/'
+              },
+              {
+                label: message.SEARCH_LOCATION_JA,
+                type: 'message',
+                text: message.SEARCH_LOCATION_JA
+              },
+              {
+                label: message.NO_THANKS_JA,
+                type: 'message',
+                text: message.NO_THANKS_JA
+              }
+            ]
+          }
         }
-      }
+      ]
     );
   }
 
@@ -185,7 +193,7 @@ export class LineService {
         // error handling
         console.log('sendMessage err: ' + circularJSON.stringify(err));
       })
-    ;
+      ;
   }
 
   public getSticker = (sentiment) => {
