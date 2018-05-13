@@ -56,15 +56,14 @@ export class GoogleService {
         translations = Array.isArray(translations) ? translations : [translations];
         console.log('translations: ' + translations);
 
-        console.log('Translations:');
-        translations.forEach((translation, i) => {
-          console.log(`${text[i]} => (${target}) ${translation}`);
-          let values = {
-            text_EN: `${translation}`,
-            accessToken: accessToken_sf
-          };
-          resolve(values)
-        });
+        // console.log('Translations:');
+        // translations.forEach((translation, i) => {
+          // console.log(`${text[i]} => (${target}) ${translation}`);
+        let values = {
+          text_EN: translations,
+          accessToken: accessToken_sf
+        };
+        resolve(values);
       }).catch((err) => {
         console.error('ERROR:', err);
       });
