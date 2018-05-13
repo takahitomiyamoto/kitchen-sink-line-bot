@@ -201,7 +201,6 @@ export class LineService {
         [
           this.getSticker('positive'),
           message,
-          message,
           {
             type: 'sticker',
             packageId: message.UNKNOWN_PACKAGE_ID,
