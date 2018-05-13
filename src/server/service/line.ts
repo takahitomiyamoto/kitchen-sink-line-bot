@@ -181,12 +181,33 @@ export class LineService {
       replyToken,
       [
         _sticker,
+        // {
+        //   type: 'template',
+        //   altText: 'defaultMessage',
+        //   template: {
+        //     type: 'confirm',
+        //     text: message.SORRY_TELL_ME_AGAIN_JA,
+        //     actions: [
+        //       {
+        //         label: message.BUTTONS_YES_JA,
+        //         type: 'message',
+        //         text: message.BUTTONS_YES_JA
+        //       },
+        //       {
+        //         label: message.NO_THANKS_JA,
+        //         type: 'message',
+        //         text: message.NO_THANKS_JA
+        //       }
+        //     ]
+        //   }
+        // }
         {
           type: 'template',
           altText: 'defaultMessage',
           template: {
-            type: 'confirm',
-            text: message.SORRY_TELL_ME_AGAIN_JA,
+            type: 'buttons',
+            title: message.DEFAULT_MESSAGE_TITLE_JA,
+            text: message.DEFAULT_MESSAGE_TEXT_JA,
             actions: [
               {
                 label: message.BUTTONS_YES_JA,
