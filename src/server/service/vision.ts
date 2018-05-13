@@ -2,6 +2,7 @@ import * as circularJSON from 'circular-json';
 import * as rp from 'request-promise';
 import * as jwt from 'jsonwebtoken';
 import { LineService as lineService } from '../service/line';
+import { message } from '../constant/line';
 
 export class VisionService {
   private static _visionService: VisionService = new VisionService();
@@ -54,12 +55,12 @@ export class VisionService {
     let textMsg = '';
     const _count = probabilities.length;
     if (_count === 0) {
-      textMsg = '家が見つかりません。';
+      textMsg = message.NO_HOUSE_JA;
     } else {
       const _probabilities_0 = probabilities[0];
       const _label = _probabilities_0.label;
       // const _probability = Math.round(_probabilities_0.probability * 100);
-      textMsg = `家が${_count}軒以上見つかりましたよ♫`;
+      textMsg = `${message.HOUSE_JA}${_count}${message.FOUND_JA}`;
     }
     const messageToBeSent = {
       type:'text',
