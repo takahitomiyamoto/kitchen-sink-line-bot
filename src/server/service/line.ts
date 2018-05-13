@@ -198,44 +198,40 @@ export class LineService {
     console.log('sendMessage: ' + circularJSON.stringify(message));
     return this.client.replyMessage(
       replyToken,
-        [
-          this.getSticker('positive'),
-          message,
-          {
-            type: 'sticker',
-            packageId: message.UNKNOWN_PACKAGE_ID,
-            stickerId: message.UNKNOWN_STICKER_ID
-          },
-            // {
-          //   type: 'template',
-          //   altText: 'additionalMessage',
-          //   template: {
-          //     type: 'confirm',
-          //     text: message.ADDITONAL_MESSAGE_JA,
-          //     actions: [
-          //       {
-          //         label: message.BUTTONS_YES_JA,
-          //         type: 'message',
-          //         text: message.SEARCH_LOCATION_JA
-          //       },
-          //       {
-          //         label: message.BUTTONS_NO_JA,
-          //         type: 'message',
-          //         text: message.BUTTONS_NO_JA
-          //       }
-          //     ]
-          //   }
-          // }
-        ]
-      )
-      .then((result) => {
-        console.log('sendMessage result: ' + circularJSON.stringify(result));
-      })
-      .catch((err) => {
-        // error handling
-        console.log('sendMessage err: ' + circularJSON.stringify(err));
-      })
-      ;
+      [
+        this.getSticker('positive'),
+        message
+      ]
+    )
+    .then((result) => {
+      console.log('sendMessage result: ' + circularJSON.stringify(result));
+      return this.client.replyMessage(
+        replyToken,
+        {
+          type: 'template',
+          altText: 'additionalMessage',
+          template: {
+            type: 'confirm',
+            text: message.ADDITONAL_MESSAGE_JA,
+            actions: [
+              {
+                label: message.BUTTONS_YES_JA,
+                type: 'message',
+                text: message.SEARCH_LOCATION_JA
+              },
+              {
+                label: message.BUTTONS_NO_JA,
+                type: 'message',
+                text: message.BUTTONS_NO_JA
+              }
+            ]
+          }
+        }
+      );
+    }).catch((err) => {
+      // error handling
+      console.log('sendMessage err: ' + circularJSON.stringify(err));
+    });
   }
 
   public getSticker = (sentiment) => {
