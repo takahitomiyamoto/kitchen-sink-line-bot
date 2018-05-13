@@ -162,7 +162,8 @@ export class LineService {
     console.log('handleSticker: ' + circularJSON.stringify(message));
     console.log('handleSticker: ' + circularJSON.stringify(replyToken));
     return this.client.replyMessage(
-      replyToken, [
+      replyToken,
+      // [
       // {
       //   type: 'sticker',
       //   packageId: '4', //message.packageId,
@@ -187,7 +188,8 @@ export class LineService {
             }
           ]
         }
-      }]
+      }
+    // ]
     );
   }
 }
