@@ -4,7 +4,6 @@ import { configLine } from '../config/line';
 import { LineService as lineService } from '../service/line';
 import { VisionService as visionService } from '../service/vision';
 import { GoogleService as googleService } from '../service/google';
-import { SalesforceService as salesforceService } from '../service/salesforce';
 
 export class LineController {
   private static _lineController: LineController = new LineController();

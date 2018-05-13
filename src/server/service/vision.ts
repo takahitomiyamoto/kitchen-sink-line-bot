@@ -3,6 +3,7 @@ import * as rp from 'request-promise';
 import * as jwt from 'jsonwebtoken';
 import { LineService as lineService } from '../service/line';
 import { message } from '../constant/line';
+import { SalesforceService as salesforceService } from '../service/salesforce';
 
 export class VisionService {
   private static _visionService: VisionService = new VisionService();
@@ -66,7 +67,11 @@ export class VisionService {
       type:'text',
       text: textMsg
     };
-    return messageToBeSent;
+
+    return {
+      'count': _count,
+      'message': messageToBeSent
+    };
   };
 
   // TODO: createMessageForDetection と共通化する
@@ -96,9 +101,8 @@ export class VisionService {
   };
 
   public getObjectDetection = (targetImage, accessToken, replyToken) => {
-    const sendMessage = (messageToBeSent) => {
-      lineService.instance.sendMessage(replyToken, messageToBeSent);
-    };
+    const sendImageToSalesforce = (targetImage, count) => salesforceService.instance.sendFile(targetImage, count);
+    const sendMessage = (messageToBeSent) => lineService.instance.sendMessage(replyToken, messageToBeSent);
     const detectOptions = this.createDetectOptions(targetImage, accessToken);
     console.log('detectOptions: ' + circularJSON.stringify(detectOptions));
 
@@ -106,9 +110,13 @@ export class VisionService {
       Promise.all([this.post(detectOptions)])
       .then((data) => {
         return this.createMessageForDetection(data);
-      }).then((messageToBeSent) => {
-        console.log('messageToBeSent: ' + circularJSON.stringify(messageToBeSent));
-        return sendMessage(messageToBeSent);
+      }).then((values) => {
+        console.log('values: ' + circularJSON.stringify(values));
+        const values_0 = values[0];
+        const count = values_0.count;
+        const message = values_0.message;
+        sendImageToSalesforce(targetImage, count);
+        return sendMessage(message);
       })
       .catch((err) => {
         console.log(err);

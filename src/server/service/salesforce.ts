@@ -5,7 +5,9 @@ export class SalesforceService {
     return SalesforceService._salesforceService;
   }
 
-  public findHouses = (category) => {
+  public sendFile = (targetImage, count) => {
+    console.log('targetImage: ' + targetImage);
+    console.log('count: ' + count);
     return new Promise((resolve, reject) => {
         // let q = `SELECT id,
         //             title__c,
