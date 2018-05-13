@@ -159,6 +159,8 @@ export class LineService {
   }
 
   public handleSticker = (message, replyToken) => {
+    console.log('handleSticker: ' + circularJSON.stringify(message));
+    console.log('handleSticker: ' + circularJSON.stringify(replyToken));
     return this.client.replyMessage(
       replyToken,
       {
