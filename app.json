@@ -22,9 +22,19 @@
       "value":"1234",
       "required":false
     },
-    "EINSTEIN_VISION_MODEL_ID": {
-      "description": "Einstein Vision Model ID",
-      "value":"MultiLabelImageClassifier",
+    "EINSTEIN_VISION_PREDICT_MODEL_ID": {
+      "description": "Einstein Vision Image Classification Model ID",
+      "value":"",
+      "required":false
+    },
+    "EINSTEIN_VISION_DETECT_MODEL_ID": {
+      "description": "Einstein Vision Object Detection Model ID",
+      "value":"",
+      "required":false
+    },
+    "EINSTEIN_LANGUAGE_SENTIMENT_MODEL_ID": {
+      "description": "Einstein Language Sentiment Model ID",
+      "value":"CommunitySentiment",
       "required":false
     },
     "EINSTEIN_API_VERSION": {

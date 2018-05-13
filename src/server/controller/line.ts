@@ -5,6 +5,7 @@ import * as fs from 'fs';
 import { configLine } from '../config/line';
 import { LineService as lineService } from '../service/line';
 import { VisionService as visionService } from '../service/vision';
+import { GoogleService as googleService } from '../service/google';
 import { SalesforceService as salesforceService } from '../service/salesforce';
 
 export class LineController {
@@ -59,6 +60,9 @@ export class LineController {
 
   public handleText = (message, replyToken, source) => {
     console.log('handleText');
+    // TODO: 感情分析
+    this.getSentimentSticker(message.text)
+    .then((sticker) => {
     switch (message.text) {
       // start initial communication
       case (lineService.instance.hasInitalMessage(message.text) && message.text):
@@ -76,6 +80,7 @@ export class LineController {
         console.log(`Echo message to ${replyToken}: ${message.text}`);
         return lineService.instance.defaultMessage(replyToken);
     }
+    })
   }
 
   public handleImage = (message, replyToken) => {
@@ -114,4 +119,41 @@ export class LineController {
       });
     })
   }
+
+  private getSentimentSticker = (text_JA) => {
+    const getTranslation = (text_JA, accessToken) => googleService.instance.getTranslation(text_JA, accessToken);
+    const getAccessToken = visionService.instance.getAccessToken();
+    const getSentiment = (text_EN, accessToken) => visionService.instance.getSentiment(text_EN, accessToken);
+    const getSticker = (sentiment) => lineService.instance.getSticker(sentiment);
+
+    return new Promise((resolve, reject) => {
+      Promise.all([getAccessToken])
+      .then((accessToken) => {
+        // messageを英語に翻訳
+        console.log('text_JA: ' + circularJSON.stringify(text_JA));
+        Promise.all([getTranslation(text_JA, accessToken)])
+        .then((values: any) => {
+          const text_EN = values.text_EN;
+          const accessToken = values.accessToken;
+          console.log('text_EN: ' + text_EN);
+          console.log('accessToken: ' + accessToken);
+          // 感情分析する
+          Promise.all([getSentiment(text_EN, accessToken)])
+          .then((sentiment) => {
+            // 得られた感情に対するスタンプを取得する
+            console.log('sentiment: ' + circularJSON.stringify(sentiment));
+            Promise.all([getSticker(sentiment)])
+            .then((sticker) => {
+              resolve(sticker);
+            })
+          })
+        })
+      }).catch((error) => {
+        console.log('error: ' + circularJSON.stringify(error));
+        reject(error);
+      });
+    });
+  }
+
+
 }

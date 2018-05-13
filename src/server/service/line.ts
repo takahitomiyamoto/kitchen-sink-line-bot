@@ -166,4 +166,28 @@ export class LineService {
       ;
   }
 
+  public getSticker = (sentiment) => {
+    let packageId = '';
+    let stickerId = '';
+    switch (sentiment) {
+      case 'positive':
+        return {
+          type: 'sticker',
+          packageId: '2',
+          stickerId: '144'
+        };
+      case 'negative':
+        return {
+          type: 'sticker',
+          packageId: '2',
+          stickerId: '38'
+        };
+      default:
+        return {
+          type: 'sticker',
+          packageId: '2',
+          stickerId: '179'
+        };
+    }
+  }
 }

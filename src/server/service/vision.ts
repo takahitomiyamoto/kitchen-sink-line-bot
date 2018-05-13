@@ -43,6 +43,20 @@ export class VisionService {
     });
   };
 
+  private postSentiment = (sentimentOptions) => {
+    return new Promise((resolve, reject) => {
+      rp(sentimentOptions)
+      .then((data) => {
+        console.log('data: ' + circularJSON.stringify(data));
+        resolve(data)
+      })
+      .catch((err) => {
+        console.log(err);
+        reject(err);
+      });
+    });
+  };
+
   private createMessageToBeSent = (predictresponse) => {
     // TODO: メソッド化 確度で降順にソート
     const probabilities = (predictresponse[0])['probabilities'];
@@ -91,6 +105,22 @@ export class VisionService {
     });
   }
 
+  public getSentiment = (text, accessToken) => {
+    const sentimentOptions = this.createSentimentOptions(text, accessToken);
+    console.log('sentimentOptions: ' + circularJSON.stringify(sentimentOptions));
+
+    return new Promise((resolve, reject) => {
+      Promise.all([this.postSentiment(sentimentOptions)])
+      .then((data) => {
+        console.log('getSentiment data: ' + circularJSON.stringify(data));
+        resolve(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    });
+  }
+
   private createTokenOptions() {
     const url = process.env.EINSTEIN_VISION_URL + process.env.EINSTEIN_API_VERSION;
     const private_key = process.env.EINSTEIN_VISION_PRIVATE_KEY;
@@ -125,16 +155,40 @@ export class VisionService {
     return options;
   }
 
-  private createPredictOptions(targetImage, accessToken) {
+  // private createPredictOptions(targetImage, accessToken) {
+  //   const url = process.env.EINSTEIN_VISION_URL + process.env.EINSTEIN_API_VERSION;
+  //   const reqUrl = url + '/vision/predict';
+  //   const modelId = process.env.EINSTEIN_VISION_PREDICT_MODEL_ID;
+  //   const formData = {
+  //     modelId: modelId,
+  //     numResults: 3,
+  //     sampleBase64Content: targetImage
+  //   };
+  //   const options = {
+  //     url: reqUrl,
+  //     headers: {
+  //       'Authorization': 'Bearer ' + accessToken,
+  //       'Cache-Control': 'no-cache',
+  //       'Content-Type': 'multipart/form-data'
+  //     },
+  //     formData: formData,
+  //     timeout: 60000,
+  //     json: true
+  //   };
+  //   return options;
+  // }
+
+  private createDetectOptions(targetImage, accessToken) {
     const url = process.env.EINSTEIN_VISION_URL + process.env.EINSTEIN_API_VERSION;
-    const reqUrl = url + '/vision/predict';
-    const modelId = process.env.EINSTEIN_VISION_MODEL_ID;
+    const reqUrl = url + '/vision/detect';
+    const modelId = process.env.EINSTEIN_VISION_DETECT_MODEL_ID;
     const formData = {
       modelId: modelId,
-      numResults: 3,
-      sampleBase64Content: targetImage
+      // numResults: 3,
+      sampleLocation: targetImage
     };
     const options = {
+      method: 'POST',
       url: reqUrl,
       headers: {
         'Authorization': 'Bearer ' + accessToken,
@@ -148,14 +202,13 @@ export class VisionService {
     return options;
   }
 
-  private createDetectOptions(targetImage, accessToken) {
+  private createSentimentOptions(text, accessToken) {
     const url = process.env.EINSTEIN_VISION_URL + process.env.EINSTEIN_API_VERSION;
-    const reqUrl = url + '/vision/detect';
-    const modelId = process.env.EINSTEIN_VISION_MODEL_ID;
+    const reqUrl = url + '/language/sentiment';
+    const modelId = process.env.EINSTEIN_LANGUAGE_SENTIMENT_MODEL_ID;
     const formData = {
       modelId: modelId,
-      // numResults: 3,
-      sampleLocation: targetImage
+      document: text
     };
     const options = {
       method: 'POST',
