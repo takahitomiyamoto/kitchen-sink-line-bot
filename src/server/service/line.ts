@@ -90,8 +90,8 @@ export class LineService {
       [
         {
           type: 'sticker',
-          packageId: '2',
-          stickerId: '179'
+          packageId: message.NEGATIVE_PACKAGE_ID,
+          stickerId: message.NEGATIVE_STICKER_ID
         },
         {
           type: 'text',
@@ -137,8 +137,8 @@ export class LineService {
       [
         {
           type: 'sticker',
-          packageId: '2',
-          stickerId: '149'
+          packageId: message.UNKNOWN_PACKAGE_ID,
+          stickerId: message.UNKNOWN_STICKER_ID
         },
         {
           type: 'template',
@@ -185,20 +185,20 @@ export class LineService {
       case 'positive':
         return {
           type: 'sticker',
-          packageId: '2',
-          stickerId: '144'
+          packageId: message.POSITIVE_PACKAGE_ID,
+          stickerId: message.POSITIVE_STICKER_ID
         };
       case 'negative':
         return {
           type: 'sticker',
-          packageId: '2',
-          stickerId: '38'
+          packageId: message.NEGATIVE_PACKAGE_ID,
+          stickerId: message.NEGATIVE_STICKER_ID
         };
       default:
         return {
           type: 'sticker',
-          packageId: '2',
-          stickerId: '179'
+          packageId: message.NEGATIVE_PACKAGE_ID,
+          stickerId: message.NEGATIVE_STICKER_ID
         };
     }
   }

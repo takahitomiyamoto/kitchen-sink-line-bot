@@ -14,6 +14,14 @@ const message = {
   SEARCH_LOCATION_JA : 'この場所ってどう？',
   SEND_ME_IMAGE : 'その場所の写真を送っていただけますか？',
   SORRY_TELL_ME_AGAIN_JA : 'ごめんなさい！最初からお願いできますか？',
+  POSITIVE_PACKAGE_ID : '2',
+  POSITIVE_STICKER_ID : '144',
+  NEGATIVE_PACKAGE_ID : '2',
+  NEGATIVE_STICKER_ID : '38',
+  NEUTRAL_PACKAGE_ID : '2',
+  NEUTRAL_STICKER_ID : '179',
+  UNKNOWN_PACKAGE_ID : '2',
+  UNKNOWN_STICKER_ID : '149',
 };
 
 export { message }
