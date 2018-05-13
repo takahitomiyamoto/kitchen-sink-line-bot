@@ -4,8 +4,12 @@ import { LineService as lineService } from '../service/line';
 
 // Imports the Google Cloud client library
 const Translate = require('@google-cloud/translate');
+// Your Google Cloud Platform project ID
+const projectId = process.env.GCP_PROJECT_ID;
 // Creates a client
-const translate = new Translate();
+const translate = new Translate({
+  projectId: projectId
+});
 
 export class GoogleService {
   private static _googleService: GoogleService = new GoogleService();
@@ -38,7 +42,9 @@ export class GoogleService {
        * translating a single piece of text, or an array of strings for translating
        * multiple texts.
        */
-      translate.translate(text, target)
+      translate
+      // .detect(text, target)
+      .translate(text, target)
       .then((results) => {
         let translations = results[0];
         translations = Array.isArray(translations) ? translations : [translations];

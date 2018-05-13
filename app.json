@@ -42,6 +42,11 @@
       "value":"v2",
       "required":false
     },
+    "GCP_PROJECT_ID": {
+      "description": "Google Cloud Platform project ID",
+      "value":"",
+      "required":false
+    },
     "addons": [
       {
         "plan": "einstein-vision:starter"

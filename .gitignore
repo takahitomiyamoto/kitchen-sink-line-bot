@@ -9,3 +9,5 @@ node_modules/
 # dotenv environment variables file
 .env
 
+# google
+ara-line-bot-20180515-*.json
