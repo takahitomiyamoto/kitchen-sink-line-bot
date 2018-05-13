@@ -47,6 +47,16 @@
       "value":"",
       "required":false
     },
+    "GCP_CLIENT_EMAIL": {
+      "description": "Google Cloud Platform client_email",
+      "value":"",
+      "required":false
+    },
+    "GCP_PRIVATE_KEY": {
+      "description": "Google Cloud Platform private_key",
+      "value":"",
+      "required":false
+    },
     "addons": [
       {
         "plan": "einstein-vision:starter"

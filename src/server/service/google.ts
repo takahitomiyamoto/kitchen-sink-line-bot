@@ -6,9 +6,15 @@ import { LineService as lineService } from '../service/line';
 const Translate = require('@google-cloud/translate');
 // Your Google Cloud Platform project ID
 const projectId = process.env.GCP_PROJECT_ID;
+const client_email = process.env.GCP_CLIENT_EMAIL;
+const private_key = process.env.GCP_PRIVATE_KEY;
 // Creates a client
 const translate = new Translate({
-  projectId: projectId
+  projectId: projectId,
+  credentials: {
+    client_email: client_email,
+    private_key: private_key
+  }
 });
 
 export class GoogleService {
