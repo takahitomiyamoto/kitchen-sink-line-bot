@@ -18,6 +18,7 @@ const message = {
   POSITIVE_PACKAGE_ID : '2',
   POSITIVE_STICKER_ID : '144',
   RESULT_MESSAGE_JA : '分析結果です。',
+  ADDITIONAL_MESSAGE_JA : '他に確認したい場所はありますか？',
   SEARCH_LOCATION_JA : 'この場所ってどう？',
   SEND_ME_IMAGE : 'その場所の写真を送っていただけますか？',
   SORRY_TELL_ME_AGAIN_JA : 'ごめんなさい！ 最初からやり直してもいいですか？',
