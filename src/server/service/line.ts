@@ -122,12 +122,15 @@ export class LineService {
     return false;
   }
 
-  public stopMessage = (replyToken, sticker) => {
-    const sticker_0 = sticker[0];
+  public stopMessage = (replyToken) => {
     return this.client.replyMessage(
       replyToken,
       [
-        sticker_0,
+        {
+          type: 'sticker',
+          packageId: message.SORRY_PACKAGE_ID,
+          stickerId: message.SORRY_STICKER_ID
+        },
         {
           type: 'text',
           text: message.OK_TELL_ME_IF_NEEDED_JA

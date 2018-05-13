@@ -72,7 +72,7 @@ export class LineController {
         // stop communication
         case (lineService.instance.hasStopMessage(message.text) && message.text):
           console.log('stopMessage');
-          return lineService.instance.stopMessage(replyToken, sticker);
+          return lineService.instance.stopMessage(replyToken);
         // start next communication
         case (lineService.instance.hasLocationQuestion(message.text) && message.text):
           console.log('requestImage');
