@@ -227,8 +227,8 @@ export class LineService {
       default:
         return {
           type: 'sticker',
-          packageId: message.NEGATIVE_PACKAGE_ID,
-          stickerId: message.NEGATIVE_STICKER_ID
+          packageId: message.NEUTRAL_PACKAGE_ID,
+          stickerId: message.NEUTRAL_STICKER_ID
         };
     }
   }
