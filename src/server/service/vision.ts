@@ -112,9 +112,9 @@ export class VisionService {
         return this.createMessageForDetection(data);
       }).then((values) => {
         console.log('values: ' + circularJSON.stringify(values));
-        const values_0 = values[0];
-        const count = values_0.count;
-        const message = values_0.message;
+        // const values_0 = values[0];
+        const count = values.count;
+        const message = values.message;
         sendImageToSalesforce(targetImage, count);
         return sendMessage(message);
       })
