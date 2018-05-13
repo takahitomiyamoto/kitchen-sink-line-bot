@@ -196,7 +196,13 @@ export class LineService {
 
   public sendMessage = (message, replyToken) => {
     console.log('sendMessage: ' + circularJSON.stringify(message));
-    return this.client.replyMessage(replyToken, message)
+    return this.client.replyMessage(
+      replyToken,
+        [
+          this.getSticker('positive'),
+          message
+        ]
+      )
       .then((result) => {
         console.log('sendMessage result: ' + circularJSON.stringify(result));
       })
