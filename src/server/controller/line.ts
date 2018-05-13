@@ -58,28 +58,39 @@ export class LineController {
 
   public handleText = (message, replyToken, source) => {
     console.log('handleText');
+    const hasInitalMessage = (text) => lineService.instance.hasInitalMessage(text);
+    const initalMessage = (replyToken) => lineService.instance.initalMessage(replyToken);
+    const hasContinueMessage =(text) => lineService.instance.hasContinueMessage(text);
+    const continueMessage = (replyToken) => lineService.instance.continueMessage(replyToken);
+    const hasStopMessage = (text) => lineService.instance.hasStopMessage(text);
+    const isSad = (text) => lineService.instance.isSad(text);
+    const stopMessage = (replyToken, isSad) => lineService.instance.stopMessage(replyToken, isSad);
+    const hasLocationQuestion = (text) => lineService.instance.hasLocationQuestion(text);
+    const requestImage = (replyToken) => lineService.instance.requestImage(replyToken);
+    const defaultMessage = (replyToken, sticker) => lineService.instance.defaultMessage(replyToken, sticker);
+
     this.getSentimentSticker(message.text)
     .then((sticker) => {
       switch (message.text) {
         // start initial communication
-        case (lineService.instance.hasInitalMessage(message.text) && message.text):
+        case (hasInitalMessage(message.text) && message.text):
           console.log('initalMessage');
-          return lineService.instance.initalMessage(replyToken);
+          return initalMessage(replyToken);
         // continue communication
-        case (lineService.instance.hasContinueMessage(message.text) && message.text):
+        case (hasContinueMessage(message.text) && message.text):
           console.log('continueMessage');
-          return lineService.instance.continueMessage(replyToken);
+          return continueMessage(replyToken);
         // stop communication
-        case (lineService.instance.hasStopMessage(message.text) && message.text):
+        case (hasStopMessage(message.text) && message.text):
           console.log('stopMessage');
-          return lineService.instance.stopMessage(replyToken);
+          return stopMessage(replyToken, isSad(message.text));
         // start next communication
-        case (lineService.instance.hasLocationQuestion(message.text) && message.text):
+        case (hasLocationQuestion(message.text) && message.text):
           console.log('requestImage');
-          return lineService.instance.requestImage(replyToken);
+          return requestImage(replyToken);
         default:
           console.log('defaultMessage');
-          return lineService.instance.defaultMessage(replyToken, sticker);
+          return defaultMessage(replyToken, sticker);
       }
     })
   }

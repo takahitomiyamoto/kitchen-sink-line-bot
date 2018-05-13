@@ -33,6 +33,10 @@ export class LineService {
     );
   }
 
+  public validate = (array, text) => {
+    return new RegExp(array.join("|").toLowerCase()).test(text.toLowerCase());
+  }
+
   public hasInitalMessage = (text: string) => {
     let initialMessages = [];
     initialMessages.push(message.HELLO);
@@ -72,9 +76,9 @@ export class LineService {
                 text: message.SEARCH_LOCATION_JA
               },
               {
-                label: message.NO_THANKS_JA,
+                label: message.SAD_NO_THANKS_JA,
                 type: 'message',
-                text: message.NO_THANKS_JA
+                text: message.SAD_NO_THANKS_JA
               }
             ]
           }
@@ -109,27 +113,33 @@ export class LineService {
     );
   }
 
-  public validate = (array, text) => {
-    return new RegExp(array.join("|").toLowerCase()).test(text.toLowerCase());
-  }
-
   public hasStopMessage = (text: string) => {
     let stopMessages = [];
     stopMessages.push(message.NO_THANKS_JA);
+    stopMessages.push(message.SAD_NO_THANKS_JA);
     if (this.validate(stopMessages, text)) {
       return true;
     }
     return false;
   }
 
-  public stopMessage = (replyToken) => {
+  public isSad = (text: string) => {
+    let sadMessages = [];
+    sadMessages.push(message.SAD_NO_THANKS_JA);
+    if (this.validate(sadMessages, text)) {
+      return true;
+    }
+    return false;
+  }
+
+  public stopMessage = (replyToken, isSad) => {
     return this.client.replyMessage(
       replyToken,
       [
         {
           type: 'sticker',
-          packageId: message.NO_THANKS_PACKAGE_ID,
-          stickerId: message.NO_THANKS_STICKER_ID
+          packageId: (isSad) ? message.SAD_NO_THANKS_PACKAGE_ID : message.NO_THANKS_PACKAGE_ID,
+          stickerId: (isSad) ? message.SAD_NO_THANKS_STICKER_ID : message.NO_THANKS_STICKER_ID
         },
         {
           type: 'text',
@@ -137,7 +147,6 @@ export class LineService {
         }
       ]
     );
-    // return this.replyText(replyToken, message.OK_TELL_ME_IF_NEEDED_JA);
   }
 
   public hasLocationQuestion = (text: string) => {
@@ -164,7 +173,6 @@ export class LineService {
         }
       ]
     );
-    // return this.replyText(replyToken, message.SEND_ME_IMAGE);
   }
 
   public defaultMessage = (replyToken, sticker) => {
