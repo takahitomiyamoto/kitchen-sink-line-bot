@@ -40,7 +40,7 @@ export class GoogleService {
       //   console.log(err);
       //   reject(err);
       // });
-      const accessToken = accessToken_sf;
+      const accessToken = accessToken_sf[0];
       const text = text_JA;  //'The text to translate, e.g. Hello, world!';
       const target = 'en'; //'The target language, e.g. ru';
 
@@ -55,12 +55,10 @@ export class GoogleService {
       .then((results) => {
         let translations = results[0];
         translations = Array.isArray(translations) ? translations : [translations];
-        console.log('translations: ' + translations);
-
         // console.log('Translations:');
         // translations.forEach((translation, i) => {
           // console.log(`${text[i]} => (${target}) ${translation}`);
-        const text_EN = translations;
+        const text_EN = translations[0];
         const values = {
           'text_EN': text_EN,
           'accessToken': accessToken

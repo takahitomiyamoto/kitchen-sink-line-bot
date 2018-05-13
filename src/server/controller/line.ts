@@ -134,10 +134,11 @@ export class LineController {
         Promise.all([getTranslation(text_JA, accessToken)])
         .then((values: any) => {
           console.log('values: ' + circularJSON.stringify(values));
-          // const text_EN = values.text_EN;
-          // const accessToken = values.accessToken;
-          // console.log('text_EN: ' + text_EN);
-          // console.log('accessToken: ' + accessToken);
+          const values_0 = values[0];
+          const text_EN = values_0.text_EN;
+          const accessToken = values_0.accessToken;
+          console.log('text_EN: ' + text_EN);
+          console.log('accessToken: ' + accessToken);
           // 感情分析する
           // Promise.all([getSentiment(text_EN, accessToken)])
           // .then((sentiment) => {
