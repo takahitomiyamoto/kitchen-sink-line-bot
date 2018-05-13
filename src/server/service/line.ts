@@ -199,6 +199,7 @@ export class LineService {
     return this.client.replyMessage(
       replyToken,
       [
+        // this.getSticker('positive'),
         {
           type: 'template',
           altText: 'resultMessage',
@@ -224,9 +225,8 @@ export class LineService {
               }
             ]
           }
-        },
-        this.getSticker('positive'),
-        messageToBeSent
+        }
+        // messageToBeSent
       ]
     )
     .then((result) => {
