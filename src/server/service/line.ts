@@ -164,31 +164,31 @@ export class LineService {
     return this.client.replyMessage(
       replyToken,
       // [
-      // {
-      //   type: 'sticker',
-      //   packageId: '4', //message.packageId,
-      //   stickerId: '293' //message.stickerId,
-      // },
       {
-        type: 'template',
-        altText: 'defaultMessage',
-        template: {
-          type: 'confirm',
-          text: message.SORRY_TELL_ME_AGAIN_JA,
-          actions: [
-            {
-              label: message.BUTTONS_YES_JA,
-              type: 'message',
-              text: message.BUTTONS_YES_JA
-            },
-            {
-              label: message.BUTTONS_NO_JA,
-              type: 'message',
-              text: message.BUTTONS_NO_JA
-            }
-          ]
-        }
-      }
+        type: 'sticker',
+        packageId: '4', //message.packageId,
+        stickerId: '293' //message.stickerId,
+      },
+      // {
+      //   type: 'template',
+      //   altText: 'defaultMessage',
+      //   template: {
+      //     type: 'confirm',
+      //     text: message.SORRY_TELL_ME_AGAIN_JA,
+      //     actions: [
+      //       {
+      //         label: message.BUTTONS_YES_JA,
+      //         type: 'message',
+      //         text: message.BUTTONS_YES_JA
+      //       },
+      //       {
+      //         label: message.BUTTONS_NO_JA,
+      //         type: 'message',
+      //         text: message.BUTTONS_NO_JA
+      //       }
+      //     ]
+      //   }
+      // }
     // ]
     );
   }
