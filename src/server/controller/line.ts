@@ -63,18 +63,22 @@ export class LineController {
       switch (message.text) {
         // start initial communication
         case (lineService.instance.hasInitalMessage(message.text) && message.text):
+          console.log('initalMessage');
           return lineService.instance.initalMessage(replyToken);
         // continue communication
         case (lineService.instance.hasContinueMessage(message.text) && message.text):
+          console.log('continueMessage');
           return lineService.instance.continueMessage(replyToken);
         // stop communication
         case (lineService.instance.hasStopMessage(message.text) && message.text):
+          console.log('stopMessage');
           return lineService.instance.stopMessage(replyToken);
         // start next communication
         case (lineService.instance.hasLocationQuestion(message.text) && message.text):
+          console.log('requestImage');
           return lineService.instance.requestImage(replyToken);
         default:
-          console.log(`Echo message to ${replyToken}: ${message.text}`);
+          console.log('defaultMessage');
           return lineService.instance.defaultMessage(replyToken);
       }
     })
