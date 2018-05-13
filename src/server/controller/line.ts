@@ -145,6 +145,7 @@ export class LineController {
             const sentiment_0 = sentiment[0];
             Promise.all([getSticker(sentiment_0)])
             .then((sticker) => {
+              console.log('sticker: ' + circularJSON.stringify(sticker));
               resolve(sticker);
             })
           })

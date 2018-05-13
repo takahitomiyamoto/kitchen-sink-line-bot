@@ -100,7 +100,7 @@ export class VisionService {
     } else {
       const _probabilities_0 = probabilities[0];
       const _label = _probabilities_0.label;
-      const _probability = Math.round(_probabilities_0.probability * 100);
+      // const _probability = Math.round(_probabilities_0.probability * 100);
       textMsg = _label;
     }
     const messageToBeSent = {
