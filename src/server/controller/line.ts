@@ -31,7 +31,7 @@ export class LineController {
           case 'location':
             // return handleLocation(message, event.replyToken);
           case 'sticker':
-            return lineService.instance.defaultMessage(event.replyToken);
+            return lineService.instance.defaultMessage(event.replyToken, {});
           default:
             throw new Error(`Unknown message: ${JSON.stringify(message)}`);
         }
@@ -76,10 +76,10 @@ export class LineController {
         // start next communication
         case (lineService.instance.hasLocationQuestion(message.text) && message.text):
           console.log('requestImage');
-          return lineService.instance.requestImage(replyToken, sticker);
+          return lineService.instance.requestImage(replyToken);
         default:
           console.log('defaultMessage');
-          return lineService.instance.defaultMessage(replyToken);
+          return lineService.instance.defaultMessage(replyToken, sticker);
       }
     })
   }

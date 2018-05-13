@@ -146,12 +146,15 @@ export class LineService {
     return false;
   }
 
-  public requestImage = (replyToken, sticker) => {
-    const sticker_0 = sticker[0];
+  public requestImage = (replyToken) => {
     return this.client.replyMessage(
       replyToken,
       [
-        sticker_0,
+        {
+          type: 'sticker',
+          packageId: message.OK_PACKAGE_ID,
+          stickerId: message.OK_STICKER_ID
+        },
         {
           type: 'text',
           text: message.SEND_ME_IMAGE
@@ -161,15 +164,20 @@ export class LineService {
     // return this.replyText(replyToken, message.SEND_ME_IMAGE);
   }
 
-  public defaultMessage = (replyToken) => {
+  public defaultMessage = (replyToken, sticker) => {
+    let _sticker = sticker;
+    if ({} === _sticker) {
+      _sticker = {
+        type: 'sticker',
+        packageId: message.UNKNOWN_PACKAGE_ID,
+        stickerId: message.UNKNOWN_STICKER_ID
+      };
+    }
+
     return this.client.replyMessage(
       replyToken,
       [
-        {
-          type: 'sticker',
-          packageId: message.UNKNOWN_PACKAGE_ID,
-          stickerId: message.UNKNOWN_STICKER_ID
-        },
+        _sticker,
         {
           type: 'template',
           altText: 'defaultMessage',
@@ -183,9 +191,9 @@ export class LineService {
                 text: message.BUTTONS_YES_JA
               },
               {
-                label: message.BUTTONS_NO_JA,
+                label: message.NO_THANKS_JA,
                 type: 'message',
-                text: message.BUTTONS_NO_JA
+                text: message.NO_THANKS_JA
               }
             ]
           }
@@ -257,8 +265,8 @@ export class LineService {
       default:
         return {
           type: 'sticker',
-          packageId: message.NEUTRAL_PACKAGE_ID,
-          stickerId: message.NEUTRAL_STICKER_ID
+          packageId: message.UNKNOWN_PACKAGE_ID,
+          stickerId: message.UNKNOWN_STICKER_ID
         };
     }
   }
