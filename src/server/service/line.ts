@@ -167,7 +167,7 @@ export class LineService {
   public getSticker = (sentiment) => {
     let packageId = '';
     let stickerId = '';
-    console.log('sentiment: ' + sentiment);
+    console.log('sentiment: ' + circularJSON.stringify(sentiment));
     switch (sentiment) {
       case 'positive':
         return {
