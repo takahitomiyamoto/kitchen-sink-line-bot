@@ -96,7 +96,7 @@ export class VisionService {
 
   public getObjectDetection = (targetImage, accessToken, replyToken) => {
     const sendMessage = (messageToBeSent) => {
-      lineService.instance.sendMessage(messageToBeSent, replyToken);
+      lineService.instance.sendMessage(replyToken, messageToBeSent);
     };
     const detectOptions = this.createDetectOptions(targetImage, accessToken);
     console.log('detectOptions: ' + circularJSON.stringify(detectOptions));
