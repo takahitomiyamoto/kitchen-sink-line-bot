@@ -165,8 +165,8 @@ export class LineService {
       replyToken,
       {
         type: 'sticker',
-        packageId: message.packageId,
-        stickerId: message.stickerId,
+        packageId: '4', //message.packageId,
+        stickerId: '632' //message.stickerId,
       }
     );
   }
