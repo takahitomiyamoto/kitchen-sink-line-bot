@@ -8,7 +8,7 @@ import { message } from '../constant/line';
 
 export class LineService {
   private static _lineService: LineService = new LineService();
-  private constructor() {}
+  private constructor() { }
   public static get instance(): LineService {
     return LineService._lineService;
   }
@@ -24,7 +24,7 @@ export class LineService {
         stream.on('end', () => resolve(downloadFile));
         stream.on('error', reject);
       }))
-    ;
+      ;
   }
 
   public replyText = (token, texts) => {
@@ -164,37 +164,37 @@ export class LineService {
     return this.client.replyMessage(
       replyToken,
       [
-      {
-        type: 'sticker',
-        packageId: '4', //message.packageId,
-        stickerId: '293' //message.stickerId,
-      },
-      {
-        type: 'sticker',
-        packageId: '4', //message.packageId,
-        stickerId: '293' //message.stickerId,
-      },
-      {
-        type: 'template',
-        altText: 'defaultMessage',
-        template: {
-          type: 'confirm',
-          text: message.SORRY_TELL_ME_AGAIN_JA,
-          actions: [
-            {
-              label: message.BUTTONS_YES_JA,
-              type: 'message',
-              text: message.BUTTONS_YES_JA
-            },
-            {
-              label: message.BUTTONS_NO_JA,
-              type: 'message',
-              text: message.BUTTONS_NO_JA
-            }
-          ]
+        // {
+        //   type: 'sticker',
+        //   packageId: '4', //message.packageId,
+        //   stickerId: '293' //message.stickerId,
+        // },
+        // {
+        //   type: 'sticker',
+        //   packageId: '4', //message.packageId,
+        //   stickerId: '293' //message.stickerId,
+        // },
+        {
+          type: 'template',
+          altText: 'defaultMessage',
+          template: {
+            type: 'confirm',
+            text: message.SORRY_TELL_ME_AGAIN_JA,
+            actions: [
+              {
+                label: message.BUTTONS_YES_JA,
+                type: 'message',
+                text: message.BUTTONS_YES_JA
+              },
+              {
+                label: message.BUTTONS_NO_JA,
+                type: 'message',
+                text: message.BUTTONS_NO_JA
+              }
+            ]
+          }
         }
-      }
-    ]
+      ]
     );
   }
 }
