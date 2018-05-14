@@ -56,12 +56,12 @@ export class VisionService {
     let textMsg = '';
     const _count = probabilities.length;
     if (_count === 0) {
-      textMsg = message.NO_HOUSE_JA;
+      textMsg = `${message.NO_HOUSE_JA}\n${message.NO_HOUSE_ADDED_JA}`;
     } else {
       const _probabilities_0 = probabilities[0];
       const _label = _probabilities_0.label;
       // const _probability = Math.round(_probabilities_0.probability * 100);
-      textMsg = `${message.HOUSE_JA}${_count}${message.FOUND_JA}`;
+      textMsg = `${message.HOUSE_JA}${_count}${message.FOUND_JA}\n${message.FOUND_ADDED_JA}`;
     }
     const messageToBeSent = {
       type:'text',
