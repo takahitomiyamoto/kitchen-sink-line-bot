@@ -227,6 +227,15 @@ export class LineService {
     return false;
   }
 
+  public isFair = (text: string) => {
+    let isFair = [];
+    isFair.push(message.FOUND_FAIR_JA);
+    if (this.validate(isFair, text)) {
+      return true;
+    }
+    return false;
+  }
+
   public sendMessage = (replyToken, messageToBeSent) => {
     console.log('sendMessage: ' + circularJSON.stringify(messageToBeSent));
     let _sticker;
@@ -235,6 +244,12 @@ export class LineService {
         type: 'sticker',
         packageId: message.NO_HOUSE_PACKAGE_ID,
         stickerId: message.NO_HOUSE_STICKER_ID
+      };
+    } else if (this.isFair(messageToBeSent.text)) {
+      _sticker = {
+        type: 'sticker',
+        packageId: message.FAIR_PACKAGE_ID,
+        stickerId: message.FAIR_STICKER_ID
       };
     } else {
       _sticker = {
