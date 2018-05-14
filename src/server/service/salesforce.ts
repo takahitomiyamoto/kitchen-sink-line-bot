@@ -51,7 +51,7 @@ export class SalesforceService {
       password : this.options.password + this.options.securitytoken
     }).then((resp) => {
       const oauth = resp;
-      console.log('Cached Token: ' + this.org.oauth.access_token)
+      // console.log('Cached Token: ' + this.org.oauth.access_token)
       this.org.insert({
         sobject : newEvent,
         oauth : oauth
