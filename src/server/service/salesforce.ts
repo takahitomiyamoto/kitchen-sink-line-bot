@@ -1,4 +1,5 @@
 import * as nforce from 'nforce';
+import * as circularJSON from 'circular-json';
 
 export class SalesforceService {
   private static _salesforceService: SalesforceService = new SalesforceService();
@@ -57,6 +58,7 @@ export class SalesforceService {
     newEvent.set('Reply_Token__c', replyToken);
     newEvent.set('Image_URL__c', targetImage);
     newEvent.set('Number_of_Houses__c', count);
-    this.Org.insert({ sobject: newEvent })
+    console.log('this.org: ' + circularJSON.stringify(this.org));
+    // this.Org.insert({ sobject: newEvent })
   }
 }
