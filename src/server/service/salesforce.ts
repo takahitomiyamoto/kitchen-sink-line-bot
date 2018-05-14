@@ -51,6 +51,7 @@ export class SalesforceService {
       password : this.options.password + this.options.securitytoken
     }).then(() => {
       // this.org.insert({sobject: newEvent});
+      console.log('Cached Token: ' + this.org.oauth.access_token)
       console.log('resources: ' + circularJSON.stringify(this.org.getResources()));
     });
   }
