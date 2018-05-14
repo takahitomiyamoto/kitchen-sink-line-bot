@@ -34,19 +34,6 @@ export class SalesforceService {
     return SalesforceService._salesforceService;
   }
 
-  public get Org() {
-    return this.org.authenticate({
-      username : this.options.username,
-      password : this.options.password + this.options.securitytoken
-    }).then(() => {
-      return this.org.getResources();
-    }).then((resources) => {
-      console.log('resources: ' + resources);
-    }).error((err) => {
-      console.error(err);
-    });
-  }
-
   public sendFile = (replyToken, targetImage, count) => {
     console.log('replyToken: ' + replyToken);
     console.log('targetImage: ' + targetImage);
@@ -58,7 +45,12 @@ export class SalesforceService {
     newEvent.set('Reply_Token__c', replyToken);
     newEvent.set('Image_URL__c', targetImage);
     newEvent.set('Number_of_Houses__c', count);
-    console.log('this.org: ' + circularJSON.stringify(this.org));
-    // this.Org.insert({ sobject: newEvent })
+
+    this.org.authenticate({
+      username : this.options.username,
+      password : this.options.password + this.options.securitytoken
+    }).then(() => {
+      this.org.insert({sobject: newEvent});
+    });
   }
 }
