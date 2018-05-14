@@ -38,7 +38,7 @@ export class SalesforceService {
     console.log('replyToken: ' + replyToken);
     console.log('targetImage: ' + targetImage);
     console.log('count: ' + count);
-    const newEvent = nforce.createSObject('LINE_e');
+    const newEvent = nforce.createSObject('LINE__e');
 
     // まずはinsert Platform Event
     // 余裕があれば写真も
@@ -49,10 +49,13 @@ export class SalesforceService {
     this.org.authenticate({
       username : this.options.username,
       password : this.options.password + this.options.securitytoken
-    }).then(() => {
-      // this.org.insert({sobject: newEvent});
+    }).then((resp) => {
+      const oauth = resp;
       console.log('Cached Token: ' + this.org.oauth.access_token)
-      console.log('resources: ' + circularJSON.stringify(this.org.getResources()));
+      this.org.insert({
+        sobject : newEvent,
+        oauth : oauth
+      });
     });
   }
 }
