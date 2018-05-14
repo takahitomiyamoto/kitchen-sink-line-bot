@@ -218,10 +218,19 @@ export class LineService {
     );
   }
 
+  public isNoHouse = (text: string) => {
+    let isNoHouse = [];
+    isNoHouse.push(message.NO_HOUSE_JA);
+    if (this.validate(isNoHouse, text)) {
+      return true;
+    }
+    return false;
+  }
+
   public sendMessage = (replyToken, messageToBeSent) => {
     console.log('sendMessage: ' + circularJSON.stringify(messageToBeSent));
     let _sticker;
-    if (message.NO_HOUSE_JA === messageToBeSent.text) {
+    if (this.isNoHouse(messageToBeSent.text)) {
       _sticker = {
         type: 'sticker',
         packageId: message.NO_HOUSE_PACKAGE_ID,
