@@ -34,8 +34,8 @@ export class LineService {
   }
 
   public validate = (array, text) => {
-    // return new RegExp(array.join("|").toLowerCase()).test(text.toLowerCase());
-    return new RegExp(escape(array.join("|").toLowerCase())).test(escape(text.toLowerCase()));
+    return new RegExp(array.join("|").toLowerCase()).test(text.toLowerCase());
+    // return new RegExp(escape(array.join("|").toLowerCase())).test(escape(text.toLowerCase()));
   }
 
   public hasInitalMessage = (text: string) => {
@@ -231,9 +231,9 @@ export class LineService {
   private isFair = (text: string) => {
     let isFair = [];
     isFair.push(message.FOUND_FAIR_JA);
-    console.log(isFair);
-    console.log(text);
-    if (this.validate(isFair, text)) {
+    // console.log(isFair);
+    // console.log(text);
+    if (this.validate(isFair, circularJSON.stringify(text))) {
       return true;
     }
     return false;
