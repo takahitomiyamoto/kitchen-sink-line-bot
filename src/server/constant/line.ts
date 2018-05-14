@@ -3,7 +3,7 @@ const message = {
   BUTTONS_YES_JA : 'はい',
   BUTTONS_NO : 'No',
   BUTTONS_NO_JA : 'いいえ',
-  FOUND_JA : '軒以上見つかりましたよ♫',
+  FOUND_JA : '軒以上見つかりましたよ♫ 有望そうな場所ですね！',
   GOOGLE_EARTH_JA : 'Google Earthを開いて',
   HELLO : 'Hello',
   HELLO_JA : 'こんにちは',
