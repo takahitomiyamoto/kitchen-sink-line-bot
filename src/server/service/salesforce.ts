@@ -53,7 +53,7 @@ export class SalesforceService {
       });
     }).then(() => {
       console.log('Successfully inserted.');
-    }).err((err) =>{
+    }).catch((err) =>{
       console.error(err);
     });
   }
