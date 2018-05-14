@@ -218,7 +218,7 @@ export class LineService {
     );
   }
 
-  public isNoHouse = (text: string) => {
+  private isNoHouse = (text: string) => {
     let isNoHouse = [];
     isNoHouse.push(message.NO_HOUSE_JA);
     if (this.validate(isNoHouse, text)) {
@@ -227,9 +227,11 @@ export class LineService {
     return false;
   }
 
-  public isFair = (text: string) => {
+  private isFair = (text: string) => {
     let isFair = [];
     isFair.push(message.FOUND_FAIR_JA);
+    console.log(isFair);
+    console.log(text);
     if (this.validate(isFair, text)) {
       return true;
     }
