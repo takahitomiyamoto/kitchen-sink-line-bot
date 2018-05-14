@@ -8,8 +8,6 @@ export class SalesforceService {
     username : process.env.SF_USER_NAME,
     password : process.env.SF_PASSWORD,
     securitytoken: process.env.SF_SECURITY_TOKEN,
-    // loginUrl : process.env.SF_LOGIN_URL,
-    // createConnection
     clientId : process.env.SF_CLIENT_ID,
     clientSecret : process.env.SF_CLIENT_SECRET,
     redirectUri : process.env.SF_REDIRECT_URL,
@@ -39,12 +37,6 @@ export class SalesforceService {
     console.log('targetImage: ' + targetImage);
     console.log('count: ' + count);
 
-    // まずはinsert Platform Event
-    // 余裕があれば写真も
-    // const newEvent = nforce.createSObject('LINE__e');
-    // newEvent.set('Reply_Token__c', replyToken);
-    // newEvent.set('Image_URL__c', targetImage);
-    // newEvent.set('Number_of_Houses__c', count);
     const lineImage = nforce.createSObject('LINE_Image__c');
     lineImage.set('Name', replyToken);
     lineImage.set('Image_URL__c', targetImage);
@@ -55,12 +47,14 @@ export class SalesforceService {
       password : this.options.password + this.options.securitytoken
     }).then((resp) => {
       const oauth = resp;
-      // console.log('Cached Token: ' + this.org.oauth.access_token)
       this.org.insert({
-        // sobject : newEvent,
         sobject : lineImage,
         oauth : oauth
       });
+    }).then(() => {
+      console.log('Successfully inserted.');
+    }).err((err) =>{
+      console.error(err);
     });
   }
 }
