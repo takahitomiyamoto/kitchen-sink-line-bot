@@ -34,7 +34,8 @@ export class LineService {
   }
 
   public validate = (array, text) => {
-    return new RegExp(array.join("|").toLowerCase()).test(text.toLowerCase());
+    // return new RegExp(array.join("|").toLowerCase()).test(text.toLowerCase());
+    return new RegExp(escape(array.join("|").toLowerCase())).test(escape(text.toLowerCase()));
   }
 
   public hasInitalMessage = (text: string) => {
