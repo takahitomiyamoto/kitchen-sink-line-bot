@@ -231,9 +231,9 @@ export class LineService {
   private isFair = (text: string) => {
     let isFair = [];
     isFair.push(message.FOUND_FAIR_JA);
-    // console.log(isFair);
-    // console.log(text);
-    if (this.validate(isFair, circularJSON.stringify(text))) {
+    console.log(isFair);
+    console.log(circularJSON.stringify(text).toString());
+    if (this.validate(isFair, circularJSON.stringify(text).toString())) {
       return true;
     }
     return false;
