@@ -38,13 +38,17 @@ export class SalesforceService {
     console.log('replyToken: ' + replyToken);
     console.log('targetImage: ' + targetImage);
     console.log('count: ' + count);
-    const newEvent = nforce.createSObject('LINE__e');
 
     // まずはinsert Platform Event
     // 余裕があれば写真も
-    newEvent.set('Reply_Token__c', replyToken);
-    newEvent.set('Image_URL__c', targetImage);
-    newEvent.set('Number_of_Houses__c', count);
+    // const newEvent = nforce.createSObject('LINE__e');
+    // newEvent.set('Reply_Token__c', replyToken);
+    // newEvent.set('Image_URL__c', targetImage);
+    // newEvent.set('Number_of_Houses__c', count);
+    const lineImage = nforce.createSObject('LINE_Image__c');
+    lineImage.set('Name', replyToken);
+    lineImage.set('Image_URL__c', targetImage);
+    lineImage.set('Number_of_Houses__c', count);
 
     this.org.authenticate({
       username : this.options.username,
@@ -53,7 +57,8 @@ export class SalesforceService {
       const oauth = resp;
       // console.log('Cached Token: ' + this.org.oauth.access_token)
       this.org.insert({
-        sobject : newEvent,
+        // sobject : newEvent,
+        sobject : lineImage,
         oauth : oauth
       });
     });
