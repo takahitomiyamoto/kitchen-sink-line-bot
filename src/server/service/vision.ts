@@ -8,6 +8,8 @@ import { SalesforceService as salesforceService } from '../service/salesforce';
 export class VisionService {
   private static _visionService: VisionService = new VisionService();
 
+  private GOOD = 30;
+
   private constructor() {}
   public static get instance(): VisionService {
     return VisionService._visionService;
@@ -61,7 +63,12 @@ export class VisionService {
       const _probabilities_0 = probabilities[0];
       const _label = _probabilities_0.label;
       // const _probability = Math.round(_probabilities_0.probability * 100);
-      textMsg = `${message.HOUSE_JA}${_count}${message.FOUND_JA}\n${message.FOUND_ADDED_JA}`;
+      textMsg = `${message.HOUSE_JA}${_count}${message.FOUND_JA}`;
+      if (_count > this.GOOD ) {
+        textMsg += `\n${message.FOUND_GOOD_JA}`;
+      } else {
+        textMsg += `\n${message.FOUND_FAIR_JA}`;
+      }
     }
     const messageToBeSent = {
       type:'text',
