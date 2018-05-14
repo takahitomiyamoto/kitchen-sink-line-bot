@@ -15,7 +15,7 @@ export class VisionService {
 
   public getAccessToken() {
     const tokenOptions = this.createTokenOptions();
-    console.log('tokenOptions: ' + tokenOptions);
+    console.log('tokenOptions: ' + circularJSON.stringify(tokenOptions));
     return new Promise((resolve, reject) => {
       rp(tokenOptions)
       .then((data) => {
@@ -101,7 +101,7 @@ export class VisionService {
   };
 
   public getObjectDetection = (targetImage, accessToken, replyToken) => {
-    const sendImageToSalesforce = (targetImage, count) => salesforceService.instance.sendFile(targetImage, count);
+    const sendImageToSalesforce = (replyToken, targetImage, count) => salesforceService.instance.sendFile(replyToken, targetImage, count);
     const sendMessage = (messageToBeSent) => lineService.instance.sendMessage(replyToken, messageToBeSent);
     const detectOptions = this.createDetectOptions(targetImage, accessToken);
     console.log('detectOptions: ' + circularJSON.stringify(detectOptions));
@@ -115,7 +115,7 @@ export class VisionService {
         // const values_0 = values[0];
         const count = values.count;
         const message = values.message;
-        sendImageToSalesforce(targetImage, count);
+        sendImageToSalesforce(replyToken, targetImage, count);
         return sendMessage(message);
       })
       .catch((err) => {

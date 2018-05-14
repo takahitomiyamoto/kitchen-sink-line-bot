@@ -38,6 +38,7 @@
     "inversify-binding-decorators": "^4.0.0",
     "inversify-express-utils": "^6.0.0",
     "jsonwebtoken": "^8.2.1",
+    "nforce": "^1.10.0",
     "reflect-metadata": "^0.1.12",
     "request": "^2.85.0",
     "request-promise": "^4.2.2",

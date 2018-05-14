@@ -1,35 +1,62 @@
+import * as nforce from 'nforce';
+
 export class SalesforceService {
   private static _salesforceService: SalesforceService = new SalesforceService();
-  private constructor() {}
+  private org: any;
+  private options = {
+    username : process.env.SF_USER_NAME,
+    password : process.env.SF_PASSWORD,
+    securitytoken: process.env.SF_SECURITY_TOKEN,
+    // loginUrl : process.env.SF_LOGIN_URL,
+    // createConnection
+    clientId : process.env.SF_CLIENT_ID,
+    clientSecret : process.env.SF_CLIENT_SECRET,
+    redirectUri : process.env.SF_REDIRECT_URL,
+    apiVersion : process.env.SF_API_VERSION,
+    environment : process.env.SF_ENVIRONMENT,
+    mode : process.env.SF_MODE,
+    autoRefresh: true,
+  };
+
+  private constructor() {
+    this.org = nforce.createConnection({
+      clientId : this.options.clientId,
+      clientSecret : this.options.clientSecret,
+      redirectUri : this.options.redirectUri,
+      apiVersion : this.options.apiVersion,
+      environment : this.options.environment,
+      mode : this.options.mode,
+    });
+  }
+
   public static get instance(): SalesforceService {
     return SalesforceService._salesforceService;
   }
 
-  public sendFile = (targetImage, count) => {
+  public get Org() {
+    return this.org.authenticate({
+      username : this.options.username,
+      password : this.options.password + this.options.securitytoken
+    }).then(() => {
+      return this.org.getResources();
+    }).then((resources) => {
+      console.log('resources: ' + resources);
+    }).error((err) => {
+      console.error(err);
+    });
+  }
+
+  public sendFile = (replyToken, targetImage, count) => {
+    console.log('replyToken: ' + replyToken);
     console.log('targetImage: ' + targetImage);
     console.log('count: ' + count);
-    return new Promise((resolve, reject) => {
-        // let q = `SELECT id,
-        //             title__c,
-        //             address__c,
-        //             city__c,
-        //             state__c,
-        //             price__c,
-        //             beds__c,
-        //             baths__c,
-        //             picture__c
-        //         FROM property__c
-        //         WHERE tags__c LIKE '%${category}%'
-        //         LIMIT 5`;
-        // console.log(q);
-        // org.query({query: q}, (err, resp) => {
-        //     if (err) {
-        //         console.error(err);
-        //         reject("An error as occurred");
-        //     } else {
-        //         resolve(resp.records);
-        //     }
-        // });
-    });
-};
+    const newEvent = nforce.createSObject('LINE_e');
+
+    // まずはinsert Platform Event
+    // 余裕があれば写真も
+    newEvent.set('Reply_Token__c', replyToken);
+    newEvent.set('Image_URL__c', targetImage);
+    newEvent.set('Number_of_Houses__c', count);
+    this.Org.insert({ sobject: newEvent })
+  }
 }

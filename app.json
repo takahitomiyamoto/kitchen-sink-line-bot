@@ -57,6 +57,46 @@
       "value":"",
       "required":false
     },
+    "SF_CLIENT_ID": {
+      "description": "Salesforce接続アプリケーションのコンシューマキー",
+      "value":""
+    },
+    "SF_CLIENT_SECRET": {
+      "description": "Salesforce接続アプリケーションのコンシューマシークレット",
+      "value":""
+    },
+    "SF_USER_NAME": {
+      "description": "インテグレーション用のSalesforceユーザ名",
+      "value":""
+    },
+    "SF_PASSWORD": {
+      "description": "インテグレーション用のSalesforceユーザのパスワード",
+      "value":""
+    },
+    "SF_SECURITY_TOKEN": {
+      "description": "インテグレーション用のSalesforceユーザのパスワード",
+      "value":""
+    },
+    "SF_API_VERSION": {
+      "description": "nforce API Version",
+      "value":""
+    },
+    "SF_ENVIRONMENT": {
+      "description": "nforce Environment",
+      "value":""
+    },
+    "SF_LOGIN_URL": {
+      "description": "nforce Login URL",
+      "value":""
+    },
+    "SF_MODE": {
+      "description": "nforce Mode",
+      "value":""
+    },
+    "SF_REDIRECT_URL": {
+      "description": "nforce Redirect URL",
+      "value":""
+    },
     "addons": [
       {
         "plan": "einstein-vision:starter"
