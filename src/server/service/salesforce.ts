@@ -50,7 +50,8 @@ export class SalesforceService {
       username : this.options.username,
       password : this.options.password + this.options.securitytoken
     }).then(() => {
-      this.org.insert({sobject: newEvent});
+      // this.org.insert({sobject: newEvent});
+      console.log('resources: ' + circularJSON.stringify(this.org.getResources()));
     });
   }
 }
