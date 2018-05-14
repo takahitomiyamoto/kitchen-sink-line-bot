@@ -5,7 +5,7 @@ const message = {
   BUTTONS_NO_JA : 'いいえ',
   FOUND_JA : '軒以上見つかりましたよ♫',
   FOUND_GOOD_JA : '有望そうな場所ですね (^ - ^) ',
-  FOUND_FAIR_JA : 'もう少し別の場所も探してみませんか (^ O ^) ',
+  FOUND_FAIR_JA : 'ちょっと少ないかもですね (^ ^)',
   GOOGLE_EARTH_JA : 'Google Earthを開いて',
   HELLO : 'Hello',
   HELLO_JA : 'こんにちは',
