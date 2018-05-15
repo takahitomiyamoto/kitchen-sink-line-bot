@@ -12,7 +12,7 @@ kitchen-sink LINE Bot for Heroku
     git push heroku master -a {HEROKU_APP_NAME}
 
 ## Examples
-- [Awesome Retail Advisor](https://devpost.com/software/awesome-retail-advisor)
+- [Awesome Retail Advisor](https://github.com/takahitomiyamoto/kitchen-sink-line-bot/tree/master/examples/awesome-retail-advisor)
 
 ## Prerequisite
 - [Getting started with the Messaging API](https://developers.line.me/ja/docs/messaging-api/getting-started/)
