@@ -8,6 +8,8 @@ kitchen-sink LINE Bot for Heroku
     git clone https://github.com/takahitomiyamoto/kitchen-sink-line-bot.git
     cd kitchen-sink-line-bot/
     npm install
+    heroku create {HEROKU_APP_NAME}
+    git push heroku master -a {HEROKU_APP_NAME}
 
 ## Examples
 - [Awesome Retail Advisor](https://devpost.com/software/awesome-retail-advisor)
