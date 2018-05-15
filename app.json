@@ -5,17 +5,17 @@
     "LINE_CHANNEL_ACCESS_TOKEN": {
       "description": "LINE Channel access token (long-lived) ",
       "value":"",
-      "required":true
+      "required":false
     },
     "LINE_CHANNEL_SECRET": {
       "description": "LINE Channel Secret",
       "value":"",
-      "required":true
+      "required":false
     },
     "HEROKU_BASE_URL": {
       "description": "Heroku Base URL",
       "value":"https://{HEROKU_APP_NAME}.herokuapp.com",
-      "required":true
+      "required":false
     },
     "HEROKU_PORT": {
       "description": "Heroku Port (dummy)",
@@ -59,39 +59,48 @@
     },
     "SF_CLIENT_ID": {
       "description": "nforce Client ID",
-      "value":""
+      "value":"",
+      "required":false
     },
     "SF_CLIENT_SECRET": {
       "description": "nforce Client Secret",
-      "value":""
+      "value":"",
+      "required":false
     },
     "SF_USER_NAME": {
       "description": "nforce Username",
-      "value":""
+      "value":"",
+      "required":false
     },
     "SF_PASSWORD": {
       "description": "nforce Password",
-      "value":""
+      "value":"",
+      "required":false
     },
     "SF_SECURITY_TOKEN": {
       "description": "nforce Security Token",
-      "value":""
+      "value":"",
+      "required":false
     },
     "SF_API_VERSION": {
       "description": "nforce API Version",
-      "value":""
+      "value":"",
+      "required":false
     },
     "SF_ENVIRONMENT": {
       "description": "nforce Environment",
-      "value":""
+      "value":"",
+      "required":false
     },
     "SF_MODE": {
       "description": "nforce Mode",
-      "value":""
+      "value":"",
+      "required":false
     },
     "SF_REDIRECT_URL": {
       "description": "nforce Redirect URL",
-      "value":""
+      "value":"",
+      "required":false
     }
   }
 }
