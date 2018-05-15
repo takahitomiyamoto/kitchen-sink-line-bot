@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+        <members>logo</members>
+        <name>ContentAsset</name>
+    </types>
+    <types>
+        <members>Awesome_Retail_Advisor</members>
+        <name>CustomApplication</name>
+    </types>
+    <types>
+        <members>LINE_Image__c</members>
+        <name>CustomObject</name>
+    </types>
+    <types>
+        <members>LINE_Image__c-en_US</members>
+        <name>CustomObjectTranslation</name>
+    </types>
+    <types>
+        <members>LINE_Image__c</members>
+        <name>CustomTab</name>
+    </types>
+    <types>
+        <members>LINE</members>
+        <members>LINE/xeRogIWpBhhNPGVKNtNrppshKetFpj</members>
+        <name>Dashboard</name>
+    </types>
+    <types>
+        <members>Awesome_Retail_Advisor_UtilityBar</members>
+        <members>Home_Page_Default</members>
+        <name>FlexiPage</name>
+    </types>
+    <types>
+        <members>LINE_Image__c-LINE Image Layout</members>
+        <name>Layout</name>
+    </types>
+    <types>
+        <members>Admin</members>
+        <name>Profile</name>
+    </types>
+    <types>
+        <members>LINE</members>
+        <members>LINE/Number_of_Houses</members>
+        <name>Report</name>
+    </types>
+    <version>42.0</version>
+</Package>
