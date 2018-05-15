@@ -1,12 +1,18 @@
 # kitchen-sink-line-bot
 kitchen-sink LINE Bot for Heroku
 
+## Usage (Heroku Button)
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/takahitomiyamoto/kitchen-sink-line-bot)
+
+## Usage (Manually)
+    git clone https://github.com/takahitomiyamoto/kitchen-sink-line-bot.git
+    cd kitchen-sink-line-bot/
+    npm install
 
 ## Examples
 - [Awesome Retail Advisor](https://devpost.com/software/awesome-retail-advisor)
 
-### Prerequisite
+## Prerequisite
 - [Getting started with the Messaging API](https://developers.line.me/ja/docs/messaging-api/getting-started/)
 - [Einstein Vision](https://elements.heroku.com/addons/einstein-vision)
 - [Object Detection Quick Start](https://metamind.readme.io/docs/od_qs_scenario)
