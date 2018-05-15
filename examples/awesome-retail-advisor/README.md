@@ -35,49 +35,48 @@ Astroさんは上位の結果を一通り確認して、移動スーパー事業
 
 
 ## 設計の概要説明
-利用者はLINE Botに対してテキストまたはスタンプまたは画像を送ります。
+- 利用者はLINE Botに対してテキストまたはスタンプまたは画像を送ります。
 
-LINE Botは以下のAPIを利用しながら利用者と会話します：
+- LINE Botは以下のAPIを利用しながら利用者と会話します：
+  - LINE Messaging API
+  - Google Cloud Translation API
+  - Einstein Platform Services
 
-- LINE Messaging API
-- Google Cloud Translation API
-- Einstein Platform Services
+- 利用者からテキストが送られた場合、LINE Botは次のように処理をして回答します：
+  1. テキストを英語に翻訳する
+  1. 翻訳結果をEinstein Sentimentで感情分析する
+  1. 分析された感情（Positive, Negative, Neutral）に対応するスタンプを決定する
+  1. スタンプを添えた定型文で回答する
 
-利用者からテキストが送られた場合、LINE Botは次のように処理をして回答します：
-1. テキストを英語に翻訳する
-1. 翻訳結果をEinstein Sentimentで感情分析する
-1. 分析された感情（Positive, Negative, Neutral）に対応するスタンプを決定する
-1. スタンプを添えた定型文で回答する
+- 利用者からスタンプが送られた場合、LINE Botは次のように処理をして回答します：
+  1. Einstein Sentimentでの感情分析はスキップする
+  1. Neutralな感情に対応するスタンプを添えた定型文で回答する
 
-利用者からスタンプが送られた場合、LINE Botは次のように処理をして回答します：
-1. Einstein Sentimentでの感情分析はスキップする
-1. Neutralな感情に対応するスタンプを添えた定型文で回答する
-
-利用者から画像が送られた場合、LINE Botは次のように処理をして回答します：
-1. 送られた画像をダウンロードする
-1. Einstein Platform Servicesのアクセストークンを取得する
-1. Einstein Object Detectionで画像内の「家」を識別する
-1. 識別結果の件数を「家の戸数」とみなす
-1. 戸数に応じたメッセージ文とスタンプを決定する
-1. スタンプを添えたメッセージ文で回答する
-1. 会話の裏で次のAPIを利用して画像に関する情報（家の戸数、画像のURL）をSalesforceへ連携する
+- 利用者から画像が送られた場合、LINE Botは次のように処理をして回答します：
+  1. 送られた画像をダウンロードする
+  1. Einstein Platform Servicesのアクセストークンを取得する
+  1. Einstein Object Detectionで画像内の「家」を識別する
+  1. 識別結果の件数を「家の戸数」とみなす
+  1. 戸数に応じたメッセージ文とスタンプを決定する
+  1. スタンプを添えたメッセージ文で回答する
+  1. 会話の裏で次のAPIを利用して画像に関する情報（家の戸数、画像のURL）をSalesforceへ連携する
     - Lightning Platform REST API (nforce)
 
-Salesforceへ連携された情報はカスタムオブジェクトのレコードとして保存されます。
-![Records](https://github.com/takahitomiyamoto/kitchen-sink-line-bot/blob/master/uploaded/records.png "Records")
+- Salesforceへ連携された情報はカスタムオブジェクトのレコードとして保存されます。
+ ![Records](https://github.com/takahitomiyamoto/kitchen-sink-line-bot/blob/master/uploaded/records.png "Records")
 
-保存された情報はダッシュボードから情報を俯瞰できるので、利用者の判断をサポートすることができます。
+- 保存された情報はダッシュボードから情報を俯瞰できるので、利用者の判断をサポートすることができます。
 ![Dashboard](https://github.com/takahitomiyamoto/kitchen-sink-line-bot/blob/master/uploaded/dashboard.png "Dashboard")
 
 
 ## 使用テクノロジ
 - Lightning Platform
 - Heroku
-    - Node.js
+  - Node.js
 - Einstein Vision
-    - Einstein Object Detection
+  - Einstein Object Detection
 - Einstein Language
-    - Einstein Sentiment
+  - Einstein Sentiment
 - LINE Messaging API
 - Google Cloud Translation API
 
@@ -117,4 +116,5 @@ Salesforceへ連携された情報はカスタムオブジェクトのレコー�
 
 ## 実装上の課題（2018/05/15時点）
 - Herokuアプリ内にダウンロードされている画像をSalesforceから参照しているが、Dynoを再起動するたびに画像は消失し、Salesforceから参照できなくなる。
-    - 永続的に画像を参照できるように、Heroku上のDBに格納するか、Salesforceのストレージに保存するかなどを検討する。
+
+  --> 永続的に画像を参照できるように、Heroku上のDBに格納するか、Salesforceのストレージに保存するかなどを検討する。
