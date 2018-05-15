@@ -19,11 +19,9 @@
 - Google Cloud Translation API
 
 ## 使用方法
-1. 次のQRコードを読み取ります。
+次のQRコードを読み取り、LINE Botを友だち追加して話しかけます。
 
 ![Awesome Retail Adv.](https://github.com/takahitomiyamoto/kitchen-sink-line-bot/blob/master/uploaded/QR.png "Awesome Retail Adv.")
-
-1. LINE Botを友だち追加して話しかけます。
 
 ## 価値
 
