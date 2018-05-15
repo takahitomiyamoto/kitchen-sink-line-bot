@@ -230,11 +230,7 @@ export class LineService {
 
   private isFair = (text: string) => {
     let isFair = [];
-    // isFair.push(message.FOUND_FAIR_JA);
-    // if (this.validate(isFair, text)) {
     isFair.push(escape(message.FOUND_FAIR_JA));
-    console.log(escape(message.FOUND_FAIR_JA));
-    console.log(escape(text));
     if (this.validate(isFair, escape(text))) {
       return true;
     }

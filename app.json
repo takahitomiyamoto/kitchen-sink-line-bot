@@ -98,9 +98,7 @@
       "value":""
     },
     "addons": [
-      {
-        "plan": "einstein-vision:starter"
-      }
+      "einstein-vision"
     ]
   }
 }
