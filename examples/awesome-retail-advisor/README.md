@@ -3,6 +3,7 @@
 
 街の衛星写真から家の戸数を判定し、損益分岐点を超えるどうかの判断を助けてくれちゃいます。
 
+## デモ動画
 [![Awesome Retail Advisor](http://img.youtube.com/vi/j8yGRI1-g_I/0.jpg)](https://www.youtube.com/watch?v=j8yGRI1-g_I)
 
 
