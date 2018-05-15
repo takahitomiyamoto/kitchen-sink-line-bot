@@ -96,9 +96,6 @@
     "SF_REDIRECT_URL": {
       "description": "nforce Redirect URL",
       "value":""
-    },
-    "addons": [
-      "einstein-vision"
-    ]
+    }
   }
 }
