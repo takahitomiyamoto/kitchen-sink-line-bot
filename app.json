@@ -3,7 +3,7 @@
   "description": "kitchen-sink LINE Bot for Heroku",
   "env": {
     "LINE_CHANNEL_ACCESS_TOKEN": {
-      "description": "LINE アクセストークン（ロングターム）",
+      "description": "LINE Channel access token (long-lived) ",
       "value":"",
       "required":true
     },
@@ -13,12 +13,12 @@
       "required":true
     },
     "HEROKU_BASE_URL": {
-      "description": "Base URL",
+      "description": "Heroku Base URL",
       "value":"https://{HEROKU_APP_NAME}.herokuapp.com",
       "required":true
     },
     "HEROKU_PORT": {
-      "description": "Port",
+      "description": "Heroku Port (dummy)",
       "value":"1234",
       "required":false
     },
@@ -58,23 +58,23 @@
       "required":false
     },
     "SF_CLIENT_ID": {
-      "description": "Salesforce接続アプリケーションのコンシューマキー",
+      "description": "nforce Client ID",
       "value":""
     },
     "SF_CLIENT_SECRET": {
-      "description": "Salesforce接続アプリケーションのコンシューマシークレット",
+      "description": "nforce Client Secret",
       "value":""
     },
     "SF_USER_NAME": {
-      "description": "インテグレーション用のSalesforceユーザ名",
+      "description": "nforce Username",
       "value":""
     },
     "SF_PASSWORD": {
-      "description": "インテグレーション用のSalesforceユーザのパスワード",
+      "description": "nforce Password",
       "value":""
     },
     "SF_SECURITY_TOKEN": {
-      "description": "インテグレーション用のSalesforceユーザのパスワード",
+      "description": "nforce Security Token",
       "value":""
     },
     "SF_API_VERSION": {
@@ -83,10 +83,6 @@
     },
     "SF_ENVIRONMENT": {
       "description": "nforce Environment",
-      "value":""
-    },
-    "SF_LOGIN_URL": {
-      "description": "nforce Login URL",
       "value":""
     },
     "SF_MODE": {
