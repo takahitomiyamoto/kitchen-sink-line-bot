@@ -87,6 +87,8 @@ Salesforceへ連携された情報はカスタムオブジェクトのレコー�
 ### LINE Bot
 次のQRコードを読み取り、LINE Botを友だちに追加します。何か話しかけると会話が始まります。
 
+具体的な会話のやり取りはデモ動画でご確認いただけます。
+
 ![Awesome Retail Adv.](https://github.com/takahitomiyamoto/kitchen-sink-line-bot/blob/master/uploaded/QR.png "Awesome Retail Adv.")
 
 ### Salesforce アプリケーション
