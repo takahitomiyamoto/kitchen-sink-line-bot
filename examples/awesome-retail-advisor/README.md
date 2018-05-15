@@ -60,10 +60,10 @@ Astroさんは上位の結果を一通り確認して、移動スーパー事業
   1. 戸数に応じたメッセージ文とスタンプを決定する
   1. スタンプを添えたメッセージ文で回答する
   1. 会話の裏で次のAPIを利用して画像に関する情報（家の戸数、画像のURL）をSalesforceへ連携する
-    - Lightning Platform REST API (nforce)
+      - Lightning Platform REST API (nforce)
 
 - Salesforceへ連携された情報はカスタムオブジェクトのレコードとして保存されます。
- ![Records](https://github.com/takahitomiyamoto/kitchen-sink-line-bot/blob/master/uploaded/records.png "Records")
+![Records](https://github.com/takahitomiyamoto/kitchen-sink-line-bot/blob/master/uploaded/records.png "Records")
 
 - 保存された情報はダッシュボードから情報を俯瞰できるので、利用者の判断をサポートすることができます。
 ![Dashboard](https://github.com/takahitomiyamoto/kitchen-sink-line-bot/blob/master/uploaded/dashboard.png "Dashboard")
