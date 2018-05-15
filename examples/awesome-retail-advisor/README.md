@@ -64,8 +64,10 @@ LINE Botは以下のAPIを利用しながら利用者と会話します：
     - Lightning Platform REST API (nforce)
 
 Salesforceへ連携された情報はカスタムオブジェクトのレコードとして保存されます。
+![Records](https://github.com/takahitomiyamoto/kitchen-sink-line-bot/blob/master/uploaded/records.png "Records")
 
 保存された情報はダッシュボードから情報を俯瞰できるので、利用者の判断をサポートすることができます。
+![Dashboard](https://github.com/takahitomiyamoto/kitchen-sink-line-bot/blob/master/uploaded/dashboard.png "Dashboard")
 
 
 ## 使用テクノロジ
@@ -87,9 +89,9 @@ Salesforceへ連携された情報はカスタムオブジェクトのレコー�
 
 ![Awesome Retail Adv.](https://github.com/takahitomiyamoto/kitchen-sink-line-bot/blob/master/uploaded/QR.png "Awesome Retail Adv.")
 
-### Salesforce ダッシュボード
-ログイン情報は別途お知らせします。
-
+### Salesforce アプリケーション
+次の資源をデプロイしてご利用ください。
+- [src_salesforce](https://github.com/takahitomiyamoto/kitchen-sink-line-bot/tree/master/examples/awesome-retail-advisor/src_salesforce)
 
 ## 価値
 1. 自動で家を識別してくれるので、人手を借りずに多くの画像を一括処理できる
